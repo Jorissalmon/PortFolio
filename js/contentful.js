@@ -37,41 +37,50 @@ document.head.insertAdjacentHTML(
  * Version sécurisée du service Contentful qui utilise l'API Vercel
  */
 window.contentfulService = {
-  /**
-   * Appelle l'API proxy Vercel pour communiquer avec Contentful
-   * @param {string} endpoint - Point d'entrée ('entries', 'entry', 'assets', 'asset')
-   * @param {string} id - ID de l'entrée ou de l'asset (optionnel selon l'endpoint)
-   * @param {Object} queryParams - Paramètres de requête supplémentaires (optionnel)
-   * @returns {Promise<Object>} - Données de Contentful
-   */
-  callContentfulApi: async function(endpoint, id = null, queryParams = {}) {
-    try {
-      console.log(`Appel à l'API Vercel: ${endpoint}${id ? '/' + id : ''}`);
-      
-      // Appeler notre API proxy Vercel
-      const response = await fetch('/api/contentful', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          endpoint,
-          id,
-          queryParams
-        })
-      });
-      
-      if (!response.ok) {
+/**
+ * Appelle l'API proxy Vercel pour communiquer avec Contentful
+ * @param {string} endpoint - Point d'entrée ('entries', 'entry', 'assets', 'asset')
+ * @param {string} id - ID de l'entrée ou de l'asset (optionnel selon l'endpoint)
+ * @param {Object} queryParams - Paramètres de requête supplémentaires (optionnel)
+ * @returns {Promise<Object>} - Données de Contentful
+ */
+callContentfulApi: async function(endpoint, id = null, queryParams = {}) {
+  try {
+    console.log(`Appel à l'API Vercel: ${endpoint}${id ? '/' + id : ''}`);
+    
+    // S'assurer que la méthode est POST et que les en-têtes sont corrects
+    const response = await fetch('/api/contentful', {
+      method: 'POST',  // Important : doit être POST pour correspondre à ce que votre API accepte
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        endpoint,
+        id,
+        queryParams
+      })
+    });
+    
+    if (!response.ok) {
+      // Tenter de lire la réponse d'erreur
+      let errorMessage;
+      try {
         const errorData = await response.json();
-        throw new Error(`Erreur API (${response.status}): ${errorData.error || errorData.message || 'Erreur inconnue'}`);
+        errorMessage = errorData.error || errorData.message || `Erreur ${response.status}`;
+      } catch (e) {
+        // Si la réponse n'est pas du JSON, lire le texte brut
+        const errorText = await response.text();
+        errorMessage = `Erreur ${response.status}: ${errorText.substring(0, 100)}...`;
       }
-      
-      return await response.json();
-    } catch (error) {
-      console.error(`Erreur lors de l'appel à l'API Contentful:`, error);
-      throw error;
+      throw new Error(`Erreur API (${response.status}): ${errorMessage}`);
     }
-  },
+    
+    return await response.json();
+  } catch (error) {
+    console.error(`Erreur lors de l'appel à l'API Contentful:`, error);
+    throw error;
+  }
+},
 
   /**
    * Récupère un asset spécifique par son ID

@@ -1,5 +1,4 @@
-// /api/contentful.js - À utiliser sur Vercel
-// Ce fichier est exécuté côté serveur, pas dans le navigateur
+// /api/contentful.js - Version simplifiée utilisant fetch global
 
 export default async function handler(req, res) {
   // Rejeter les requêtes non-POST
@@ -15,8 +14,7 @@ export default async function handler(req, res) {
     if (!SPACE_ID || !ACCESS_TOKEN) {
       console.error('Variables d\'environnement Contentful manquantes');
       return res.status(500).json({ 
-        error: 'Configuration serveur incomplète',
-        details: 'Les variables d\'environnement CONTENTFUL_SPACE_ID et CONTENTFUL_ACCESS_TOKEN doivent être définies'
+        error: 'Configuration serveur incomplète'
       });
     }
     
@@ -66,8 +64,7 @@ export default async function handler(req, res) {
     
     console.log('Appel API Contentful:', apiUrl.replace(ACCESS_TOKEN, 'HIDDEN_TOKEN'));
     
-    // Appeler l'API Contentful (avec node-fetch si nécessaire)
-    const fetch = require('node-fetch');
+    // Utiliser fetch global sans import
     const response = await fetch(apiUrl);
     
     if (!response.ok) {

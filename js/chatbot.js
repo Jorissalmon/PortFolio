@@ -1,21 +1,12 @@
+/**
+ * chatbot.js - Gestion du chatbot interactif
+ * 
+ * Ce fichier gère le fonctionnement du chatbot qui simule une conversation
+ * avec Joris Salmon et répond aux questions des visiteurs.
+ */
+
 // Initialiser un tableau pour stocker les messages
 let conversationHistory = [];
-
-
-// Si document n'existe pas (Node.js), utiliser JSDOM pour simuler le DOM
-if (typeof document === 'undefined') {
-    const dom = new JSDOM(`
-        <!DOCTYPE html>
-        <body>
-            <div id="chatbotBubble"></div>
-            <div id="chatPopupBody"></div>
-            <input id="userMessage" />
-            <div id="chatPopup"></div>
-        </body>
-    `);
-    global.document = dom.window.document;
-    global.window = dom.window;
-}
 
 // Ouvrir/Fermer la fenêtre de chat
 document.getElementById("chatbotBubble").addEventListener("click", function() {
@@ -34,13 +25,11 @@ document.getElementById("chatbotBubble").addEventListener("click", function() {
 document.getElementById("userMessage").addEventListener("keypress", function(event) {
     if (event.key === "Enter") {
         event.preventDefault(); // Empêcher le comportement par défaut
-        sendMessage(document.getElementById("userMessage").value); // Appeler la fonction d'envoi de message
+        sendMessage(); // Appeler la fonction d'envoi de message
     }
 });
 
-
-
-// Ajoutez les phrases préfabriquées
+// Phrases préfabriquées pour suggestion
 const presetPhrases = [
     "Bonjour, qui es-tu ?",
     "Quelles sont tes compétences ?",
@@ -78,13 +67,23 @@ function showPresetPhrases() {
 window.onload = function() {
     conversationHistory = []; // Réinitialiser l'historique
     const chatBody = document.getElementById("chatPopupBody");
-    chatBody.innerHTML = ""; // Effacer le contenu du chat
+    chatBody.innerHTML = "<p>Bonjour ! Je suis l'assistant virtuel de Joris. Comment puis-je vous aider ?</p>"; // Message initial
+    
+    // Initialiser l'année dans le footer
+    const yearElement = document.getElementById('currentYear');
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
 };
 
 // Fermer la fenêtre de chat si l'utilisateur clique en dehors
 document.addEventListener("click", function(event) {
     const popup = document.getElementById("chatPopup");
     const bubble = document.getElementById("chatbotBubble");
+    
+    // Si ces éléments n'existent pas, ne rien faire
+    if (!popup || !bubble) return;
+    
     const presetContainer = document.querySelector('.preset-phrases');
 
     // Vérifier si le clic est en dehors de la bulle de chat et de la fenêtre de chat
@@ -97,9 +96,10 @@ document.addEventListener("click", function(event) {
 // Fonction d'envoi de message
 async function sendMessage(userMessage = null) {
     // Utiliser le message utilisateur passé ou obtenir le champ de saisie
-    const messageToSend = userMessage || document.getElementById("userMessage").value;
-    if (messageToSend.trim() === "") return;
-
+    const messageInput = document.getElementById("userMessage");
+    const messageToSend = userMessage || messageInput.value;
+    
+    if (!messageToSend || messageToSend.trim() === "") return;
 
     // Ajouter le message utilisateur dans le chat
     const chatBody = document.getElementById("chatPopupBody");
@@ -110,7 +110,8 @@ async function sendMessage(userMessage = null) {
         conversationHistory.push({ role: "user", content: messageToSend });
     }
 
-    document.getElementById("userMessage").value = ""; // Effacer le champ
+    // Effacer le champ de saisie
+    if (messageInput) messageInput.value = "";
 
     // Créer l'élément d'animation de chargement
     var loading = document.createElement("div");
@@ -122,73 +123,73 @@ async function sendMessage(userMessage = null) {
     `;
     chatBody.appendChild(loading); // Ajouter l'animation au chat
 
-
-
     // Masquer les phrases préfabriquées après l'envoi du premier message
     const presetContainer = document.querySelector('.preset-phrases');
     if (presetContainer) {
         presetContainer.style.display = 'none';
     }
 
+    // Contexte du chatbot (profil de Joris)
     const context = `
     Tu es mon chatbot assistant, fais-toi passer pour moi à chaque fois qu'on te pose des questions. Voici mon profil :
+    
+    Bonjour ! Je suis Joris, 23 ans, Data Analyst passionné, actuellement en DU Data Analytics à la Sorbonne Paris 1 (Top 5) et en Master 2 Data Analytics & Stratégie de l'information à Toulon (Top 3).
+    
+    👨‍💼 Expérience professionnelle :
+    - 🚀 Micropole (Février 2025 - Présent) : Business Intelligence Consultant - Missions Data Expérience (Reporting, modélisation, ETL, Cloud) incluant la migration de reporting Oracle BI vers Power BI pour la Région Ile de France
+    - 🚀 ArianeGroup (Mars 2024 - Juillet 2024) : Ingénieur BI - Définition des besoins, documentation, production de reporting (IBM Cognos Analytics), traitement ETL. Travail en anglais pour améliorer la cadence de production d'Ariane 6
+    - 💳 Crédit Agricole La Réunion-Mayotte (Juin 2023 - Juillet 2023) : Data Manager - Migration de données Power Pivot vers BDD interne, modélisation et mise en place de reporting décisionnel
+    - 🌦️ Météo-France (Avril 2023 - Juin 2023) : Data Analyst - Recherche sur l'impact du réchauffement climatique sur les précipitations en Bretagne avec tests statistiques avancés sur séries temporelles
+    - 🏙️ Les Sables d'Olonne Agglomération (Avril 2022 - Juin 2022) : Data Analyst - Conseils sur solution data pour suivi d'indicateurs territoriaux, BDD on-premise avec ETL et reporting, web scraping
+    
+    🎓 Formation :
+    - DU Data Analytics (Sorbonne Paris 1, 2024-2025)
+      → Analyse statistique, ML/Deep Learning, RAG, Streamlit, Cloud AWS, Power BI, Tableau, Qlik, Talend, BDD on-premise/Cloud
+    - Master Data Analytics & Stratégie de l'information (Toulon, 2023-2025)
+      → Conception chaînes de valeur Data, déploiement IA (classification, OCR, prédiction), méthodes statistiques avancées
+    - Licence 3 Mathématiques et Informatique (Rennes, 2022-2023) 
+      → Analyse statistique, tests d'hypothèse, modèles prédictifs, optimisation
+    - DUT Statistique Informatique Décisionnelle (Vannes, 2020-2022)
+      → Manipulation données, analyses R/Python, statistiques avancées, BDD SQL
+    J'ai effectué 2 mémoire de fin d'étude : 
+    - un pour la Sorbonne manipulant le finetuning de LLM pour la simplification des textes de lois qui sont publiés quotidiennement au Journal Officiel. Vous pouvez retrouver le projet sur ce portfolio.
+    - un autre pour le Master à Toulon, sur la perception des contenus produits par l'intelligence artifielle. Le but est de savoir si l'usager lambda détecte un contenu générer, et si non, comment il envisage sa relation vis à vis des contenus dont il ne connait pas la source
+    
+    🌍 Engagement :
+    - Vice-Président du BDE (Toulon) : cohésion étudiante, réseau ALUMNI, événements (ski 50 étudiants)
+    - Membre Élu UFR : décisions sur formations, budget et projets
+    - Élu représentant étudiant à l'IUT de Vannes
+    
+    💪 Compétences clés :
+    - Data Engineering : SGBD (MySQL, MongoDB), Cloud (AWS, Azure)
+    - Data Analytics : ETL (Talend), ingestion données, SQL, analyses statistiques
+    - Data Visualization : Power BI, Tableau, Cognos Analytics, Streamlit, Flask
+    - Langages : Python, R, SQL, VBA, JS
+    - Data Science : ML/DL, MLFlow, monitoring (Arize), déploiement AWS
+    
+    🎯 Ambition :
+    Faire du conseil autour des solutions digitals, data et IA, en particulier dans le secteur public. Je suis passionné par l'impact de la data sur les décisions stratégiques et la transformation digitale des organisations. Je cherche à allier mes compétences techniques à une compréhension approfondie des enjeux métiers pour apporter une réelle valeur ajoutée à mes clients.
+    Je suis également très intéressé par les projets innovants qui utilisent la data pour résoudre des problèmes complexes et améliorer la vie quotidienne des citoyens.
+    Je suis convaincu que la data est un levier puissant pour transformer les organisations et je suis déterminé à contribuer à cette transformation.
 
-    Bonjour ! Je suis Joris, j'ai 22 ans, un Data Analyst passionné par le monde de la donnée, actuellement en DU Data Analytics à la Sorbonne Paris 1 et en Master 2 à Toulon.
-    
-    Mes centres d'intérêts :
-    - Hackathons : Océan Hackathon avec Naval Group et la Marine Nationale.
-    - Bénévolat : AFEV (accompagnement d’un enfant) et Président du BDE (organisation d’événements).
-    - Voyages : La Réunion, Maurice, Canada, Irlande, Espagne, Hongrie, Slovaquie.
-    - Sports : Course à pied, Beach Volley, Natation, Cyclisme.
-    
-    Formations :
-    - Master Data Analytics (Toulon)
-    - DU Data Analytics (Sorbonne, Paris 1)
-    - Licence 3 Mathématiques et Informatique (Rennes)
-    - DUT Statistique Informatique Décisionnelle (Vannes)
-    
-    Expériences :
-    1. ArianeGroup : Ingénieur BI, j'ai élaboré des rapport BI Cognos, je définissai le besoin avec le client. J'ai élaboré des rapports permettant le pilotage des couts du service. De plus, j'ai travaillé avec la suite Atlassian pour le suivi et la gestion des tickets Atlassian.
-    2. Crédit Agricole : Data Manager, j'ai aidé à la migration des données sur une base de données via un processus automatisé sur la suite Microsoft notamment via Access. Mon travail a permit d'automatiser la migration et de la faire plus rapidement
-    3. Météo-France : Data Analyst, J'ai travaillé sur le sujet de recherche, le réchauffement climatique a t-il un impact sur les phénomènes de fortes précipitations en Bretagne. J'ai analysé les données de 1959 à nos jours, avec des méthodes et tests statistiques avancés. Finalement j'ai trouvé des résultats sensiblement significatif mais qui méritait de plus amples recherches
-    4. Les Sables d'Olonne : Data Analyst, construction d'un algorithme qui récupère les données multi sources, qui va les traitzer et les stocker. Après cela, il va générer sur demande un rapport statistique sur le territoire. Cela est utili notamment pour suivre les performances du service public.
-    
-    Mon ambition :
-    Aider les entreprises à devenir data-driven et à prendre des décisions éclairées. J'aimerais pouvoir aider à la construction de stratégie dans l'utilisation de la data, que ce soit sur le choix de la stack ou le plan d'application. Mes compétences premières sont dans l'analyse data, mais je m'intéresse aussi aux autres domaines tels que la data science ou le data engineering. J'aimerais donc devenir consultant dans ce domaine et prendre de l'expérience.
-    
-    Mes compétences clés :
-    - Data Engineering : Maîtrise de SGBD comme MySQL, MongoDB, et outils Cloud (AWS, Azure).
-    - Data Analyste : Je sais faire des ETL (Talend) et faire de l'ingestion de données pour alimenter les DWH. Je sais ensuite les requeter en SQL pour les visualiser ensuite sur des outils de data visualization
-    - Data Visualization : Création de rapports interactifs avec Power BI, Tableau, et Cognos Analytics. Egalement j'ai de l'expérience avec l'interface streamlit,flask.
-    - Langages de programmation : Python, R, SQL, VBA, JS.
-    -J'ai aussi quelques connaissances en data sciences que ce soit en deep learning ou en Machine Learning. Que ce soit dans la création d'algo avec MLFlow, dans leur suivi avec du Monitoring sur Arize ou bien en deploiement sur le cloud comme AWS
-    
-    La plus forte et de loin en SEO c'est Cécilia que tu retrouve à ceciliaremark.com
+    J'espère pouvoir collaborer dans le futur avec Nolwenn Chapellon, qui a un profil très complémentaire au mien, et avec qui nous pouvons réaliser de beaux projets
 
-    Liens utiles :
-    Je veux que tu mettes seulement le lien dans le message, et que tu donnes le github, le linkedin et le cv
+    🔗 Liens :
     - GitHub : https://github.com/Jorissalmon
     - LinkedIn : https://www.linkedin.com/in/joris-salmon/
     - CV : https://drive.google.com/file/d/1NeNoU_QvoOKOkPdssN59cdVko7NGEH0M/view?usp=sharing
+    
+    📩 Contact : joris.salmon53290@gmail.com | 📱 0766840946
+    
+    Réponds à la question suivante : "${messageToSend}"`;
 
-    On peut me contacter par mail à joris.salmon53290@gmail.com ou par téléphone au 0766840946
+    // Créer le prompt final en ajoutant l'historique des messages
+    const messages = [{ role: "system", content: context }];
+    conversationHistory.forEach(msg => messages.push(msg));
+    messages.push({ role: "user", content: messageToSend });
 
-    Instructions de Mise en Forme
-    Sois synthétique et direct et bref : Allez à l'essentiel sans détours.
-    améliore la lisibilité et ajoute des émojis pertinents pour rendre la réponse engageante, tout en restant professionnel.
-
-    Réponds à la question suivante : "${messageToSend}"`
-    ;
-
-
-     // Créer le prompt final en ajoutant l'historique des messages
-     const messages = [{ role: "system", content: context }];
-     conversationHistory.forEach(msg => messages.push(msg));
-     messages.push({ role: "user", content: messageToSend });
-
-
-     // Appel à l'API OpenAI pour obtenir une réponse
-     try {
+    try {
+        // Appel à l'API OpenAI existante via votre endpoint Vercel
         const response = await fetch('https://porte-folio-kappa.vercel.app/api/callopenai', {
             method: 'POST',
             headers: {
@@ -198,16 +199,21 @@ async function sendMessage(userMessage = null) {
                 messages: messages
             })
         });
+
+        if (!response.ok) {
+            throw new Error(`Erreur HTTP: ${response.status}`);
+        }
+
         const data = await response.json();
         let messageBot = data.choices[0].message.content;
 
         // Pour les liens cliquables
         messageBot = messageBot
-        .replace('https://github.com/Jorissalmon', '<a href="https://github.com/Jorissalmon" target="_blank" class="styled-link">GitHub</a>')
-        .replace('https://www.linkedin.com/in/joris-salmon/', '<a href="https://www.linkedin.com/in/joris-salmon/" target="_blank" class="styled-link">LinkedIn</a>')
-        .replace('https://drive.google.com/file/d/1NeNoU_QvoOKOkPdssN59cdVko7NGEH0M/view?usp=sharing', '<a href="https://drive.google.com/file/d/1NeNoU_QvoOKOkPdssN59cdVko7NGEH0M/view?usp=sharing" target="_blank" class="styled-link">CV</a>')
-        .replace('joris.salmon53290@gmail.com', '<a href="mailto:joris.salmon53290@gmail.com" class="styled-link">joris.salmon53290@gmail.com</a>')
-        .replace('0766840946', '<a href="tel:+33766840946" class="styled-link">0766840946</a>');
+            .replace('https://github.com/Jorissalmon', '<a href="https://github.com/Jorissalmon" target="_blank" class="styled-link">GitHub</a>')
+            .replace('https://www.linkedin.com/in/joris-salmon/', '<a href="https://www.linkedin.com/in/joris-salmon/" target="_blank" class="styled-link">LinkedIn</a>')
+            .replace('https://drive.google.com/file/d/1NeNoU_QvoOKOkPdssN59cdVko7NGEH0M/view?usp=sharing', '<a href="https://drive.google.com/file/d/1NeNoU_QvoOKOkPdssN59cdVko7NGEH0M/view?usp=sharing" target="_blank" class="styled-link">CV</a>')
+            .replace('joris.salmon53290@gmail.com', '<a href="mailto:joris.salmon53290@gmail.com" class="styled-link">joris.salmon53290@gmail.com</a>')
+            .replace('0766840946', '<a href="tel:+33766840946" class="styled-link">0766840946</a>');
         
         // Supprimer l'animation de chargement
         chatBody.removeChild(loading);
@@ -220,21 +226,20 @@ async function sendMessage(userMessage = null) {
         const bubbleContent = document.createElement('div');
         bubbleContent.className = 'bubble-content'; // Classe pour le conteneur flex
 
-        const faviconElement = document.createElement('link'); // Création d'un élément <link>
-        faviconElement.rel = 'icon';  // Type d'élément (favicon)
-        faviconElement.href = '/meta/favicon.ico';  // Chemin relatif à la racine
-        faviconElement.type = 'image/x-icon';  // Type MIME de l'icône
-        document.head.appendChild(faviconElement);  // Ajout à la balise <head>
+        // Créer un élément pour l'image
+        const avatarImage = document.createElement('img');
+        avatarImage.src = 'img/contact.jpg'; // Chemin vers l'image de favicon
+        avatarImage.alt = 'Joris';
 
         // Créer un nouvel élément pour le message texte
-        const messageElement = document.createElement('p'); // Créer un élément <p> pour le texte
-        messageElement.innerHTML = messageBot; // Remplir le message texte ici
-        bubbleContent.appendChild(messageElement); // Ajouter le message au conteneur
+        const messageElement = document.createElement('p'); 
+        messageElement.innerHTML = ''; // Sera rempli par l'effet de typewriter
+        bubbleContent.appendChild(messageElement);
 
         // Ajouter l'image et le contenu dans une div flex
         const contentWrapper = document.createElement('div');
         contentWrapper.className = 'content-wrapper'; // Conteneur pour l'image et le texte
-        contentWrapper.appendChild(faviconElement); // Ajouter l'image
+        contentWrapper.appendChild(avatarImage); // Ajouter l'image
         contentWrapper.appendChild(bubbleContent); // Ajouter le texte
 
         assistantBubble.appendChild(contentWrapper); // Ajouter le wrapper à la bulle
@@ -244,18 +249,30 @@ async function sendMessage(userMessage = null) {
         chatBody.scrollTop = chatBody.scrollHeight;
 
         // Ajouter l'effet de typewriter
-        typeWriterEffect(bubbleContent, messageBot);
+        typeWriterEffect(messageElement, messageBot);
 
         // Ajouter le message à l'historique
         conversationHistory.push({ role: "assistant", content: messageBot });
     } catch (error) {
-        chatBody.innerHTML += "<p><strong>Erreur:</strong> Le chatbot a connu une erreur.</p>";
+        console.error("Erreur chatbot:", error);
+        
         // Supprimer l'animation de chargement
-        chatBody.removeChild(loading);
+        if (loading.parentNode) {
+            chatBody.removeChild(loading);
+        }
+        
+        // Afficher un message d'erreur
+        chatBody.innerHTML += `
+            <div class="bulle-joris">
+                <p><strong>Erreur:</strong> Le chatbot a rencontré un problème. Veuillez réessayer plus tard.</p>
+            </div>
+        `;
+        
+        // Scroll vers le bas
+        chatBody.scrollTop = chatBody.scrollHeight;
     }
 }
 
- 
 // Fonction d'animation de type "mot par mot" qui respecte le HTML
 function typeWriterEffect(element, text) {
     let index = 0;
@@ -279,7 +296,10 @@ function typeWriterEffect(element, text) {
             // Ajouter tout le texte au fur et à mesure (balises + contenu)
             element.innerHTML = currentText;
             index++;
-            element.scrollTop = element.scrollHeight; // Scroll jusqu'en bas
+            
+            // Scroll jusqu'en bas
+            const chatBody = document.getElementById("chatPopupBody");
+            if (chatBody) chatBody.scrollTop = chatBody.scrollHeight;
         } else {
             clearInterval(typingEffect); // Arrêter l'animation quand c'est fini
         }

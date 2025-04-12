@@ -1,0 +1,408 @@
+/* article.css - Styles spécifiques pour les pages d'articles */
+
+/* En-tête de l'article */
+.article-header {
+  position: relative;
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: var(--secondary-color);
+  color: #fff;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 50px;
+  margin-top: 70px;
+}
+
+.article-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+  z-index: 1;
+}
+
+.article-header .container {
+  position: relative;
+  z-index: 2;
+}
+
+.article-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.article-share {
+  margin-left: auto;
+}
+
+.article-share a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  margin-left: 8px;
+  transition: all 0.3s;
+}
+
+.article-share a:hover {
+  background-color: var(--primary-color);
+  transform: translateY(-3px);
+}
+
+/* Contenu de l'article */
+.article-content {
+  padding: 60px 0;
+}
+
+.article-content .content {
+  line-height: 1.8;
+  color: var(--text-color);
+}
+
+.article-content h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 30px 0 20px;
+  color: var(--secondary-color);
+}
+
+.article-content h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 25px 0 15px;
+  color: var(--secondary-color);
+}
+
+.article-content p {
+  margin-bottom: 20px;
+}
+
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 20px 0;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+}
+
+.article-content blockquote {
+  background-color: rgba(239, 35, 60, 0.05);
+  border-left: 4px solid var(--primary-color);
+  padding: 20px;
+  margin: 20px 0;
+  font-style: italic;
+}
+
+.article-content ul, 
+.article-content ol {
+  margin-bottom: 20px;
+  padding-left: 20px;
+}
+
+.article-content li {
+  margin-bottom: 10px;
+}
+
+.article-content a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: all 0.2s;
+  border-bottom: 1px dashed transparent;
+}
+
+.article-content a:hover {
+  border-bottom-color: var(--primary-color);
+}
+
+.article-content code {
+  background-color: #f5f5f5;
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-family: monospace;
+  font-size: 0.9em;
+}
+
+.article-content pre {
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto;
+  margin: 20px 0;
+  font-family: monospace;
+  font-size: 0.9em;
+  line-height: 1.5;
+}
+
+/* Navigation entre articles */
+.article-nav {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+}
+
+.article-nav .btn {
+  transition: all 0.3s;
+}
+
+.article-nav .btn:hover {
+  transform: translateY(-3px);
+}
+
+/* État de chargement */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+  color: var(--primary-color);
+}
+
+/* Messages d'erreur */
+.alert-danger {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+  padding: 1rem;
+  border-radius: 0.25rem;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+  .article-header {
+    height: 300px;
+    padding-bottom: 30px;
+  }
+  
+  .article-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .article-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .article-share {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+  
+  .article-content h2 {
+    font-size: 1.5rem;
+  }
+  
+  .article-content h3 {
+    font-size: 1.3rem;
+  }
+}
+
+/* Styles pour le contenu Contentful Rich Text */
+.content p:first-child {
+  font-size: 1.1em;
+  font-weight: 500;
+  color: #444;
+}
+
+.content hr {
+  margin: 2rem 0;
+  border-color: rgba(0,0,0,0.1);
+}
+
+.content figure {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.content figcaption {
+  margin-top: 0.5rem;
+  font-style: italic;
+  color: #777;
+  font-size: 0.9em;
+}
+
+.content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+}
+
+.content table th,
+.content table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.content table th {
+  background-color: #f5f5f5;
+  font-weight: 600;
+}
+
+.content table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+/* Amélioration de l'en-tête de l'article pour une meilleure lisibilité */
+
+.article-header {
+  position: relative;
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: var(--secondary-color);
+  color: #fff;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 50px;
+  margin-top: 70px;
+}
+
+/* Assombrir davantage l'overlay pour améliorer le contraste */
+.article-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 100%);
+  z-index: 1;
+}
+
+.article-header .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Améliorer la visibilité du titre */
+.article-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #ffffff; /* Blanc pur pour un meilleur contraste */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Ombre portée pour améliorer la lisibilité */
+  line-height: 1.3;
+}
+
+/* Améliorer la lisibilité des métadonnées */
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.article-meta .author,
+.article-meta .date {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+
+.article-share {
+  margin-left: auto;
+}
+
+.article-share a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  margin-left: 8px;
+  transition: all 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.article-share a:hover {
+  background-color: var(--primary-color);
+  transform: translateY(-3px);
+}
+
+/* Effet de zoom léger sur l'image d'arrière-plan */
+.article-header {
+  background-size: cover;
+  background-position: center;
+  transition: transform 10s ease-out;
+}
+
+.article-header {
+  position: relative;
+  height: 400px;
+  background-size: cover !important; /* Assurez-vous que cette propriété est définie */
+  background-position: center !important;
+  color: #fff;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 50px;
+  margin-top: 70px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  .article-header {
+    height: 320px;
+    padding-bottom: 30px;
+  }
+  
+  .article-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .article-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .article-share {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}
+/* Ajoutez ceci à votre fichier article.css */
+.content-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 20px auto;
+  border-radius: 5px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+figure {
+  margin: 30px 0;
+  text-align: center;
+}
+
+figcaption {
+  margin-top: 10px;
+  font-style: italic;
+  color: #666;
+  font-size: 0.9em;
+}

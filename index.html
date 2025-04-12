@@ -1,516 +1,709 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Joris Salmon Portfolio</title>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="portfolio, Joris Salmon, data Analyst, data science" name="keywords">
-        <meta content="Portfolio de Joris Salmon : expertise en data et analyse. Projets innovants en science des données" name="description">
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Joris Salmon | Data Analyst & Data Scientist</title>
+    <!-- Modification importante pour le viewport -->
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <meta content="portfolio, Joris Salmon, data Analyst, data science, business intelligence" name="keywords">
+    <meta content="Portfolio de Joris Salmon : expertise en data et analyse. Projets innovants en science des données" name="description">
+    
+    <!-- Ajout de theme-color pour améliorer l'apparence sur mobile -->
+    <meta name="theme-color" content="#EF233C">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="meta/favicon.ico" type="image/x-icon">
 
-        <!-- Favicon -->
-        <link rel="icon" href="./meta/favicon.ico" type="image/x-icon">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-        <!-- Google Font -->
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- CSS Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-        <!-- CSS Libraries -->
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-        <link href="lib/animate/animate.min.css" rel="stylesheet">
-        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-        <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
 
-        <!-- Template Stylesheet -->
-        <link href="css/style.css" rel="stylesheet">
-    </head>
+    <!-- Contentful Rich Text Renderer -->
+    <script src="https://cdn.jsdelivr.net/npm/@contentful/rich-text-html-renderer@16.0.3/dist/rich-text-html-renderer.min.js"></script>
 
-    <body data-spy="scroll" data-target=".navbar" data-offset="51">
-        <!-- Nav Bar Start -->
-        <div class="navbar navbar-expand-lg bg-light navbar-light">
-            <div class="container-fluid">
-                <a href="index.html" class="navbar-brand">Portfolio</a>
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+</head>
 
-                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                    <div class="navbar-nav ml-auto">
-                        <a href="#home" class="nav-item nav-link active">Accueil</a>
-                        <a href="#about" class="nav-item nav-link">Qui suis-je ?</a>
-                        <a href="#portfolio" class="nav-item nav-link">Portfolio</a>
-                        <a href="#blog" class="nav-item nav-link">Blog</a>
-                        <a href="#service" class="nav-item nav-link">Formations</a>
-                        <a href="#experience" class="nav-item nav-link">Experiences</a>
-                        <a href="#team" class="nav-item nav-link">Personnalité</a>
-                        <a href="#isfooter" class="nav-item nav-link">Contact</a>
-                    </div>
-                </div>
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="51">
+
+    <!-- Chatbot Elements - Version améliorée -->
+    <div class="chatbot-bubble" id="chatbotBubble" title="Discuter avec Joris">
+        <i class="fas fa-comments"></i>
+    </div>
+
+    <div class="chat-popup" id="chatPopup">
+        <div class="chat-popup-header">
+            <span>Assistant de Joris</span>
+            <button class="close-chat" id="closeChat">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chat-popup-body" id="chatPopupBody">
+            <p>Bonjour ! Je suis l'assistant virtuel de Joris. Comment puis-je vous aider aujourd'hui ?</p>
+        </div>
+        <div class="chat-popup-footer">
+            <input type="text" id="userMessage" placeholder="Posez votre question...">
+            <button onclick="sendMessage()" aria-label="Envoyer">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Ajoutez ce script pour le bouton de fermeture -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const closeButton = document.getElementById('closeChat');
+        if (closeButton) {
+            closeButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const popup = document.getElementById('chatPopup');
+                const bubble = document.getElementById('chatbotBubble');
+                if (popup) {
+                    popup.style.display = 'none';
+                    if (bubble) bubble.style.animation = '';
+                }
+            });
+        }
+    });
+    </script>
+
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Joris Salmon</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">À propos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#portfolio">Portfolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#blog">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#education">Formation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#experience">Expérience</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
             </div>
         </div>
-        <!-- Nav Bar End -->
+    </nav>
+    <!-- Navbar End -->
 
-
-        <!-- Hero Start -->
-        <div class="hero" id="home">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="col-sm-12 col-md-6">
-                        <div class="hero-content">
-                            <div class="hero-text">
-                                <p style="text-align: center;">I'm</p>
-                                <h1>Joris Salmon</h1>
-                                <h2></h2>
-                                <div class="typed-text">Data Analyst, Business Analyst, Data Engeneer</div>
-                            </div>
-                            <div class="hero-btn">
-                                <a class="btn" href="#isfooter">Contactez moi</a>
-                            </div>
+    <!-- Hero Section Start -->
+    <section id="home" class="hero-section">
+        <div class="hero-particles" id="particles-js"></div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="hero-content">
+                        <h4 class="subtitle">Bonjour, je suis</h4>
+                        <h1 class="title">Joris Salmon</h1>
+                        <div class="typed-text"></div>
+                        <div class="skills">
+                            <span class="skill-tag">Data Analyst</span>
+                            <span class="skill-tag">Data-Scientist</span>
+                            <span class="skill-tag">Analytics Engineer</span>
                         </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6 d-none d-md-block">
-                        <div class="hero hero-image">
-                            <img src="img/contact.jpg" alt="Joris Salmon Profil">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Hero End -->
-
-        <!-- Bulle de chat -->
-        <div class="chatbot-bubble" id="chatbotBubble">💬</div>
-
-        <!-- Fenêtre de chat -->
-        <div class="chat-popup" id="chatPopup">
-            <div class="chat-popup-header">Poses moi tes questions</div>
-            <div class="chat-popup-body" id="chatPopupBody">
-                <p>Ecris ton message ici</p>
-            </div>
-            <div class="chat-popup-footer">
-                <input type="text" id="userMessage" placeholder="Écrivez votre message...">
-                <button onclick="sendMessage()">Envoyer</button>
-            </div>
-        </div>
-        <!-- Bulle de chat End -->
-
-        <!-- About Start -->
-        <div class="about wow fadeInUp" data-wow-delay="0.1s" id="about">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="col-lg-6">
-                        <div class="about-img">
-                            <img src="img/me.jpeg" alt="Profil">
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="about-content">
-                            <div class="section-header text-left">
-                                <p>À propos de moi</p>
-                                <h2>Qui suis-je ?</h2>
-                            </div>
-                            <div class="about-text">
-                                <p>
-                                    Je suis actuellement en formation pour devenir <strong>Data Analyst</strong>, un domaine dans lequel je développe des compétences solides. 
-                                    Au cours de mes stages chez <strong>ArianeGroup</strong>, le <strong>Crédit Agricole de la Réunion & Mayotte</strong> et <strong>Météo-France</strong>, 
-                                    j'ai acquis une expérience pratique qui m'a permis de transformer des données complexes en <strong>insights stratégiques</strong>. 
-                                    Mon parcours académique, incluant un <strong>DU en Data Analytics</strong> à la Sorbonne et un <strong>Master en Data Analytics</strong> en cours, 
-                                    m'a permis de maîtriser des compétences essentielles en <strong>    
-                                    <span style="color: #EF233C;">Business Intelligence</span>, <span style="color: #EF233C;">Data Analyst</span></strong> et 
-                                    <strong><span style="color: #EF233C;">Data Engeneering</span></strong>. 
-                                    Grâce à des outils tels que <strong>Python</strong>, <strong>SQL</strong> et <strong>PowerBI</strong>, je suis capable d'analyser des données pour générer des 
-                                    <strong>insights exploitables</strong> qui soutiennent la prise de décision et la création de valeur au sein des organisations.
-                                </p>                                                            
-                            </div>
-                            <div class="skills">
-                                <div class="skill-name">
-                                    <p>Python</p><p>100%</p>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <div class="skill-name">
-                                    <p>SQL</p><p>100%</p>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <div class="skill-name">
-                                    <p>Power BI</p><p>100%</p>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <div class="skill-name">
-                                    <p>Expérience</p><p>80%</p>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <a class="btn" href="https://drive.google.com/file/d/1NeNoU_QvoOKOkPdssN59cdVko7NGEH0M/view?usp=sharing">En savoir plus</a>
+                        <div class="hero-btn mt-4">
+                            <a href="#contact" class="btn btn-primary me-3">Contactez-moi</a>
+                            <a href="#portfolio" class="btn btn-outline">Mes projets</a>
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-6 d-none d-lg-block" data-aos="fade-left">
+                    <div class="hero-image">
+                        <img src="img/contact.jpg" alt="Joris Salmon" class="img-fluid">
+                    </div>
+                </div>
             </div>
         </div>
-        <!-- About End -->
+        <div class="scroll-down">
+            <a href="#about"><i class="fas fa-chevron-down"></i></a>
+        </div>
+    </section>
+    <!-- Hero Section End -->
 
-        <!-- Banner Start -->
-        <div class="banner wow zoomIn" data-wow-delay="0.1s">
-            <div class="container">
-                <div class="section-header text-center">
-                    <h2>Découvrons <span>ensemble</span></h2>
+    <!-- About Section Start -->
+    <section id="about" class="about-section section-padding">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5 mb-4 mb-lg-0" data-aos="fade-right">
+                    <div class="about-img">
+                        <img src="img/me.jpg" alt="Joris Salmon" class="img-fluid rounded">
+                    </div>
+                </div>
+                <div class="col-lg-7" data-aos="fade-left">
+                    <div class="section-title">
+                        <h2>À propos de moi</h2>
+                        <p>Qui suis-je ?</p>
+                    </div>
+                    <div class="about-text">
+                        <p>
+                            🎓 <strong>Consultant digital</strong>, je m’engage aux côtés des organisations pour les aider à exploiter tout le potentiel du numérique et de la donnée. Grâce à mes formations en transformation digitale à la <strong>Sorbonne Paris 1</strong> et à mon <strong>Master en Data-Analytics</strong>, j’ai acquis une vision stratégique des enjeux métiers et des leviers d’action concrets pour accompagner le changement.
+                        </p>
+                        <p>
+                            🚀 Grâce à des expériences enrichissantes chez <strong>Micropole</strong>, <strong>ArianeGroup</strong>, <strong>le Crédit Agricole</strong> et <strong>Météo-France</strong>, j’ai appris à accompagner les équipes dans leurs problématiques, qu’elles relèvent de la <strong>stratégie data</strong> ou du <strong>pilotage digital</strong>.
+                        </p>
+                        <p>
+                            🤝 Ce qui me distingue ? Une capacité à écouter, à comprendre les besoins réels, et à construire des solutions sur mesure avec une approche à la fois rigoureuse, pédagogique et orientée impact. Mon objectif : créer de la valeur, simplifier la complexité, et faire du digital un vrai levier de performance.
+                        </p>
+                    </div>                    
+                    <div class="skills-section">
+                        <h3>Mes domaines</h3>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <h6 class="skill-title">Data-Science</h6>
+                                <div class="skill-percentage">
+                                    <div class="count-box"><span class="count-text" data-speed="2000" data-stop="80">Intermédiare</span></div>
+                                </div>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="bar-inner">
+                                    <div class="bar progress-line" data-width="80"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <h6 class="skill-title">Data Analyse</h6>
+                                <div class="skill-percentage">
+                                    <div class="count-box"><span class="count-text" data-speed="2000" data-stop="90">Avancé</span></div>
+                                </div>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="bar-inner"><div class="bar progress-line" data-width="90"></div></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <h6 class="skill-title">Web Analyse / Stratégie</h6>
+                                <div class="skill-percentage">
+                                    <div class="count-box"><span class="count-text" data-speed="2000" data-stop="90">Avancé</span></div>
+                                </div>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="bar-inner"><div class="bar progress-line" data-width="90"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <a href="https://drive.google.com/file/d/1EonJfaibmoQXfhmRAfUt4oc7ftHFb7_5/view?usp=sharing" class="btn btn-primary" target="_blank">
+                            <i class="fas fa-download me-2"></i>Télécharger mon CV
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Banner End -->
-        
-        <!-- Portfolio Start -->
-        <div class="portfolio" id="portfolio">
-            <div class="container">
-                <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
-                    <p>Mon Portfolio</p>
-                    <h2>Mes Projets</h2>
+    </section>
+    <!-- About Section End -->
+    
+    <!-- Portfolio Section Start -->
+    <section id="portfolio" class="portfolio-section section-padding bg-light">
+        <div class="container">
+            <div class="section-title text-center" data-aos="fade-up">
+                <h2>Mon Portfolio</h2>
+                <p>Découvrez mes projets récents</p>
+            </div>
+            
+            <div class="portfolio-filter text-center" data-aos="fade-up" data-aos-delay="100">
+                <ul>
+                    <li class="filter-active" data-filter="*">Tous</li>
+                    <li data-filter=".filter-bi">Business Intelligence</li>
+                    <li data-filter=".filter-data">Data Science</li>
+                    <li data-filter=".filter-recherche">Recherches</li>
+                </ul>
+            </div>
+            
+            <div class="row portfolio-container" id="projectsContainer">
+                <!-- Les projets seront chargés dynamiquement ici -->
+                <div class="col-lg-4 col-md-6 portfolio-item filter-1" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="portfolio-wrap">
+                        <img src="img/portfolio/placeholder1.jpg" class="img-fluid" alt="Projet 1">
+                        <div class="portfolio-info">
+                            <h4>Chargement...</h4>
+                            <p>Veuillez patienter</p>
+                            <div class="portfolio-links">
+                                <a href="#" class="details-link"><i class="fas fa-link"></i></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </section>
+    <!-- Portfolio Section End -->
+    
+    <!-- Blog Section Start -->
+    <section id="blog" class="blog-section section-padding">
+        <div class="container">
+            <div class="section-title text-center" data-aos="fade-up">
+                <h2>Blog</h2>
+                <p>Derniers Articles</p>
+            </div>
+            
+            <!-- Filtres avec classes modifiées pour mieux s'adapter au mobile -->
+            <div class="blog-filter text-center" data-aos="fade-up" data-aos-delay="100">
+                <ul class="d-flex flex-wrap justify-content-center">
+                    <li class="filter-active" data-filter="*">Tous</li>
+                    <li data-filter=".filter-data">Data</li>
+                    <li data-filter=".filter-bi">Business Intelligence</li>
+                    <li data-filter=".filter-ia">L'IA</li>
+                    <li data-filter=".filter-career">Métier</li>
+                </ul>
+            </div>
+            
+            <!-- Boutons de navigation réorganisés -->
+            <div class="blog-carousel" data-aos="fade-up" data-aos-delay="200">
+                <div class="carousel-nav">
+                    <button class="carousel-prev" aria-label="Article précédent">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-next" aria-label="Article suivant">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <!-- Conteneur du carrousel avec classe supplémentaire pour la transition -->
+                <div class="row blog-container" id="blogjorisContainer">
+                    <!-- Les articles seront chargés dynamiquement ici -->
+                    <div class="col-12 text-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Chargement...</span>
+                        </div>
+                        <p class="mt-2">Chargement des articles...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Blog Section End -->
+    
+    <!-- Education Section Start -->
+    <section id="education" class="education-section section-padding bg-light">
+        <div class="container">
+            <div class="section-title text-center" data-aos="fade-up">
+                <h2>Mes Formations</h2>
+                <p>Parcours Académique</p>
+            </div>
+            
+            <div class="education-carousel" data-aos="fade-up" data-aos-delay="200">
                 <div class="row">
-                    <div class="col-12">
-                        <ul id="portfolio-filter">
-                            <li data-filter="*" class="filter-active">All</li>
-                            <li data-filter=".filter-1">Interfaces</li>
-                            <li data-filter=".filter-2">Business Intelligence</li>
-                            <li data-filter=".filter-3">Data Science</li>
+                    <div class="col-md-6" data-aos="fade-right">
+                        <div class="education-item">
+                            <div class="education-icon">
+                                <img src="img/sorbonne-paris.png" alt="Sorbonne">
+                            </div>
+                            <div class="education-content">
+                                <h3>Université Panthéon Sorbonne</h3>
+                                <p class="period">2024 - 2025</p>
+                                <p class="degree">DU Data Analytics</p>
+                                <p class="location">Paris, France</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6" data-aos="fade-left">
+                        <div class="education-item">
+                            <div class="education-icon">
+                                <img src="img/univ-tln.png" alt="Toulon">
+                            </div>
+                            <div class="education-content">
+                                <h3>Université de Toulon</h3>
+                                <p class="period">2023 - 2025</p>
+                                <p class="degree">Master Data Analytics</p>
+                                <p class="location">Toulon, France</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col-md-6" data-aos="fade-right" data-aos-delay="300">
+                        <div class="education-item">
+                            <div class="education-icon">
+                                <img src="img/univ-rennes.jpg" alt="Rennes">
+                            </div>
+                            <div class="education-content">
+                                <h3>Université de Rennes 1</h3>
+                                <p class="period">2023 - 2024</p>
+                                <p class="degree">Licence 3 MIASHS</p>
+                                <p class="location">Rennes, France</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6" data-aos="fade-left" data-aos-delay="300">
+                        <div class="education-item">
+                            <div class="education-icon">
+                                <img src="img/iut-vannes.jpg" alt="IUT Vannes">
+                            </div>
+                            <div class="education-content">
+                                <h3>IUT de Vannes</h3>
+                                <p class="period">2020 - 2022</p>
+                                <p class="degree">DUT Statistique et Informatique Décisionnelle (STID)</p>
+                                <p class="location">Vannes, France</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Education Section End -->
+    
+    <!-- Experience Section Start -->
+    <section id="experience" class="experience-section section-padding">
+        <div class="container">
+            <div class="section-title text-center" data-aos="fade-up">
+                <h2>Mes Expériences</h2>
+                <p>Parcours Professionnel</p>
+            </div>
+            
+            <div class="timeline" data-aos="fade-up" data-aos-delay="200">
+
+                <div class="timeline-item right" data-aos="fade-left">
+                    <div class="timeline-content">
+                        <div class="date">Février 2025 - Juin 2025 <span>(5 mois)</span></div>
+                        <div class="content-header">
+                            <h3>Micropole</h3>
+                            <div class="company-logo">
+                                <img src="img/micropole.png" alt="Micropole">
+                            </div>
+                        </div>
+                        <h4>Consultant BI</h4>
+                        <p class="location">Aix-en-Provence, France</p>
+                        <ul>
+                            <li>Missions pour différents clients au sein du service Data Expérience : <strong>Reporting, modélisation, ETL, Cloud</strong></li>
+                            <li>Client Région Ile de France : migration de reporting de Oracle BI sur PowerBI</li>
+                            <!-- <li>Élaboration de solutions via VBA, Access, MS SQL, Python et JS.</li> -->
                         </ul>
                     </div>
                 </div>
-                <div class="row portfolio" id="projectsContainer">
-                     <!-- Les projets seront insérés ici par JavaScript -->
-                </div>
-            </div>
-        </div>        
-        <!-- Portfolio End -->
 
-
-        <!-- Blog Start -->
-        <div class="blog" id="blog">
-            <div class="container">
-                <div class="section-header text-center zoomIn">
-                    <p>Blog</p>
-                    <h2>Derniers Articles</h2>
-                </div>
-                <div class="row">
-                </div>
-                <div class="col-12">
-                    <ul id="blog-filter">
-                        <li data-filter="*" class="filter-active">All</li>
-                        <li data-filter=".filter-data">Data</li>
-                        <li data-filter=".filter-bi">Business Intelligence</li>
-                        <li data-filter=".filter-career">Carrière</li>
-                    </ul>
-                </div>
-                <div class="carousel-container">
-                    <button class="carousel-arrow left-arrow">&#9664;</button> <!-- Flèche gauche -->
-                    <div class="row blog carousel-track" id="blogjorisContainer">
-                        <!-- Les projets seront insérés ici par JavaScript -->
+                <div class="timeline-item left" data-aos="fade-right">
+                    <div class="timeline-content">
+                        <div class="date">Mars 2024 - Juillet 2024 <span>(5 mois)</span></div>
+                        <div class="content-header">
+                            <h3>ArianeGroup</h3>
+                            <div class="company-logo">
+                                <img src="img/ariane-logo.png" alt="ArianeGroup">
+                            </div>
+                        </div>
+                        <h4>Ingénieur Business Intelligence</h4>
+                        <p class="location">Bordeaux, France</p>
+                        <ul>
+                            <li>Au sein du service BI, j'ai défini les besoins avec les clients et rédigé des cahiers des charges techniques.</li>
+                            <li>Exécution des cahiers des charges par la création de rapports sur Cognos Analytics.</li>
+                            <li>L'ensemble des travaux et réunions ont été effectués en anglais.</li>
+                            <li><strong>Objectif :</strong> Amélioration de la cadence de production de la fusée Ariane 6.</li>
+                        </ul>
                     </div>
-                    <button class="carousel-arrow right-arrow">&#9654;</button> <!-- Flèche droite -->
-                </div>
-            </div>
-        </div>
-        <!-- Blog End -->
-
-
-        <!-- Banner Start -->
-        <div class="banner wow zoomIn" data-wow-delay="0.1s">
-            <div class="container">
-                <div class="section-header text-center">
-                    <!-- p>Awesome Discount</p-->
-                    <h2>Faisons connaissance</h2>
                 </div>
                 
+                <div class="timeline-item right" data-aos="fade-left">
+                    <div class="timeline-content">
+                        <div class="date">Juin 2023 - Juillet 2023 <span>(2 mois)</span></div>
+                        <div class="content-header">
+                            <h3>Crédit Agricole La Réunion - Mayotte</h3>
+                            <div class="company-logo">
+                                <img src="img/credit-agricole-logo.jpg" alt="Crédit Agricole">
+                            </div>
+                        </div>
+                        <h4>Data Manager</h4>
+                        <p class="location">Saint-Denis, Réunion</p>
+                        <ul>
+                            <li><strong>Objectif :</strong> Rendre les données plus accessibles pour créer de la valeur.</li>
+                            <li>Construction et mise en œuvre d'un système automatisé avec ACCESS, permettant la redirection de données existantes sur des fichiers EXCEL dans une BDD interne MS-SQL.</li>
+                            <li>Élaboration de solutions via VBA, Access, MS SQL, Python et JS.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item left" data-aos="fade-right">
+                    <div class="timeline-content">
+                        <div class="date">Avril 2023 - Juin 2023 <span>(3 mois)</span></div>
+                        <div class="content-header">
+                            <h3>Météo France</h3>
+                            <div class="company-logo">
+                                <img src="img/meteo-france-logo.jpg" alt="Météo France">
+                            </div>
+                        </div>
+                        <h4>Data Analyst</h4>
+                        <p class="location">Rennes, France</p>
+                        <ul>
+                            <li><strong>Sujet de recherche :</strong> Analyse de l'impact du réchauffement climatique sur les phénomènes de fortes précipitations en Bretagne.</li>
+                            <li>Modélisation et tests sur des séries temporelles pour observer et analyser les impacts du réchauffement climatique sur la pluviométrie (analyses sur R).</li>
+                            <li>Présentation du travail de recherche au niveau national.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right" data-aos="fade-left">
+                    <div class="timeline-content">
+                        <div class="date">Avril 2022 - Juin 2022 <span>(3 mois)</span></div>
+                        <div class="content-header">
+                            <h3>Les Sables d'Olonne Agglomération</h3>
+                            <div class="company-logo">
+                                <img src="img/sables-olonne-logo.jpg" alt="Les Sables d'Olonne">
+                            </div>
+                        </div>
+                        <h4>Data Analyst</h4>
+                        <p class="location">Les Sables-d'Olonne, France</p>
+                        <ul>
+                            <li>Conseils sur l'élaboration d'une solution data au sein de l'agglomération.</li>
+                            <li>Création d'une solution automatisée avec VBA et Python pour la récolte et l'analyse de données pour le territoire.</li>
+                            <li>Utilisation de Web Scraping et construction d'une BDD avec MS SQL.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Banner End -->        
-        
-        <!-- Service Start -->
-        <div class="service" id="service">
-            <div class="container">
-                <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
-                    <p>Mes formations</p>
-                    <h2>Education</h2>
-                </div>
-                <div id="educationCarousel" class="carousel slide" data-ride="carousel" data-interval="2500">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="row">
-                                <div class="col-sm-12 col-md-6">
-                                    <div class="service-item text-center mb-3">
-                                        <div class="service-icon">
-                                            <img src="img/sorbonne-paris.png" alt="Sorbonne Icon" class="img-fluid" style="max-width: 100px; height: auto;">
-                                        </div>
-                                        <div class="service-text">
-                                            <h3>Université Panthéon Sorbonne<br>(2024 - 2025)</h3>
-                                            <h6>DU Data Analytics</h6>
-                                            <h6>(Paris)</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <div class="service-item text-center mb-3">
-                                        <div class="service-icon">
-                                            <img src="img/univ-tln.png" alt="Toulon Icon" class="img-fluid" style="max-width: 100px; height: auto;">
-                                        </div>
-                                        <div class="service-text">
-                                            <h3>Université de Toulon<br>(2023 - 2025)</h3>
-                                            <h6>Master Data Analytics</h6>
-                                            <h6>(Toulon)</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="row">
-                                <div class="col-sm-12 col-md-6">
-                                    <div class="service-item text-center mb-3">
-                                        <div class="service-icon">
-                                            <img src="img/univ-rennes.jpg" alt="IUT Vannes Icon" class="img-fluid" style="max-width: 100px; height: auto;">
-                                        </div>
-                                        <div class="service-text">
-                                            <h3>Université de Rennes 1<br>(2023 - 2024)</h3>
-                                            <h6>Licence 3 MIASHS</h6>
-                                            <h6>(Rennes)</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <div class="service-item text-center mb-3">
-                                        <div class="service-icon">
-                                            <img src="img/iut-vannes.jpg" alt="IUT Vannes Icon" class="img-fluid" style="max-width: 100px; height: auto;">
-                                        </div>
-                                        <div class="service-text">
-                                            <h3>IUT de Vannes<br>(2020 - 2022)</h3>
-                                            <h6>DUT Statistique et Informatique Décisionnelle (STID)</h6>
-                                            <h6>(Vannes)</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Contrôles -->
-                    <a class="carousel-control-prev" href="#educationCarousel" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Précédent</span>
-                    </a>
-                    <a class="carousel-control-next" href="#educationCarousel" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Suivant</span>
-                    </a>
-                </div>
+    </section>
+    <!-- Experience Section End -->
+    
+    <!-- Team/Passions Section Start -->
+    <section id="passions" class="passions-section section-padding bg-light">
+        <div class="container">
+            <div class="section-title text-center" data-aos="fade-up">
+                <h2>Mes Passions</h2>
+                <p>La course à pied et les voyages !</p>
             </div>
-        </div>
-        <!-- Service End -->
-
-        <!-- Experience Start -->
-        <div class="experience" id="experience">
-            <div class="container">
-                <header class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
-                    <h2>Mes expériences</h2>
-                </header>
-                <div class="timeline">
-                    <div class="timeline-item left wow slideInLeft" data-wow-delay="0.1s">
-                        <div class="timeline-text">
-                            <div class="timeline-date">Mar 2024 - Jul 2024 <br>(5 mois)</div>
-                            <h2 style="display: flex; align-items: center; justify-content: space-between;">
-                                ArianeGroup
-                                <img src="img/ariane-logo.png" alt="Logo ArianeGroup" style="width: 80px; height: auto; margin-left: 10px;">
-                            </h2>
-                            <h4>Ingénieur Business Intelligence&nbsp;&nbsp;&nbsp;&nbsp;<strong>(Bordeaux, France)</strong></h4>
-                            <p style="margin-top: 10px;">• Au sein du service BI, j'ai défini les besoins avec les clients et rédigé des cahiers des charges techniques. Ensuite, j'ai exécuté ces cahiers des charges par la création de rapports sur Cognos Analytics.</p>
-                            <p>• L'ensemble des travaux et réunions ont été effectués en anglais.</p>
-                            <p>• <strong>Objectif : </strong> Amélioration de la cadence de production de la fusée Ariane 6.</p>
+            
+            <div class="row">
+                <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="passion-card">
+                        <div class="passion-img">
+                            <img src="img/crew.jpeg" alt="Course à pied" class="img-fluid">
+                        </div>
+                        <div class="passion-content">
+                            <h3>Mon équipe d'entraînement</h3>
+                            <p class="passion-category">Course à pied</p>
+                            <p>Je m'entraîne environ 6 fois par semaine le long de la mer</p>
                         </div>
                     </div>
-                    <div class="timeline-item right wow slideInRight" data-wow-delay="0.1s">
-                        <div class="timeline-text">
-                            <div class="timeline-date">Juin 2023 - Juil 2023 <br>(2 mois)</div>
-                            <h2 style="display: flex; align-items: center; justify-content: space-between;">
-                                Crédit Agricole La Réunion - Mayotte
-                                <img src="img/credit-agricole-logo.jpg" alt="Logo Crédit Agricole" style="width: 80px; height: auto; margin-left: 10px;">
-                            </h2>
-                            <h4>Data Manager&nbsp;&nbsp;&nbsp;&nbsp;<strong>(Saint-Denis, Réunion)</strong></h4>
-                            <p style="margin-top: 10px;">• Objectif : Rendre les données plus accessibles pour créer de la valeur.</p>
-                            <p>• Construction et mise en œuvre d'un système automatisé avec ACCESS, permettant la redirection de données existantes sur des fichiers EXCEL dans une BDD interne MS-SQL.</p>
-                            <p>• Élaboration de solutions via VBA, Access, MS SQL, Python et JS.</p>
+                </div>
+                
+                <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="passion-card">
+                        <div class="passion-img">
+                            <img src="img/voyages.jpg" alt="Voyages" class="img-fluid">
+                        </div>
+                        <div class="passion-content">
+                            <h3>Découvrir le monde</h3>
+                            <p class="passion-category">Voyages</p>
+                            <p>La Réunion, Maurice, Canada, Irlande, Espagne, Portugal, Hongrie, Slovaquie...</p>
                         </div>
                     </div>
-                    <div class="timeline-item left wow slideInLeft" data-wow-delay="0.1s">
-                        <div class="timeline-text">
-                            <div class="timeline-date">Avril 2023 - Juin 2023 <br>(3 mois)</div>
-                            <h2 style="display: flex; align-items: center; justify-content: space-between;">
-                                Météo France
-                                <img src="img/meteo-france-logo.jpg" alt="Logo Météo France" style="width: 80px; height: auto; margin-left: 10px;">
-                            </h2>
-                            <h4>Data Analyst&nbsp;&nbsp;&nbsp;&nbsp;<strong>(Rennes, France)</strong></h4>
-                            <p style="margin-top: 10px;">• Sujet de recherche : Analyse de l'impact du réchauffement climatique sur les phénomènes de fortes précipitations en Bretagne.</p>
-                            <p>• Modélisation et tests sur des séries temporelles pour observer et analyser les impacts du réchauffement climatique sur la pluviométrie (analyses sur R).</p>
-                            <p>• Présentation du travail de recherche au niveau national.</p>
+                </div>
+                
+                <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="passion-card">
+                        <div class="passion-img">
+                            <img src="img/hackathon_navalgroup.jpg" alt="Hackathons" class="img-fluid">
+                        </div>
+                        <div class="passion-content">
+                            <h3>Se lancer des défis</h3>
+                            <p class="passion-category">Hackathons</p>
+                            <p>J'ai par exemple participé à l'élaboration d'une solution pour la Marine Nationale avec NavalGroup</p>
                         </div>
                     </div>
-                    <div class="timeline-item right wow slideInRight" data-wow-delay="0.1s">
-                        <div class="timeline-text">
-                            <div class="timeline-date">Avril 2022 - Juin 2022 <br>(3 mois)</div>
-                            <h2 style="display: flex; align-items: center; justify-content: space-between;">
-                                Les Sables d'Olonne Agglomération
-                                <img src="img/sables-olonne-logo.jpg" alt="Logo Les Sables d'Olonne" style="width: 80px; height: auto; margin-left: 10px;">
-                            </h2>
-                            <h4>Data Analyst&nbsp;&nbsp;&nbsp;&nbsp;<strong>(Les Sables-d’Olonne, France)</strong></h4>
-                            <p style="margin-top: 10px;">• Conseils sur l’élaboration d’une solution data au sein de l’agglomération.</p>
-                            <p>• Création d’une solution automatisée avec VBA et Python pour la récolte et l’analyse de données pour le territoire.</p>
-                            <p>• Utilisation de Web Scraping et construction d’une BDD avec MS SQL.</p>
+                </div>
+                
+                <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="passion-card">
+                        <div class="passion-img">
+                            <img src="img/pepite.jpg" alt="Startup" class="img-fluid">
+                        </div>
+                        <div class="passion-content">
+                            <h3>Sauter dans l'inconnu</h3>
+                            <p class="passion-category">Création de start-up</p>
+                            <p>Chef de projet - Lauréat Vannetais du prix Pépite 🏆</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Job Experience End -->
-
-        <!-- Team Start -->
-        <div class="team" id="team">
-            <div class="container">
-                <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
-                    <p>Mes passions</p>
-                    <h2>La course à pied et les voyages !</h2>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.0s">
-                        <div class="team-item">
-                            <div class="team-img">
-                                <img src="img/crew.jpeg" alt="Image">
-                            </div>
-                            <div class="team-text">
-                                <h2>Mon équipe d'entrainement</h2>
-                                <h4>Course à pied</h4>
-                                <p>
-                                    Je m'entraine environ 6 fois par semaine le long de la mer
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="team-item">
-                            <div class="team-img">
-                                <img src="img/voyages.jpg" alt="Image">
-                            </div>
-                            <div class="team-text">
-                                <h2>Découvrir le monde</h2>
-                                <h4>Voyages</h4>
-                                <p>
-                                    La Réunion, Maurice, Canada, Irlande,
-                                    Espagne, Portugal, Hongrie, Slovaquie…
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.4s">
-                        <div class="team-item">
-                            <div class="team-img">
-                                <img src="img/hackathon_navalgroup.jpg" alt="Image">
-                            </div>
-                            <div class="team-text">
-                                <h2>Se lancer des défis</h2>
-                                <h4>Hackathons</h4>
-                                <p>
-                                    J'ai par exemple participé à l'élaboration d'une solution pour la Marine Nationale avec NavalGroup
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.6s">
-                        <div class="team-item">
-                            <div class="team-img">
-                                <img src="img/pepite.jpg" alt="Image">
-                            </div>
-                            <div class="team-text">
-                                <h2>Sauter dans l'inconnu</h2>
-                                <h4>Création de start-up</h4>
-                                <p>
-                                    Chef de projet
-                                    Lauréat Vannetais du prix Pépite 🏆
-
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    </section>
+    <!-- Team/Passions Section End -->
+    
+    <!-- Contact Section Start -->
+    <section id="contact" class="contact-section section-padding">
+        <div class="container">
+            <div class="section-title text-center" data-aos="fade-up">
+                <h2>Contact</h2>
+                <p>Envoyez-moi un message</p>
             </div>
-        </div>
-        <!-- Team End -->
-
-        <!-- Footer Start -->
-        <div class="contact" id="contact">
-            <div class="footer wow fadeIn" data-wow-delay="0.3s" id="isfooter">
-                <div class="container-fluid">
-                    <div class="container">
-                        <div class="footer-info">
-                            <h2>Envoyez moi un message !</h2>
-                            <h3>Joris Salmon</h3>
-                            <div class="footer-menu">
+            
+            <div class="row">
+                <div class="col-lg-5 mb-4 mb-lg-0" data-aos="fade-right">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="content">
+                                <h4>Localisation</h4>
+                                <p>Aix-en-Provence, France</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="icon"><i class="fas fa-phone"></i></div>
+                            <div class="content">
+                                <h4>Téléphone</h4>
                                 <p>+33 766840946</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="icon"><i class="fas fa-envelope"></i></div>
+                            <div class="content">
+                                <h4>Email</h4>
                                 <p>Joris.salmon53290@gmail.com</p>
                             </div>
-                            <h3>Toulon, France</h3>
-
-                            <div class="footer-social">
-                                <!--a href=""><i class="fab fa-twitter"></i></a>
-                                <a href=""><i class="fab fa-facebook-f"></i></a>
-                                <a href=""><i class="fab fa-youtube"></i></a>
-                                <a href=""><i class="fab fa-instagram"></i></a -->
-                                <a href="https://github.com/Jorissalmon" target="_blank"><i class="fab fa-github"></i></a>
-
-                                <a href="https://www.linkedin.com/in/joris-salmon/" target="_blank"><i class="fab fa-linkedin-in" ></i></a>
-                            </div>
+                        </div>
+                        
+                        <div class="social-links">
+                            <a href="https://github.com/Jorissalmon" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/joris-salmon/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
-                    <div class="container copyright">
-                        <p>&copy; <a href="#">Joris Salmon</a>, All Right Reserved | Designed By <a href="https://htmlcodex.com">HTML Codex</a></p>
-                    </div>
+                </div>
+                
+                <div class="col-lg-7" data-aos="fade-left">
+                    <!-- Notification de succès/erreur -->
+                    <div id="contactMessage" class="alert d-none mb-4"></div>
+                    
+                    <!-- Formulaire avec action et méthode -->
+                    <form id="contactForm" class="contact-form" action="https://formsubmit.co/el/confirm/joris.salmon53290@gmail.com" method="POST">
+                        <!-- Configurer formsubmit.co - options cachées -->
+                        <input type="hidden" name="_subject" value="Nouveau message depuis votre portfolio">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_next" value="www.jorissalmon.com">
+                        
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="Votre Nom" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="Votre Email" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Sujet" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <textarea class="form-control" name="message" id="message" rows="5" placeholder="Message" required></textarea>
+                        </div>
+                        
+                        <!-- Bouton d'envoi et indicateur de chargement -->
+                        <div class="d-grid d-md-flex">
+                            <button type="submit" class="btn btn-primary" id="submitButton">
+                                <span>Envoyer Message</span>
+                                <span class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <!-- Footer End -->
-        
-        
-        <!-- Back to top button -->
-        <a href="#" class="btn back-to-top"><i class="fa fa-chevron-up"></i></a>
-        
-        
-        <!-- Pre Loader -->
-        <div id="loader" class="show">
-            <div class="loader"></div>
+        <!-- Notification de succès/erreur -->
+        <div id="contactMessage" class="alert d-none mb-4"></div>
+    </section>
+    <!-- Contact Section End -->
+    
+    <!-- Footer Start -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="footer-content">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-info">
+                            <h3>Joris Salmon</h3>
+                            <p>Consultant Digital</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-links">
+                            <h4>Liens rapides</h4>
+                            <ul>
+                                <li><a href="#home">Accueil</a></li>
+                                <li><a href="#about">À propos</a></li>
+                                <li><a href="#portfolio">Portfolio</a></li>
+                                <li><a href="#blog">Blog</a></li>
+                                <li><a href="#contact">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-newsletter">
+                            <h4>Restez informé</h4>
+                            <p>Abonnez-vous pour recevoir mes derniers articles et projets</p>
+                            <form>
+                                <input type="email" placeholder="Votre email">
+                                <button type="submit">S'abonner</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-legal">
+                <div class="copyright">
+                    &copy; <span id="currentYear"></span> <strong>Joris Salmon</strong>. Tous droits réservés
+                </div>
+            </div>
         </div>
+    </footer>
+    <!-- Footer End -->
+    
+    <!-- Scroll to top button -->
+    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+    
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
-        
-        <!-- JavaScript Libraries -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-        <script src="lib/easing/easing.min.js"></script>
-        <script src="lib/wow/wow.min.js"></script>
-        <script src="lib/waypoints/waypoints.min.js"></script>
-        <script src="lib/typed/typed.min.js"></script>
-        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-        <script src="lib/isotope/isotope.pkgd.min.js"></script>
-        <script src="lib/lightbox/js/lightbox.min.js"></script>
-        
-        <!-- Contact Javascript File -->
-        <script src="mail/jqBootstrapValidation.min.js"></script>
-        <script src="mail/contact.js"></script>
-        <script src="js/chatbot.js"></script>
-        <script src="js/supabase.js"></script>
-        <script src="js/style.js"></script>
-
-        <!-- Template Javascript -->
-        <script src="js/main.js"></script>
-    </body>
-</html>
+    <!-- Main JavaScript File -->
+    <script src="js/main.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/blog.js"></script>
+    <script src="js/chatbot.js"></script>
+    <script src="js/contentful.js"></script>
+    <script src="js/portfolio.js"></script>
+    <script src="js/config.js"></script>

@@ -60,9 +60,10 @@ async function loadProjects() {
     }
 }
 
+// Modify loadArticles to use dynamic carousel
 async function loadArticles() {
     try {
-        const response = await fetch("https://porte-folio-kappa.vercel.app/api/articles",{
+        const response = await fetch("https://porte-folio-kappa.vercel.app/api/articles", {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -70,58 +71,65 @@ async function loadArticles() {
         });
 
         if (!response.ok) {
-            throw new Error(`Erreur HTTP : ${response.status}`);
+            throw new Error(`HTTP Error: ${response.status}`);
         }
 
         const articles = await response.json();
         const articlesContainer = document.getElementById("blogjorisContainer");
 
         if (!articlesContainer) {
-            console.error("Conteneur d'articles introuvable dans le DOM");
+            console.error("Articles container not found in the DOM");
             return;
         }
 
-        articles.forEach((article) => {
+        // Clear existing articles
+        articlesContainer.innerHTML = '';
+
+        // Create blog items
+        const blogItems = articles.map((article) => {
             const articleDiv = document.createElement("div");
-
-            articleDiv.classList.add("blog-item", `${article.category}`, "fadeInUp");
-            // articleDiv.setAttribute("data-wow-delay", "0.1s");
-
+            articleDiv.classList.add("blog-item", article.category, "fadeInUp");
             articleDiv.innerHTML = `
                 <div class="blog-img">
-                    <img src="${article.image_url || 'img/default_image.jpg'}" alt="Blog">
+                    <img src="${article.image_url}" alt="${article.title}">
                 </div>
-                <div class="blog-text">
-                    <h2>${article.title}</h2>
-                    <div class="blog-meta">
-                        <p><i class="far fa-user"></i>${article.author}</p>
-                    </div>
-                    <a class="btn" href="articles/${article.id}.html">Lire la suite <i class="fa fa-angle-right"></i></a>
+                <div class="blog-content">
+                    <h3>${article.title}</h3>
+                    <p class="author">${article.author}</p>
+                    <a href="${article.link}" class="read-more">Read More</a>
                 </div>
             `;
-
-            articlesContainer.appendChild(articleDiv);
+            return articleDiv;
         });
 
-        var blogIsotope = $('.blog .row').isotope({
+        // Initialize carousel
+        const carouselInstance = initializeCarousel(blogItems, articlesContainer);
+
+        // Initialize Isotope for filtering
+        const blogIsotope = $('.blog .row').isotope({
             itemSelector: '.blog-item',
             layoutMode: 'fitRows'
         });
 
-        // Gestion des clics sur les filtres du blog
+        // Filter click handler
         $('#blog-filter li').on('click', function () {
             $("#blog-filter li").removeClass('filter-active');
             $(this).addClass('filter-active');
+
+            const filterValue = $(this).data('filter');
             
-            // Filtrer les éléments
-            blogIsotope.isotope({ filter: $(this).data('filter') });
+            // Filter Isotope
+            blogIsotope.isotope({ filter: filterValue });
+
+            // Filter carousel
+            carouselInstance.applyFilter(filterValue);
         });
-        initializeCarousel();
-        // Ajuster la hauteur du conteneur après l'ajout des articles
+
+        // Adjust container height
         adjustContainerHeight('blogjorisContainer', 'blog-item');
 
     } catch (error) {
-        console.error("Erreur lors de la récupération des articles:", error);
+        console.error("Error fetching articles:", error);
     }
 }
 

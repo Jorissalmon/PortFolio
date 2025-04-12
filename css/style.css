@@ -2119,4 +2119,67 @@
     filter: blur(5px);
   }
 
+/*Newsletter*/
+  .newsletter-form {
+    display: flex;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .newsletter-form input[type="email"] {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    font-size: 14px;
+  }
+  
+  .newsletter-form button {
+    padding: 10px 20px;
+    background-color: #ef233c;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+  }
+  
+  .newsletter-form button:hover {
+    background-color: #d90429;
+  }
+  
+  .newsletter-form button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .form-message {
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  .form-message.success {
+    color: #28a745;
+  }
+  
+  .form-message.error {
+    color: #dc3545;
+  }
+  
+  .spinner {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
   

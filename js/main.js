@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeYearUpdate();
     initializeParticles();
     initializeContactForm();
+    initializeNewsletterForm();
     setupContactForm();
 
   });
@@ -674,5 +675,151 @@ function showFormMessage(message, type) {
         messageContainer.removeChild(messageElement);
       }, 300);
     });
+  }
+}
+
+/**
+ * Initialise le formulaire d'abonnement à la newsletter avec FormSubmit
+ */
+function initializeNewsletterForm() {
+  const newsletterForm = document.getElementById('newsletterForm');
+  
+  if (!newsletterForm) {
+    console.log("Formulaire de newsletter non trouvé");
+    return;
+  }
+  
+  // ⚠️ IMPORTANT: Utilisez la même adresse email que votre formulaire de contact
+  newsletterForm.setAttribute('action', 'https://formsubmit.co/joris.salmon53290@gmail.com');
+  newsletterForm.setAttribute('method', 'POST');
+  
+  // Ajouter des champs cachés pour FormSubmit
+  const hiddenFields = [
+    { name: '_captcha', value: 'false' },
+    { name: '_next', value: window.location.href + '?newsletter=true' },
+    { name: '_subject', value: 'Nouvel abonnement à la newsletter' }
+  ];
+  
+  hiddenFields.forEach(field => {
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = field.name;
+    input.value = field.value;
+    newsletterForm.appendChild(input);
+  });
+  
+  // Validation avant soumission
+  newsletterForm.addEventListener('submit', function(e) {
+    e.preventDefault(); // Empêcher la soumission pour valider d'abord
+    
+    // Récupérer l'email
+    const emailInput = newsletterForm.querySelector('input[type="email"]');
+    const email = emailInput.value.trim();
+    
+    // Validation de l'email
+    if (!email) {
+      showNewsletterMessage('Veuillez entrer votre adresse email', 'error');
+      emailInput.classList.add('is-invalid');
+      return;
+    } else if (!isValidEmail(email)) {
+      showNewsletterMessage('Veuillez entrer une adresse email valide', 'error');
+      emailInput.classList.add('is-invalid');
+      return;
+    } else {
+      emailInput.classList.remove('is-invalid');
+    }
+    
+    // Désactiver le bouton d'envoi pendant la soumission
+    const submitButton = newsletterForm.querySelector('button[type="submit"]');
+    const originalButtonText = submitButton.textContent;
+    submitButton.disabled = true;
+    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi...';
+    
+    // Ajouter un champ caché pour identifier le type de formulaire
+    const formTypeInput = document.createElement('input');
+    formTypeInput.type = 'hidden';
+    formTypeInput.name = 'form_type';
+    formTypeInput.value = 'newsletter';
+    newsletterForm.appendChild(formTypeInput);
+    
+    // Soumettre le formulaire
+    newsletterForm.submit();
+  });
+  
+  // Réinitialiser le message d'erreur quand l'utilisateur commence à taper
+  const emailInput = newsletterForm.querySelector('input[type="email"]');
+  if (emailInput) {
+    emailInput.addEventListener('input', function() {
+      this.classList.remove('is-invalid');
+      // Masquer le message d'erreur s'il existe
+      const messageContainer = document.getElementById('newsletterMessageContainer');
+      if (messageContainer) {
+        messageContainer.innerHTML = '';
+      }
+    });
+  }
+  
+  // Vérifier si l'URL contient newsletter=true (redirection après soumission)
+  if (window.location.search.includes('newsletter=true')) {
+    showNewsletterMessage('Merci pour votre abonnement! Vous recevrez nos prochaines actualités.', 'success');
+    
+    // Nettoyer l'URL
+    if (history.pushState) {
+      const newurl = window.location.protocol + '//' + window.location.host + window.location.pathname;
+      window.history.pushState({ path: newurl }, '', newurl);
+    }
+  }
+}
+
+/**
+ * Affiche un message pour le formulaire de newsletter
+ * @param {string} message - Message à afficher
+ * @param {string} type - Type de message ('success' ou 'error')
+ */
+function showNewsletterMessage(message, type) {
+  if (!message) return;
+  
+  // Récupérer ou créer le conteneur de message
+  let messageContainer = document.getElementById('newsletterMessageContainer');
+  
+  if (!messageContainer) {
+    messageContainer = document.createElement('div');
+    messageContainer.id = 'newsletterMessageContainer';
+    
+    // Insérer après le formulaire
+    const newsletterForm = document.getElementById('newsletterForm');
+    if (newsletterForm && newsletterForm.parentNode) {
+      newsletterForm.parentNode.insertBefore(messageContainer, newsletterForm.nextSibling);
+    } else {
+      document.body.appendChild(messageContainer);
+      console.warn('Le formulaire parent n\'a pas été trouvé. Le message a été ajouté au body.');
+    }
+  }
+  
+  // Vider les messages précédents
+  messageContainer.innerHTML = '';
+  
+  // Créer le nouveau message
+  const messageElement = document.createElement('div');
+  messageElement.className = 'newsletter-message mt-2';
+  messageElement.classList.add(type === 'success' ? 'text-success' : 'text-danger');
+  messageElement.innerHTML = `
+    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'} me-1"></i>
+    ${message}
+  `;
+  
+  // Ajouter le message au conteneur
+  messageContainer.appendChild(messageElement);
+  
+  // Faire disparaître le message après un délai
+  if (type === 'success') {
+    setTimeout(() => {
+      messageElement.style.opacity = '0';
+      messageElement.style.transition = 'opacity 0.5s ease';
+      
+      setTimeout(() => {
+        messageContainer.innerHTML = '';
+      }, 500);
+    }, 4000);
   }
 }

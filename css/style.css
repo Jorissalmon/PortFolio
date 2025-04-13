@@ -2120,11 +2120,6 @@
   }
 
 /*Newsletter*/
-  .newsletter-form {
-    display: flex;
-    max-width: 500px;
-    margin: 0 auto;
-  }
   
   .newsletter-form input[type="email"] {
     flex: 1;
@@ -2134,16 +2129,6 @@
     font-size: 14px;
   }
   
-  .newsletter-form button {
-    padding: 10px 20px;
-    background-color: #ef233c;
-    color: white;
-    border: none;
-    border-radius: 0 4px 4px 0;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.3s;
-  }
   
   .newsletter-form button:hover {
     background-color: #d90429;

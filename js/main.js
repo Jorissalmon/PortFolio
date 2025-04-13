@@ -729,11 +729,8 @@ function initializeNewsletterForm() {
       emailInput.classList.remove('is-invalid');
     }
     
-    // Désactiver le bouton d'envoi pendant la soumission
-    const submitButton = newsletterForm.querySelector('button[type="submit"]');
-    const originalButtonText = submitButton.textContent;
-    submitButton.disabled = true;
-    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi...';
+    // Stocker l'email dans sessionStorage pour l'afficher après la redirection
+    sessionStorage.setItem('subscribedEmail', email);
     
     // Ajouter un champ caché pour identifier le type de formulaire
     const formTypeInput = document.createElement('input');
@@ -742,9 +739,14 @@ function initializeNewsletterForm() {
     formTypeInput.value = 'newsletter';
     newsletterForm.appendChild(formTypeInput);
     
-    // Soumettre le formulaire
-    newsletterForm.submit();
-  });
+    // Désactiver le bouton d'envoi pendant la soumission
+    const submitButton = newsletterForm.querySelector('button[type="submit"]');
+    submitButton.disabled = true;
+    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi...';
+  
+  // Soumettre le formulaire
+  newsletterForm.submit();
+});
   
   // Réinitialiser le message d'erreur quand l'utilisateur commence à taper
   const emailInput = newsletterForm.querySelector('input[type="email"]');
@@ -761,7 +763,9 @@ function initializeNewsletterForm() {
   
   // Vérifier si l'URL contient newsletter=true (redirection après soumission)
   if (window.location.search.includes('newsletter=true')) {
-    showNewsletterMessage('Merci pour votre abonnement! Vous recevrez nos prochaines actualités.', 'success');
+    // Récupérer l'email depuis sessionStorage si disponible
+    const subscribedEmail = sessionStorage.getItem('subscribedEmail') || '';
+    showSubscriptionPopup(subscribedEmail);
     
     // Nettoyer l'URL
     if (history.pushState) {
@@ -769,6 +773,144 @@ function initializeNewsletterForm() {
       window.history.pushState({ path: newurl }, '', newurl);
     }
   }
+}
+
+/**
+ * Affiche une popup de confirmation d'abonnement
+ * @param {string} email - Email de l'utilisateur
+ */
+function showSubscriptionPopup(email) {
+  // Stocker l'email dans sessionStorage pour le récupérer après la redirection
+  if (email) {
+    sessionStorage.setItem('subscribedEmail', email);
+  }
+  
+  // Créer l'élément de popup
+  const popup = document.createElement('div');
+  popup.className = 'subscription-popup';
+  popup.innerHTML = `
+    <div class="subscription-popup-content">
+      <div class="popup-icon">
+        <i class="fas fa-envelope-open-text"></i>
+      </div>
+      <h3>Merci pour votre abonnement!</h3>
+      <p>Votre adresse <strong>${email}</strong> a bien été ajoutée à notre liste de diffusion.</p>
+      <p>Vous recevrez nos prochaines actualités et nouveautés directement dans votre boîte de réception.</p>
+      <button class="popup-close-btn">Fermer</button>
+    </div>
+  `;
+  
+  // Ajouter des styles CSS pour la popup
+  const style = document.createElement('style');
+  style.textContent = `
+    .subscription-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .subscription-popup-content {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+      padding: 30px;
+      text-align: center;
+      max-width: 90%;
+      width: 450px;
+      transform: translateY(-20px);
+      transition: transform 0.3s ease;
+    }
+    .popup-icon {
+      margin-bottom: 20px;
+    }
+    .popup-icon i {
+      font-size: 4rem;
+      color: #EF233C;
+    }
+    .subscription-popup h3 {
+      margin-bottom: 15px;
+      color: #2B2D42;
+    }
+    .subscription-popup p {
+      margin-bottom: 10px;
+      color: #555;
+    }
+    .popup-close-btn {
+      margin-top: 20px;
+      padding: 10px 25px;
+      background-color: #EF233C;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+    .popup-close-btn:hover {
+      background-color: #D90429;
+    }
+    .subscription-popup.show {
+      opacity: 1;
+    }
+    .subscription-popup.show .subscription-popup-content {
+      transform: translateY(0);
+    }
+    @media (max-width: 576px) {
+      .subscription-popup-content {
+        padding: 20px;
+        width: 320px;
+      }
+      .popup-icon i {
+        font-size: 3rem;
+      }
+    }
+  `;
+  
+  document.head.appendChild(style);
+  document.body.appendChild(popup);
+  
+  // Animation d'entrée
+  setTimeout(() => {
+    popup.classList.add('show');
+  }, 10);
+  
+  // Gérer la fermeture
+  const closeBtn = popup.querySelector('.popup-close-btn');
+  closeBtn.addEventListener('click', () => {
+    popup.classList.remove('show');
+    setTimeout(() => {
+      popup.remove();
+    }, 300);
+  });
+  
+  // Fermer en cliquant à l'extérieur
+  popup.addEventListener('click', (e) => {
+    if (e.target === popup) {
+      popup.classList.remove('show');
+      setTimeout(() => {
+        popup.remove();
+      }, 300);
+    }
+  });
+  
+  // Fermer avec la touche Echap
+  document.addEventListener('keydown', function closeOnEsc(e) {
+    if (e.key === 'Escape' && document.body.contains(popup)) {
+      popup.classList.remove('show');
+      setTimeout(() => {
+        popup.remove();
+      }, 300);
+      document.removeEventListener('keydown', closeOnEsc);
+    }
+  });
 }
 
 /**

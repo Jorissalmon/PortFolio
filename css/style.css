@@ -2121,21 +2121,11 @@
 
 /*Newsletter*/
   
-  .newsletter-form input[type="email"] {
-    flex: 1;
-    padding: 10px 15px;
-    border: 1px solid #ddd;
-    border-radius: 4px 0 0 4px;
-    font-size: 14px;
-  }
-  
-  
   .newsletter-form button:hover {
     background-color: #d90429;
   }
   
   .newsletter-form button:disabled {
-    background-color: #ccc;
     cursor: not-allowed;
   }
   

@@ -126,10 +126,11 @@
                         <div class="footer-newsletter">
                             <h4>Restez informé</h4>
                             <p>Abonnez-vous pour recevoir mes derniers articles et projets</p>
-                            <form>
-                                <input type="email" placeholder="Votre email">
+                            <form id="newsletterForm" class="newsletter-form">
+                                <input type="email" name="email" placeholder="Votre email" required>
                                 <button type="submit">S'abonner</button>
                             </form>
+                            <div id="newsletterMessageContainer"></div>
                         </div>
                     </div>
                 </div>

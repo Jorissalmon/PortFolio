@@ -794,8 +794,8 @@ function showSubscriptionPopup(email) {
         <i class="fas fa-envelope-open-text"></i>
       </div>
       <h3>Merci pour votre abonnement!</h3>
-      <p>Votre adresse <strong>${email}</strong> a bien été ajoutée à notre liste de diffusion.</p>
-      <p>Vous recevrez nos prochaines actualités et nouveautés directement dans votre boîte de réception.</p>
+      <p>Votre adresse <strong>${email}</strong> a bien été ajoutée à la liste de diffusion.</p>
+      <p>Vous recevrez les prochaines actualités et nouveautés directement dans votre boîte de réception.</p>
       <button class="popup-close-btn">Fermer</button>
     </div>
   `;

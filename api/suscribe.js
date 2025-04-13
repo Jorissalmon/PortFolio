@@ -87,7 +87,7 @@ async function sendConfirmationEmail(email) {
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2>Merci pour votre abonnement!</h2>
-        <p>Vous recevrez désormais nos dernières actualités et mises à jour.</p>
+        <p>Vous recevrez désormais les dernières actualités.</p>
         <p>Si vous n'avez pas demandé cet abonnement, vous pouvez l'ignorer ou <a href="#">vous désabonner</a>.</p>
       </div>
     `

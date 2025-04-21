@@ -88,15 +88,9 @@ function displayProjectInformation(project) {
     document.getElementById('projectDate').textContent = project.date || '--';
     document.getElementById('projectTechnologies').textContent = project.technologies || '--';
     document.getElementById('projectClient').textContent = project.client || '--';
-    document.getElementById('projectType').textContent = project.type || '--';
     
     // Résumé du projet
-    document.getElementById('projectSummary').innerHTML = `
-        <p>${project.description}</p>
-    `;
-    
-    // Contenu détaillé
-    document.getElementById('projectContent').innerHTML = project.content || '<p>Aucun contenu détaillé disponible pour ce projet.</p>';
+    document.getElementById('projectSummary').innerHTML = project.content;
     
     // Gérer le lien externe
     const externalLink = document.getElementById('projectExternalLink');

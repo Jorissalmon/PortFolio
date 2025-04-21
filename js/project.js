@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
 async function loadProjectDetails(projectId) {
     try {
         // Afficher un indicateur de chargement
-        document.getElementById('projectContent').innerHTML = `
+        document.getElementById('projectSummary').innerHTML = `
             <div class="text-center py-5">
                 <div class="spinner-border text-primary" role="status">
                     <span class="visually-hidden">Chargement...</span>

@@ -388,7 +388,7 @@ function showError(message) {
     document.querySelector('.related-projects-section').style.display = 'none';
     
     // Afficher le message d'erreur dans le contenu
-    document.getElementById('projectContent').innerHTML = `
+    document.getElementById('projectSummary').innerHTML = `
         <div class="alert alert-danger">
             <i class="fas fa-exclamation-circle me-2"></i> ${message}
         </div>

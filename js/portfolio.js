@@ -84,7 +84,7 @@ function initializeCarousel(projects) {
     projects: projects,
     filteredProjects: projects,
     currentPage: 0,
-    itemsPerPage: 3,
+    itemsPerPage: 4,
     container: document.getElementById('projectsContainer'),
   };
   

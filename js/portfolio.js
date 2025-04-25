@@ -212,8 +212,8 @@ function initFilterButtons(carouselConfig) {
  * @param {Object} carouselConfig - Configuration du carrousel
  */
 function initCarouselControls(carouselConfig) {
-  const prevButton = document.querySelector('.carousel-prev');
-  const nextButton = document.querySelector('.carousel-next');
+  const prevButton = document.querySelector('.portfolio-prev'); // Changé de carousel-prev
+  const nextButton = document.querySelector('.portfolio-next'); // Changé de carousel-next
   
   if (prevButton && nextButton) {
     // Supprimer les anciens écouteurs d'événements s'il y en a
@@ -300,8 +300,8 @@ function renderProjectsPage(carouselConfig) {
  * @param {Number} totalPages - Nombre total de pages
  */
 function updateControls(carouselConfig, totalPages) {
-  const prevButton = document.querySelector('.carousel-prev');
-  const nextButton = document.querySelector('.carousel-next');
+  const prevButton = document.querySelector('.portfolio-prev'); // Changé de carousel-prev
+  const nextButton = document.querySelector('.portfolio-next'); // Changé de carousel-next
   
   if (prevButton && nextButton) {
     // Activer/désactiver les boutons suivant/précédent

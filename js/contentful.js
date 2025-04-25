@@ -480,7 +480,7 @@ callContentfulApi: async function(endpoint, id = null, queryParams = {}) {
         
         // Mapper la catégorie Contentful vers la classe CSS
         const categoryMap = {
-          'bi': 'filter-bi',
+          'data-analyse': 'filter-bi',
           'data-science': 'filter-data',
           'recherche': 'filter-recherche'
         };

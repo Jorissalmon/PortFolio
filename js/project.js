@@ -76,7 +76,7 @@ function displayProjectInformation(project) {
     
     // Catégorie
     const categoryMap = {
-        'filter-bi': 'Business Intelligence',
+        'filter-bi': 'Data-Analyse & BI',
         'filter-data': 'Data Science',
         'filter-recherche': 'Recherche'
     };
@@ -332,7 +332,7 @@ function displayRelatedProjects(projects) {
     
     // Mapper les catégories
     const categoryMap = {
-        'filter-bi': 'Business Intelligence',
+        'filter-bi': 'Data-Analyse & BI',
         'filter-data': 'Data Science',
         'filter-recherche': 'Recherche',
         'filter-1': 'Business Intelligence',

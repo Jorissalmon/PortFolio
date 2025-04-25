@@ -82,9 +82,22 @@ function displayProjectInformation(project) {
     // Titre et catégorie
     document.getElementById('projectTitle').textContent = project.title;
     
-    // Définir l'image de fond pour la section hero
+    // Définir l'image de fond pour la section hero avec vérification
     const heroSection = document.getElementById('projectHeroSection');
-    heroSection.style.backgroundImage = `url('${project.image_url}')`;
+    
+    // Vérifier et corriger l'URL de l'image
+    let imageUrl = project.image_url || 'img/placeholder1.jpg';
+    
+    // Ajouter 'https:' si l'URL commence par '//'
+    if (imageUrl.startsWith('//')) {
+        imageUrl = 'https:' + imageUrl;
+    }
+    
+    // Log pour le débogage
+    console.log('URL d\'image utilisée:', imageUrl);
+    
+    // Appliquer l'image
+    heroSection.style.backgroundImage = `url('${imageUrl}')`;
     
     // Catégorie
     const categoryMap = {

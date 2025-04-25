@@ -39,6 +39,18 @@ async function loadProjectDetails(projectId) {
             </div>
         `;
         
+        // Vérifier si le service est disponible
+        if (!window.dataService || typeof window.dataService.getProjectById !== 'function') {
+            // Essayer d'utiliser directement contentfulService comme alternative
+            if (window.contentfulService && typeof window.contentfulService.getProjectById === 'function') {
+                window.dataService = window.dataService || {};
+                window.dataService.getProjectById = window.contentfulService.getProjectById.bind(window.contentfulService);
+                console.log("Service de données recréé à partir de contentfulService");
+            } else {
+                throw new Error("Le service de données n'est pas disponible");
+            }
+        }
+        
         // Récupérer les données du projet
         const project = await window.dataService.getProjectById(projectId);
         

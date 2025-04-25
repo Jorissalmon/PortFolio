@@ -172,8 +172,56 @@
 
     <!-- Footer Start -->
     <footer class="footer-section">
-        <!-- Votre footer existant -->
+        <div class="container">
+            <div class="footer-content">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-info">
+                            <h3>Joris Salmon</h3>
+                            <p>Consultant Digital</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-links">
+                            <h4>Liens rapides</h4>
+                            <ul>
+                                <li><a href="#home">Accueil</a></li>
+                                <li><a href="#about">À propos</a></li>
+                                <li><a href="#portfolio">Portfolio</a></li>
+                                <li><a href="#blog">Blog</a></li>
+                                <li><a href="#contact">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-newsletter">
+                            <h4>Restez informé</h4>
+                            <p>Abonnez-vous pour recevoir mes derniers articles et projets</p>
+                            <form id="newsletterForm" class="newsletter-form">
+                                <input type="email" name="email" placeholder="Votre email" required>
+                                <button type="submit">S'abonner</button>
+                            </form>
+                            <div id="newsletterMessageContainer"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-legal">
+                <div class="copyright">
+                    &copy; <span id="currentYear"></span> <strong>Joris Salmon</strong>. Tous droits réservés
+                </div>
+            </div>
+        </div>
     </footer>
+    <!-- Footer End -->
+    
+    <!-- Scroll to top button -->
+    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+    
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
     
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -185,5 +233,7 @@
     <script src="js/config.js"></script>
     <script src="js/contentful.js"></script>
     <script src="js/project.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/portfolio.js"></script>
 </body>
 </html>

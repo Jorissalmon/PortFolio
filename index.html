@@ -239,16 +239,30 @@
                 </ul>
             </div>
             
-            <div class="row portfolio-container" id="projectsContainer">
-                <!-- Les projets seront chargés dynamiquement ici -->
-                <div class="col-lg-4 col-md-6 portfolio-item filter-1" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="portfolio-wrap">
-                        <img src="img/portfolio/placeholder1.jpg" class="img-fluid" alt="Projet 1">
-                        <div class="portfolio-info">
-                            <h4>Chargement...</h4>
-                            <p>Veuillez patienter</p>
-                            <div class="portfolio-links">
-                                <a href="#" class="details-link"><i class="fas fa-link"></i></a>
+            <!-- Ajout des contrôles de navigation du carrousel -->
+            <div class="portfolio-carousel-controls" data-aos="fade-up" data-aos-delay="150">
+                <button class="portfolio-prev" aria-label="Projets précédents">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="portfolio-indicators"></div>
+                <button class="portfolio-next" aria-label="Projets suivants">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            
+            <!-- Conteneur du carrousel -->
+            <div class="portfolio-carousel" data-aos="fade-up" data-aos-delay="200">
+                <div class="row portfolio-container" id="projectsContainer">
+                    <!-- Les projets seront chargés dynamiquement ici -->
+                    <div class="col-lg-3 col-md-6 portfolio-item filter-1">
+                        <div class="portfolio-wrap">
+                            <img src="img/portfolio/placeholder1.jpg" class="img-fluid" alt="Projet 1">
+                            <div class="portfolio-info">
+                                <h4>Chargement...</h4>
+                                <p>Veuillez patienter</p>
+                                <div class="portfolio-links">
+                                    <a href="#" class="details-link"><i class="fas fa-link"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -911,6 +911,80 @@
 /*--------------------------------------------------------------
 # Portfolio Section
 --------------------------------------------------------------*/
+/* Styles pour le carrousel de portfolio */
+.portfolio-carousel-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.portfolio-prev, .portfolio-next {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: var(--primary-color);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.portfolio-prev:hover, .portfolio-next:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.portfolio-indicators {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 15px;
+}
+
+.portfolio-indicators .indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ddd;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.portfolio-indicators .indicator.active {
+  background-color: var(--primary-color);
+  transform: scale(1.2);
+}
+
+.portfolio-container {
+  transition: all 0.5s ease;
+  min-height: 400px;
+}
+
+.portfolio-container .portfolio-item {
+  margin-bottom: 30px;
+}
+
+/* Amélioration responsive */
+@media (max-width: 992px) {
+  .portfolio-container .col-lg-3 {
+      width: 50%;
+  }
+}
+
+@media (max-width: 576px) {
+  .portfolio-container .col-lg-3 {
+      width: 100%;
+  }
+}
+
 .portfolio-filter {
   margin-bottom: 40px;
 }

@@ -27,6 +27,7 @@
 .project-header-content {
     position: relative;
     z-index: 2;
+    color: white;
 }
 
 .project-header-content h1 {

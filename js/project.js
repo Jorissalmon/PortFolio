@@ -2,7 +2,7 @@
  * project.js - Script pour la page de détail du projet
  */
 
-document.addEventListener('dataServiceReady', function() {
+document.addEventListener('DOMContentLoaded', function() {
     // Récupérer l'ID du projet depuis l'URL
     const urlParams = new URLSearchParams(window.location.search);
     const projectId = urlParams.get('id');

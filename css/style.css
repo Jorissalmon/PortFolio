@@ -1140,6 +1140,39 @@
     height: 160px;
   }
 }
+
+/* Ajustements pour les contrôles du carrousel sur mobile */
+@media (max-width: 768px) {
+  .carousel-nav, .portfolio-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 15px 0 25px;
+    position: relative;
+    z-index: 10;
+  }
+  
+  .carousel-prev, .carousel-next, 
+  .portfolio-prev, .portfolio-next {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    background-color: var(--primary-color);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(239, 35, 60, 0.3);
+  }
+  
+  .portfolio-counter, .carousel-counter {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 15px;
+    padding: 5px 10px;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}
   
  /* Styles améliorés pour le carrousel de blog */
 

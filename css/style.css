@@ -214,18 +214,51 @@
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Style pour le bouton d'envoi */
-.chat-popup-footer button {
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Modifiez le style de la section footer du chat */
+.chat-popup-footer {
+  display: flex;
+  padding: 12px;
+  border-top: 1px solid #eee;
+  background-color: #f9f9f9;
+  position: relative;
+  align-items: center; /* Ajout pour centrer verticalement */
+  gap: 10px; /* Espacement uniforme entre les éléments */
 }
 
+/* Ajustez le style de l'input */
+.chat-popup-footer input {
+  flex: 1;
+  height: 40px; /* Hauteur fixe pour correspondre au bouton */
+  padding: 8px 15px; /* Padding ajusté */
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  outline: none;
+  transition: border-color 0.3s;
+  font-size: 14px;
+  box-sizing: border-box; /* Assure que padding est inclus dans height */
+}
+
+/* Ajustez le style du bouton d'envoi */
+.chat-popup-footer button {
+  min-width: 40px;
+  height: 40px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0; /* Empêche le bouton de rétrécir */
+}
+
+/* Assurez-vous que l'icône est centrée dans le bouton */
 .chat-popup-footer button i {
-    font-size: 16px;
+  font-size: 16px;
+  display: block;
 }
 
 /* Animation pour l'ouverture/fermeture du chat */

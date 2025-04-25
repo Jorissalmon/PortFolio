@@ -2,7 +2,7 @@
  * project.js - Script pour la page de détail du projet
  */
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('dataServiceReady', function() {
     // Récupérer l'ID du projet depuis l'URL
     const urlParams = new URLSearchParams(window.location.search);
     const projectId = urlParams.get('id');
@@ -41,14 +41,7 @@ async function loadProjectDetails(projectId) {
         
         // Vérifier si le service est disponible
         if (!window.dataService || typeof window.dataService.getProjectById !== 'function') {
-            // Essayer d'utiliser directement contentfulService comme alternative
-            if (window.contentfulService && typeof window.contentfulService.getProjectById === 'function') {
-                window.dataService = window.dataService || {};
-                window.dataService.getProjectById = window.contentfulService.getProjectById.bind(window.contentfulService);
-                console.log("Service de données recréé à partir de contentfulService");
-            } else {
-                throw new Error("Le service de données n'est pas disponible");
-            }
+            throw new Error("Le service de données n'est pas disponible");
         }
         
         // Récupérer les données du projet
@@ -98,7 +91,7 @@ function displayProjectInformation(project) {
     
     // Appliquer l'image
     heroSection.style.backgroundImage = `url('${imageUrl}')`;
-    
+
     // Catégorie
     const categoryMap = {
         'filter-bi': 'Data-Analyse & BI',

@@ -706,3 +706,6 @@ window.dataService = {
     return Promise.resolve({ exists: true, articleId: articleId });
   }
 };
+
+document.dispatchEvent(new Event('dataServiceReady'));
+

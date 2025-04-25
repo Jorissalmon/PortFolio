@@ -1,5 +1,25 @@
 /* Styles pour la page de détail de projet */
+.project-hero-section .project-header-content {
+    position: relative;
+    z-index: 2;
+    color: white !important; /* Ajout de !important pour forcer la couleur */
+}
 
+.project-hero-section .project-header-content h1 {
+    font-size: 3.2rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
+    color: white !important; /* Forcer la couleur en blanc */
+}
+
+.project-hero-section .category-badge {
+    color: white !important; /* S'assurer que le badge de catégorie est aussi blanc */
+    background-color: rgba(255, 255, 255, 0.2); /* Fond semi-transparent */
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-weight: 500;
+}
 /* Section Hero avec effet de parallaxe */
 .project-hero-section {
     position: relative;

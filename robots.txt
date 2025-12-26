@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# Disallow private directories
+Disallow: /api/
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /my-portfolio-api/
+Disallow: /*.backup$
+
+# Allow important assets
+Allow: /css/
+Allow: /js/
+Allow: /img/
+Allow: /meta/
+
+# Sitemap
+Sitemap: https://www.jorissalmon.com/sitemap.xml
+
+# Crawl-delay (optional, en secondes)
+Crawl-delay: 1

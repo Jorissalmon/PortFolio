@@ -1,22 +1,61 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="utf-8">
-    <title>Joris Salmon | Data Analyst & Data Scientist</title>
-    <!-- Modification importante pour le viewport -->
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
-    <meta content="portfolio, Joris Salmon, data Analyst, data science, business intelligence" name="keywords">
-    <meta content="Portfolio de Joris Salmon : expertise en data et analyse. Projets innovants en science des données" name="description">
-    
-    <!-- Ajout de theme-color pour améliorer l'apparence sur mobile -->
+    <title>Joris Salmon | Data Analyst & Consultant BI - Expert en Data Analytics</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Joris Salmon - Data Analyst & Consultant BI. Expert en Data Analytics, Business Intelligence et IA. Portfolio de projets innovants en data science, Power BI et analyse de données.">
+    <meta name="keywords"
+        content="Data Analyst, Data Scientist, Analytics Engineer, Business Intelligence, BI Consultant, Joris Salmon, Portfolio Data, Machine Learning, Power BI, Tableau, Python, SQL">
+    <meta name="author" content="Joris Salmon">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.jorissalmon.com/">
+
+    <!-- Viewport -->
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" name="viewport">
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.jorissalmon.com/">
+    <meta property="og:site_name" content="Joris Salmon Portfolio">
+    <meta property="og:title" content="Joris Salmon | Data Analyst & Consultant BI">
+    <meta property="og:description"
+        content="Expert en Data Analytics et Business Intelligence. Découvrez mes projets et mon expertise en data science, BI et intelligence artificielle.">
+    <meta property="og:image" content="https://www.jorissalmon.com/img/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="fr_FR">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://www.jorissalmon.com/">
+    <meta name="twitter:title" content="Joris Salmon | Data Analyst & Consultant BI">
+    <meta name="twitter:description"
+        content="Expert en Data Analytics et Business Intelligence. Portfolio de projets innovants en data science.">
+    <meta name="twitter:image" content="https://www.jorissalmon.com/img/og-image.jpg">
+    <meta name="twitter:creator" content="@JorisSalmon">
+
+    <!-- Theme Color -->
     <meta name="theme-color" content="#EF233C">
-    
+    <meta name="msapplication-TileColor" content="#EF233C">
+
+    <!-- Language -->
+    <meta http-equiv="content-language" content="fr">
+
     <!-- Favicon -->
     <link rel="icon" href="meta/favicon.ico" type="image/x-icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <!-- CSS Libraries -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -25,9 +64,136 @@
 
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/glass-theme.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
 
     <!-- Contentful Rich Text Renderer -->
-    <script src="https://cdn.jsdelivr.net/npm/@contentful/rich-text-html-renderer@16.0.3/dist/rich-text-html-renderer.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/@contentful/rich-text-html-renderer@16.0.3/dist/rich-text-html-renderer.min.js"></script>
+
+    <!-- JSON-LD Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://www.jorissalmon.com/#person",
+          "name": "Joris Salmon",
+          "givenName": "Joris",
+          "familyName": "Salmon",
+          "jobTitle": ["Data Analyst", "Data Scientist", "Analytics Engineer", "Consultant BI"],
+          "description": "Expert en Data Analytics et Business Intelligence, spécialisé en analyse de données, BI, et intelligence artificielle",
+          "url": "https://www.jorissalmon.com",
+          "email": "joris.salmon53290@gmail.com",
+          "telephone": "+33766840946",
+          "image": "https://www.jorissalmon.com/img/me.jpg",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Aix-en-Provence",
+            "addressRegion": "Provence-Alpes-Côte d'Azur",
+            "addressCountry": "FR"
+          },
+          "sameAs": [
+            "https://www.linkedin.com/in/joris-salmon/",
+            "https://github.com/Jorissalmon",
+            "https://www.jorissalmon.com"
+          ],
+          "alumniOf": [
+            {
+              "@type": "CollegeOrUniversity",
+              "name": "Université Panthéon Sorbonne",
+              "sameAs": "https://www.pantheonsorbonne.fr/"
+            },
+            {
+              "@type": "CollegeOrUniversity",
+              "name": "Université de Toulon",
+              "sameAs": "https://www.univ-tln.fr/"
+            },
+            {
+              "@type": "CollegeOrUniversity",
+              "name": "Université de Rennes 1"
+            },
+            {
+              "@type": "EducationalOrganization",
+              "name": "IUT de Vannes"
+            }
+          ],
+          "hasCredential": [
+            {
+              "@type": "EducationalOccupationalCredential",
+              "name": "DU Data Analytics",
+              "credentialCategory": "Diploma",
+              "educationalLevel": "Bac+5",
+              "recognizedBy": {
+                "@type": "CollegeOrUniversity",
+                "name": "Université Panthéon Sorbonne"
+              }
+            },
+            {
+              "@type": "EducationalOccupationalCredential",
+              "name": "Master Data Analytics & Stratégie de l'information",
+              "credentialCategory": "Master",
+              "educationalLevel": "Bac+5",
+              "recognizedBy": {
+                "@type": "CollegeOrUniversity",
+                "name": "Université de Toulon"
+              }
+            }
+          ],
+          "knowsAbout": [
+            "Data Analytics",
+            "Business Intelligence",
+            "Data Science",
+            "Machine Learning",
+            "Python",
+            "R",
+            "SQL",
+            "Power BI",
+            "Tableau",
+            "Cognos",
+            "ETL",
+            "Deep Learning",
+            "Intelligence Artificielle",
+            "Web Analytics",
+            "Cloud Computing",
+            "AWS",
+            "Azure"
+          ],
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Micropole",
+            "url": "https://www.micropole.com"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://www.jorissalmon.com/#website",
+          "url": "https://www.jorissalmon.com",
+          "name": "Joris Salmon Portfolio",
+          "description": "Portfolio professionnel de Joris Salmon - Data Analyst & Consultant BI",
+          "inLanguage": "fr-FR",
+          "author": {
+            "@id": "https://www.jorissalmon.com/#person"
+          },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.jorissalmon.com/?s={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "ProfilePage",
+          "mainEntity": {
+            "@id": "https://www.jorissalmon.com/#person"
+          },
+          "about": {
+            "@id": "https://www.jorissalmon.com/#person"
+          }
+        }
+      ]
+    }
+    </script>
 
 </head>
 
@@ -58,21 +224,21 @@
 
     <!-- Ajoutez ce script pour le bouton de fermeture -->
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const closeButton = document.getElementById('closeChat');
-        if (closeButton) {
-            closeButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                const popup = document.getElementById('chatPopup');
-                const bubble = document.getElementById('chatbotBubble');
-                if (popup) {
-                    popup.style.display = 'none';
-                    if (bubble) bubble.style.animation = '';
-                }
-            });
-        }
-    });
+        document.addEventListener('DOMContentLoaded', function () {
+            const closeButton = document.getElementById('closeChat');
+            if (closeButton) {
+                closeButton.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const popup = document.getElementById('chatPopup');
+                    const bubble = document.getElementById('chatbotBubble');
+                    if (popup) {
+                        popup.style.display = 'none';
+                        if (bubble) bubble.style.animation = '';
+                    }
+                });
+            }
+        });
     </script>
 
     <!-- Navbar Start -->
@@ -161,22 +327,34 @@
                     </div>
                     <div class="about-text">
                         <p>
-                            🎓 <strong>Consultant digital</strong>, je m’engage aux côtés des organisations pour les aider à exploiter tout le potentiel du numérique et de la donnée. Grâce à mes formations en transformation digitale à la <strong>Sorbonne Paris 1</strong> et à mon <strong>Master en Data-Analytics</strong>, j’ai acquis une vision stratégique des enjeux métiers et des leviers d’action concrets pour accompagner le changement.
+                            🎓 <strong>Consultant digital</strong>, je m’engage aux côtés des organisations pour les
+                            aider à exploiter tout le potentiel du numérique et de la donnée. Grâce à mes formations en
+                            transformation digitale à la <strong>Sorbonne Paris 1</strong> et à mon <strong>Master en
+                                Data-Analytics</strong>, j’ai acquis une vision stratégique des enjeux métiers et des
+                            leviers d’action concrets pour accompagner le changement.
                         </p>
                         <p>
-                            🚀 Grâce à des expériences enrichissantes chez <strong>Micropole</strong>, <strong>ArianeGroup</strong>, <strong>le Crédit Agricole</strong> et <strong>Météo-France</strong>, j’ai appris à accompagner les équipes dans leurs problématiques, qu’elles relèvent de la <strong>stratégie data</strong> ou du <strong>pilotage digital</strong>.
+                            🚀 Grâce à des expériences enrichissantes chez <strong>Micropole</strong>,
+                            <strong>ArianeGroup</strong>, <strong>le Crédit Agricole</strong> et
+                            <strong>Météo-France</strong>, j’ai appris à accompagner les équipes dans leurs
+                            problématiques, qu’elles relèvent de la <strong>stratégie data</strong> ou du
+                            <strong>pilotage digital</strong>.
                         </p>
                         <p>
-                            🤝 Ce qui me distingue ? Une capacité à écouter, à comprendre les besoins réels, et à construire des solutions sur mesure avec une approche à la fois rigoureuse, pédagogique et orientée impact. Mon objectif : créer de la valeur, simplifier la complexité, et faire du digital un vrai levier de performance.
+                            🤝 Ce qui me distingue ? Une capacité à écouter, à comprendre les besoins réels, et à
+                            construire des solutions sur mesure avec une approche à la fois rigoureuse, pédagogique et
+                            orientée impact. Mon objectif : créer de la valeur, simplifier la complexité, et faire du
+                            digital un vrai levier de performance.
                         </p>
-                    </div>                    
+                    </div>
                     <div class="skills-section">
                         <h3>Mes domaines</h3>
                         <div class="skill-item">
                             <div class="skill-header">
                                 <h6 class="skill-title">Data-Science</h6>
                                 <div class="skill-percentage">
-                                    <div class="count-box"><span class="count-text" data-speed="2000" data-stop="80">Intermédiare</span></div>
+                                    <div class="count-box"><span class="count-text" data-speed="2000"
+                                            data-stop="80">Intermédiare</span></div>
                                 </div>
                             </div>
                             <div class="skill-bar">
@@ -185,34 +363,41 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="skill-item">
                             <div class="skill-header">
                                 <h6 class="skill-title">Data Analyse</h6>
                                 <div class="skill-percentage">
-                                    <div class="count-box"><span class="count-text" data-speed="2000" data-stop="90">Avancé</span></div>
+                                    <div class="count-box"><span class="count-text" data-speed="2000"
+                                            data-stop="90">Avancé</span></div>
                                 </div>
                             </div>
                             <div class="skill-bar">
-                                <div class="bar-inner"><div class="bar progress-line" data-width="90"></div></div>
+                                <div class="bar-inner">
+                                    <div class="bar progress-line" data-width="90"></div>
+                                </div>
                             </div>
                         </div>
-                        
+
                         <div class="skill-item">
                             <div class="skill-header">
                                 <h6 class="skill-title">Web Analyse / Stratégie</h6>
                                 <div class="skill-percentage">
-                                    <div class="count-box"><span class="count-text" data-speed="2000" data-stop="90">Avancé</span></div>
+                                    <div class="count-box"><span class="count-text" data-speed="2000"
+                                            data-stop="90">Avancé</span></div>
                                 </div>
                             </div>
                             <div class="skill-bar">
-                                <div class="bar-inner"><div class="bar progress-line" data-width="90"></div></div>
+                                <div class="bar-inner">
+                                    <div class="bar progress-line" data-width="90"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="mt-4">
-                        <a href="https://drive.google.com/file/d/1l1Q60fNVPEX93Csqe5-r7imZV3Icr5Yu/view?usp=sharing" class="btn btn-primary" target="_blank">
+                        <a href="https://drive.google.com/file/d/1l1Q60fNVPEX93Csqe5-r7imZV3Icr5Yu/view?usp=sharing"
+                            class="btn btn-primary" target="_blank">
                             <i class="fas fa-download me-2"></i>Télécharger mon CV
                         </a>
                     </div>
@@ -221,15 +406,15 @@
         </div>
     </section>
     <!-- About Section End -->
-    
+
     <!-- Portfolio Section Start -->
-    <section id="portfolio" class="portfolio-section section-padding bg-light">
+    <section id="portfolio" class="portfolio-section section-padding">
         <div class="container">
             <div class="section-title text-center" data-aos="fade-up">
                 <h2>Mon Portfolio</h2>
                 <p>Découvrez mes projets récents</p>
             </div>
-            
+
             <div class="portfolio-filter text-center" data-aos="fade-up" data-aos-delay="100">
                 <ul>
                     <li class="filter-active" data-filter="*">Tous</li>
@@ -238,7 +423,7 @@
                     <li data-filter=".filter-recherche">Recherches</li>
                 </ul>
             </div>
-            
+
             <!-- Ajout des contrôles de navigation du carrousel -->
             <div class="portfolio-carousel-controls" data-aos="fade-up" data-aos-delay="150">
                 <button class="portfolio-prev" aria-label="Projets précédents">
@@ -249,7 +434,7 @@
                     <i class="fas fa-chevron-right"></i>
                 </button>
             </div>
-            
+
             <!-- Conteneur du carrousel -->
             <div class="portfolio-carousel" data-aos="fade-up" data-aos-delay="200">
                 <div class="row portfolio-container" id="projectsContainer">
@@ -271,7 +456,7 @@
         </div>
     </section>
     <!-- Portfolio Section End -->
-    
+
     <!-- Blog Section Start -->
     <section id="blog" class="blog-section section-padding">
         <div class="container">
@@ -279,7 +464,7 @@
                 <h2>Blog</h2>
                 <p>Derniers Articles</p>
             </div>
-            
+
             <!-- Filtres avec classes modifiées pour mieux s'adapter au mobile -->
             <div class="blog-filter text-center" data-aos="fade-up" data-aos-delay="100">
                 <ul class="d-flex flex-wrap justify-content-center">
@@ -290,7 +475,7 @@
                     <li data-filter=".filter-career">Métier</li>
                 </ul>
             </div>
-            
+
             <!-- Boutons de navigation réorganisés -->
             <div class="blog-carousel" data-aos="fade-up" data-aos-delay="200">
                 <div class="carousel-nav">
@@ -301,7 +486,7 @@
                         <i class="fas fa-chevron-right"></i>
                     </button>
                 </div>
-                
+
                 <!-- Conteneur du carrousel avec classe supplémentaire pour la transition -->
                 <div class="row blog-container" id="blogjorisContainer">
                     <!-- Les articles seront chargés dynamiquement ici -->
@@ -316,15 +501,15 @@
         </div>
     </section>
     <!-- Blog Section End -->
-    
+
     <!-- Education Section Start -->
-    <section id="education" class="education-section section-padding bg-light">
+    <section id="education" class="education-section section-padding">
         <div class="container">
             <div class="section-title text-center" data-aos="fade-up">
                 <h2>Mes Formations</h2>
                 <p>Parcours Académique</p>
             </div>
-            
+
             <div class="education-carousel" data-aos="fade-up" data-aos-delay="200">
                 <div class="row">
                     <div class="col-md-6" data-aos="fade-right">
@@ -340,7 +525,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-md-6" data-aos="fade-left">
                         <div class="education-item">
                             <div class="education-icon">
@@ -355,7 +540,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row mt-4">
                     <div class="col-md-6" data-aos="fade-right" data-aos-delay="300">
                         <div class="education-item">
@@ -370,7 +555,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-md-6" data-aos="fade-left" data-aos-delay="300">
                         <div class="education-item">
                             <div class="education-icon">
@@ -389,7 +574,7 @@
         </div>
     </section>
     <!-- Education Section End -->
-    
+
     <!-- Experience Section Start -->
     <section id="experience" class="experience-section section-padding">
         <div class="container">
@@ -397,7 +582,7 @@
                 <h2>Mes Expériences</h2>
                 <p>Parcours Professionnel</p>
             </div>
-            
+
             <div class="timeline" data-aos="fade-up" data-aos-delay="200">
 
                 <div class="timeline-item right" data-aos="fade-left">
@@ -412,7 +597,8 @@
                         <h4>Consultant BI</h4>
                         <p class="location">Aix-en-Provence, France</p>
                         <ul>
-                            <li>Missions pour différents clients au sein du service Data Expérience : <strong>Reporting, modélisation, ETL, Cloud</strong></li>
+                            <li>Missions pour différents clients au sein du service Data Expérience : <strong>Reporting,
+                                    modélisation, ETL, Cloud</strong></li>
                             <li>Client Région Ile de France : migration de reporting de Oracle BI sur PowerBI</li>
                             <!-- <li>Élaboration de solutions via VBA, Access, MS SQL, Python et JS.</li> -->
                         </ul>
@@ -431,14 +617,16 @@
                         <h4>Ingénieur Business Intelligence</h4>
                         <p class="location">Bordeaux, France</p>
                         <ul>
-                            <li>Au sein du service BI, j'ai défini les besoins avec les clients et rédigé des cahiers des charges techniques.</li>
+                            <li>Au sein du service BI, j'ai défini les besoins avec les clients et rédigé des cahiers
+                                des charges techniques.</li>
                             <li>Exécution des cahiers des charges par la création de rapports sur Cognos Analytics.</li>
                             <li>L'ensemble des travaux et réunions ont été effectués en anglais.</li>
-                            <li><strong>Objectif :</strong> Amélioration de la cadence de production de la fusée Ariane 6.</li>
+                            <li><strong>Objectif :</strong> Amélioration de la cadence de production de la fusée Ariane
+                                6.</li>
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="timeline-item right" data-aos="fade-left">
                     <div class="timeline-content">
                         <div class="date">Juin 2023 - Juillet 2023 <span>(2 mois)</span></div>
@@ -451,13 +639,16 @@
                         <h4>Data Manager</h4>
                         <p class="location">Saint-Denis, Réunion</p>
                         <ul>
-                            <li><strong>Objectif :</strong> Rendre les données plus accessibles pour créer de la valeur.</li>
-                            <li>Construction et mise en œuvre d'un système automatisé avec ACCESS, permettant la redirection de données existantes sur des fichiers EXCEL dans une BDD interne MS-SQL.</li>
+                            <li><strong>Objectif :</strong> Rendre les données plus accessibles pour créer de la valeur.
+                            </li>
+                            <li>Construction et mise en œuvre d'un système automatisé avec ACCESS, permettant la
+                                redirection de données existantes sur des fichiers EXCEL dans une BDD interne MS-SQL.
+                            </li>
                             <li>Élaboration de solutions via VBA, Access, MS SQL, Python et JS.</li>
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="timeline-item left" data-aos="fade-right">
                     <div class="timeline-content">
                         <div class="date">Avril 2023 - Juin 2023 <span>(3 mois)</span></div>
@@ -470,13 +661,15 @@
                         <h4>Data Analyst</h4>
                         <p class="location">Rennes, France</p>
                         <ul>
-                            <li><strong>Sujet de recherche :</strong> Analyse de l'impact du réchauffement climatique sur les phénomènes de fortes précipitations en Bretagne.</li>
-                            <li>Modélisation et tests sur des séries temporelles pour observer et analyser les impacts du réchauffement climatique sur la pluviométrie (analyses sur R).</li>
+                            <li><strong>Sujet de recherche :</strong> Analyse de l'impact du réchauffement climatique
+                                sur les phénomènes de fortes précipitations en Bretagne.</li>
+                            <li>Modélisation et tests sur des séries temporelles pour observer et analyser les impacts
+                                du réchauffement climatique sur la pluviométrie (analyses sur R).</li>
                             <li>Présentation du travail de recherche au niveau national.</li>
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="timeline-item right" data-aos="fade-left">
                     <div class="timeline-content">
                         <div class="date">Avril 2022 - Juin 2022 <span>(3 mois)</span></div>
@@ -490,7 +683,8 @@
                         <p class="location">Les Sables-d'Olonne, France</p>
                         <ul>
                             <li>Conseils sur l'élaboration d'une solution data au sein de l'agglomération.</li>
-                            <li>Création d'une solution automatisée avec VBA et Python pour la récolte et l'analyse de données pour le territoire.</li>
+                            <li>Création d'une solution automatisée avec VBA et Python pour la récolte et l'analyse de
+                                données pour le territoire.</li>
                             <li>Utilisation de Web Scraping et construction d'une BDD avec MS SQL.</li>
                         </ul>
                     </div>
@@ -499,15 +693,15 @@
         </div>
     </section>
     <!-- Experience Section End -->
-    
+
     <!-- Team/Passions Section Start -->
-    <section id="passions" class="passions-section section-padding bg-light">
+    <section id="passions" class="passions-section section-padding">
         <div class="container">
             <div class="section-title text-center" data-aos="fade-up">
                 <h2>Mes Passions</h2>
                 <p>La course à pied et les voyages !</p>
             </div>
-            
+
             <div class="row">
                 <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="100">
                     <div class="passion-card">
@@ -521,7 +715,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="200">
                     <div class="passion-card">
                         <div class="passion-img">
@@ -534,7 +728,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="300">
                     <div class="passion-card">
                         <div class="passion-img">
@@ -543,11 +737,12 @@
                         <div class="passion-content">
                             <h3>Se lancer des défis</h3>
                             <p class="passion-category">Hackathons</p>
-                            <p>Solution pour accéler les opérations de sauvetage en mer pour la Marine Nationale avec NavalGroup</p>
+                            <p>Solution pour accéler les opérations de sauvetage en mer pour la Marine Nationale avec
+                                NavalGroup</p>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="400">
                     <div class="passion-card">
                         <div class="passion-img">
@@ -564,7 +759,7 @@
         </div>
     </section>
     <!-- Team/Passions Section End -->
-    
+
     <!-- Contact Section Start -->
     <section id="contact" class="contact-section section-padding">
         <div class="container">
@@ -572,7 +767,7 @@
                 <h2>Contact</h2>
                 <p>Envoyez-moi un message</p>
             </div>
-            
+
             <div class="row">
                 <div class="col-lg-5 mb-4 mb-lg-0" data-aos="fade-right">
                     <div class="contact-info">
@@ -583,7 +778,7 @@
                                 <p>Aix-en-Provence, France</p>
                             </div>
                         </div>
-                        
+
                         <div class="contact-item">
                             <div class="icon"><i class="fas fa-phone"></i></div>
                             <div class="content">
@@ -591,7 +786,7 @@
                                 <p>+33 766840946</p>
                             </div>
                         </div>
-                        
+
                         <div class="contact-item">
                             <div class="icon"><i class="fas fa-envelope"></i></div>
                             <div class="content">
@@ -599,49 +794,57 @@
                                 <p>Joris.salmon53290@gmail.com</p>
                             </div>
                         </div>
-                        
+
                         <div class="social-links">
-                            <a href="https://github.com/Jorissalmon" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                            <a href="https://www.linkedin.com/in/joris-salmon/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://github.com/Jorissalmon" target="_blank" aria-label="GitHub"><i
+                                    class="fab fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/joris-salmon/" target="_blank" aria-label="LinkedIn"><i
+                                    class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-7" data-aos="fade-left">
                     <!-- Notification de succès/erreur -->
                     <div id="contactMessage" class="alert d-none mb-4"></div>
-                    
+
                     <!-- Formulaire avec action et méthode -->
-                    <form id="contactForm" class="contact-form" action="https://formsubmit.co/el/confirm/joris.salmon53290@gmail.com" method="POST">
+                    <form id="contactForm" class="contact-form"
+                        action="https://formsubmit.co/el/confirm/joris.salmon53290@gmail.com" method="POST">
                         <!-- Configurer formsubmit.co - options cachées -->
                         <input type="hidden" name="_subject" value="Nouveau message depuis votre portfolio">
                         <input type="hidden" name="_captcha" value="false">
                         <input type="hidden" name="_next" value="www.jorissalmon.com">
-                        
+
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="Votre Nom" required>
+                                    <input type="text" class="form-control" name="name" id="name"
+                                        placeholder="Votre Nom" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
-                                    <input type="email" class="form-control" name="email" id="email" placeholder="Votre Email" required>
+                                    <input type="email" class="form-control" name="email" id="email"
+                                        placeholder="Votre Email" required>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group mb-3">
-                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Sujet" required>
+                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Sujet"
+                                required>
                         </div>
                         <div class="form-group mb-3">
-                            <textarea class="form-control" name="message" id="message" rows="5" placeholder="Message" required></textarea>
+                            <textarea class="form-control" name="message" id="message" rows="5" placeholder="Message"
+                                required></textarea>
                         </div>
-                        
+
                         <!-- Bouton d'envoi et indicateur de chargement -->
                         <div class="d-grid d-md-flex">
                             <button type="submit" class="btn btn-primary" id="submitButton">
                                 <span>Envoyer Message</span>
-                                <span class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
+                                <span class="spinner-border spinner-border-sm ms-2 d-none" role="status"
+                                    aria-hidden="true"></span>
                             </button>
                         </div>
                     </form>
@@ -652,7 +855,7 @@
         <div id="contactMessage" class="alert d-none mb-4"></div>
     </section>
     <!-- Contact Section End -->
-    
+
     <!-- Footer Start -->
     <footer class="footer-section">
         <div class="container">
@@ -661,7 +864,7 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="footer-info">
                             <h3>Joris Salmon</h3>
-                            <p>Consultant Digital</p>
+                            <p>Consultant IA & Data</p>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
@@ -697,15 +900,15 @@
         </div>
     </footer>
     <!-- Footer End -->
-    
+
     <!-- Scroll to top button -->
     <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
-    
+
     <!-- Preloader -->
     <div id="preloader">
         <div class="loader"></div>
     </div>
-    
+
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -720,4 +923,5 @@
     <script src="js/chatbot.js"></script>
     <script src="js/contentful.js"></script>
     <script src="js/portfolio.js"></script>
+    <script src="js/portfolio-loader.js"></script>
     <script src="js/config.js"></script>

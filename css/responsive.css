@@ -1,0 +1,398 @@
+/*--------------------------------------------------------------
+# Additional Responsive Design Improvements
+--------------------------------------------------------------*/
+
+/* Hero Section - Responsive Enhancements */
+@media (max-width: 991px) {
+    .hero-section {
+        height: auto;
+        min-height: 100vh;
+        padding: 80px 0 40px;
+    }
+    
+    .hero-content .title {
+        font-size: 40px;
+    }
+    
+    .hero-content .typed-text {
+        font-size: 20px;
+    }
+    
+    .hero-image {
+        max-width: 90%;
+        margin: 40px auto 0;
+    }
+}
+
+@media (max-width: 767px) {
+    .hero-section {
+        padding: 70px 0 30px;
+    }
+    
+    .hero-content .subtitle {
+        font-size: 14px;
+    }
+    
+    .hero-content .title {
+        font-size: 32px;
+        margin-bottom: 15px;
+    }
+    
+    .hero-content .typed-text {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+    
+    .hero-content .skill-tag {
+        font-size: 12px;
+        padding: 5px 12px;
+        margin-right: 8px;
+        margin-bottom: 8px;
+    }
+    
+    .hero-btn {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .hero-btn .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content .title {
+        font-size: 28px;
+    }
+    
+    .hero-content .typed-text {
+        font-size: 16px;
+    }
+}
+
+/* About Section - Responsive Enhancements */
+@media (max-width: 767px) {
+    .about-img {
+        margin-bottom: 30px;
+    }
+    
+    .about-text p {
+        font-size: 14px;
+        text-align: justify;
+    }
+    
+    .skills-section h3 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+    
+    .skill-title {
+        font-size: 14px;
+    }
+    
+    .skill-percentage {
+        font-size: 13px;
+    }
+}
+
+/* Education Section - Responsive Enhancements */
+@media (max-width: 767px) {
+    .education-item {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .education-icon {
+        margin-bottom: 15px;
+    }
+    
+    .education-icon img {
+        max-width: 80px;
+        height: auto;
+    }
+    
+    .education-content h3 {
+        font-size: 18px;
+    }
+    
+    .education-content .period,
+    .education-content .degree,
+    .education-content .location {
+        font-size: 14px;
+    }
+}
+
+/* Experience Section - Responsive Timeline */
+@media (max-width: 991px) {
+    .timeline::before {
+        left: 20px;
+    }
+    
+    .timeline-item {
+        padding-left: 60px;
+        padding-right: 0;
+    }
+    
+    .timeline-item::before {
+        left: 12px;
+    }
+    
+    .timeline-item.right {
+        padding-left: 60px;
+    }
+    
+    .timeline-content {
+        width: 100%;
+    }
+    
+    .company-logo {
+        position: static;
+        margin-top: 15px;
+    }
+    
+    .company-logo img {
+        max-width: 60px;
+    }
+}
+
+@media (max-width: 767px) {
+    .timeline-item {
+        padding-left: 50px;
+    }
+    
+    .timeline-content {
+        padding: 15px;
+    }
+    
+    .timeline-content .date {
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+    
+    .content-header h3 {
+        font-size: 18px;
+    }
+    
+    .timeline-content h4 {
+        font-size: 16px;
+    }
+    
+    .timeline-content ul li {
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+}
+
+/* Passion Cards - Responsive */
+@media (max-width: 991px) {
+    .passion-card {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 767px) {
+    #passions .col-lg-6 {
+        width: 100%;
+    }
+    
+    .passion-img {
+        height: 200px;
+    }
+    
+    .passion-content {
+        padding: 15px;
+    }
+    
+    .passion-content h3 {
+        font-size: 18px;
+    }
+    
+    .passion-content p {
+        font-size: 14px;
+    }
+}
+
+/* Blog Section - Responsive */
+@media (max-width: 767px) {
+    .blog-filter ul li {
+        font-size: 13px;
+        padding: 6px 15px;
+        margin: 0 5px 8px;
+    }
+    
+    .carousel-nav {
+        margin-bottom: 20px;
+    }
+    
+    .carousel-prev,
+    .carousel-next {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+}
+
+/* Portfolio Section - Responsive */
+@media (max-width: 767px) {
+    .portfolio-filter ul li {
+        font-size: 13px;
+        padding: 6px 15px;
+        margin: 0 5px 8px;
+    }
+    
+    .portfolio-carousel-controls {
+        margin-bottom: 20px;
+    }
+    
+    .portfolio-prev,
+    .portfolio-next {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+}
+
+/* Contact Section - Responsive */
+@media (max-width: 767px) {
+    .contact-info {
+        margin-bottom: 30px;
+    }
+    
+    .contact-item {
+        flex-direction: column;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .contact-item .icon {
+        margin-bottom: 10px;
+    }
+    
+    .contact-form .form-control {
+        font-size: 14px;
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
+}
+
+/* Footer - Responsive */
+@media (max-width: 767px) {
+    .footer-content .row > div {
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    
+    .footer-links ul {
+        padding-left: 0;
+    }
+    
+    .newsletter-form {
+        flex-direction: column;
+    }
+    
+    .newsletter-form input {
+        margin-bottom: 10px;
+        border-radius: 25px;
+    }
+    
+    .newsletter-form button {
+        border-radius: 25px;
+    }
+}
+
+/* Section Padding Adjustments for Mobile */
+@media (max-width: 767px) {
+    .section-padding {
+        padding: 60px 0;
+    }
+    
+    .section-title h2 {
+        font-size: 26px;
+    }
+    
+    .section-title p {
+        font-size: 16px;
+    }
+}
+
+/* General Mobile Optimizations */
+@media (max-width: 480px) {
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .section-padding {
+        padding: 50px 0;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        font-size: 13px;
+    }
+}
+
+/* Tablet Specific Optimizations */
+@media (min-width: 768px) and (max-width: 991px) {
+    .hero-content {
+        text-align: center;
+    }
+    
+    .hero-image {
+        max-width: 80%;
+    }
+    
+    .about-text {
+        padding-left: 0;
+    }
+}
+
+/* Landscape Mobile Devices */
+@media (max-height: 600px) and (orientation: landscape) {
+    .hero-section {
+        min-height: auto;
+        padding: 60px 0 30px;
+    }
+    
+    .scroll-down {
+        display: none;
+    }
+}
+
+/* High DPI Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .hero-image img,
+    .about-img img,
+    .education-icon img,
+    .company-logo img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .navbar,
+    .chatbot-bubble,
+    .chat-popup,
+    .back-to-top,
+    .scroll-down,
+    .carousel-nav,
+    .portfolio-carousel-controls,
+    #preloader {
+        display: none !important;
+    }
+    
+    .section-padding {
+        padding: 30px 0;
+    }
+    
+    body {
+        font-size: 12pt;
+    }
+}

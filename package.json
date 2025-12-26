@@ -7,7 +7,12 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate-sitemap": "node scripts/generate-sitemap.js",
+    "create-content-models": "node scripts/create-content-models.js",
+    "populate-contentful": "node scripts/populate-contentful.js",
+    "fix-missing-data": "node scripts/fix-missing-data.js",
+    "add-experiences": "node scripts/add-experiences.js"
   },
   "keywords": [],
   "author": "",
@@ -15,11 +20,13 @@
   "dependencies": {
     "@supabase/supabase-js": "^1.28.0",
     "axios": "^1.7.7",
+    "contentful": "^10.6.0",
+    "contentful-management": "^11.66.0",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.21.1",
     "jsdom": "^25.0.1",
-    "node-fetch": "^3.3.2",
-    "dotenv": "^16.0.3"
+    "node-fetch": "^3.3.2"
   },
   "type": "module"
 }

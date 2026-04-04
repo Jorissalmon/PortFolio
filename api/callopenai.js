@@ -19,7 +19,7 @@ export default async function handler(req, res) {
             const { messages } = req.body;
             
             // Configuration OpenRouter
-            const OPENROUTER_API_KEY = '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';
+            const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
             
             const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
                 method: 'POST',

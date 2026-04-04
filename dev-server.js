@@ -74,7 +74,7 @@ app.post('/api/contentful', async (req, res) => {
 app.post('/api/callopenai', async (req, res) => {
     try {
         const { messages } = req.body;
-        const OPENROUTER_API_KEY = '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';
+        const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 
         const fetchResponse = await fetch('https://openrouter.ai/api/v1/chat/completions', {
             method: 'POST',

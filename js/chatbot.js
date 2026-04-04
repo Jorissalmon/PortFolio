@@ -12,10 +12,10 @@ let chatbotContext = null;
 // Ouvrir/Fermer la fenêtre de chat
 document.getElementById("chatbotBubble").addEventListener("click", function () {
     const popup = document.getElementById("chatPopup");
-    popup.style.display = popup.style.display === "block" ? "none" : "block";
+    popup.style.display = popup.style.display === "flex" ? "none" : "flex";
 
-    if (popup.style.display === "block") {
-        this.style.animation = "none"; // Arr êteAnimation
+    if (popup.style.display === "flex") {
+        this.style.animation = "none"; // Arrête l'animation
         showPresetPhrases();
     } else {
         this.style.animation = ""; // Réactive l'animation si la bulle est fermée
@@ -30,23 +30,48 @@ document.getElementById("userMessage").addEventListener("keypress", function (ev
     }
 });
 
-// Phrases préfabriquées pour suggestion
-const presetPhrases = [
-    "Bonjour, qui es-tu ?",
-    "Quelles sont tes compétences ?",
-    "Comment te contacter ?",
-    "Ton CV, Github, ou LinkedIn ?"
-];
+// Obtenir les phrases préfabriquées selon le contexte (Article, Projet ou Accueil)
+function getPresetPhrases() {
+    if (window.location.pathname.includes('article')) {
+        return [
+            "De quoi parle cet article ?",
+            "Quels sont les points clés abordés ?",
+            "As-tu d'autres articles similaires ?"
+        ];
+    } else if (window.location.pathname.includes('projet')) {
+        return [
+            "Quel est l'objectif de ce projet ?",
+            "Quelles technologies as-tu utilisées ?",
+            "Quels ont été les principaux défis ?"
+        ];
+    } else {
+        return [
+            "Bonjour, qui es-tu ?",
+            "Quelles sont tes compétences ?",
+            "Comment te contacter ?",
+            "Ton CV, Github, ou LinkedIn ?"
+        ];
+    }
+}
 
 // Fonction pour afficher les phrases préfabriquées
 function showPresetPhrases() {
+    // Si l'utilisateur a déjà envoyé un message, on n'affiche plus les suggestions
+    if (conversationHistory.length > 0) {
+        const existingContainer = document.querySelector('.preset-phrases');
+        if (existingContainer) existingContainer.style.display = 'none';
+        return;
+    }
+
+    const chatBody = document.getElementById("chatPopupBody");
+    // Assurez-vous que le conteneur n'est pas déjà présent
+    if (document.querySelector('.preset-phrases')) return;
+
     const presetContainer = document.createElement('div');
     presetContainer.classList.add('preset-phrases');
 
-    // Vider le conteneur avant de le remplir
-    presetContainer.innerHTML = '';
-
-    presetPhrases.forEach(phrase => {
+    const phrases = getPresetPhrases();
+    phrases.forEach(phrase => {
         const button = document.createElement('button');
         button.innerText = phrase;
         button.onclick = (event) => {
@@ -57,17 +82,15 @@ function showPresetPhrases() {
         presetContainer.appendChild(button);
     });
 
-    const chatBody = document.getElementById("chatPopupBody");
-    // Assurez-vous que le conteneur n'est pas déjà présent
-    if (!document.querySelector('.preset-phrases')) {
-        chatBody.appendChild(presetContainer);
-    }
+    chatBody.appendChild(presetContainer);
 }
 
 // Réinitialiser la conversation lors du chargement de la page
 window.onload = function () {
-    conversationHistory = []; // Réinitialiser l'historique
     const chatBody = document.getElementById("chatPopupBody");
+    
+    // Historique désactivé entre les pages (réinitialisation forcée)
+    conversationHistory = []; 
     chatBody.innerHTML = "<p>Bonjour ! Je suis l'assistant virtuel de Joris. Comment puis-je vous aider ?</p>"; // Message initial
 
     // Initialiser l'année dans le footer
@@ -88,7 +111,7 @@ document.addEventListener("click", function (event) {
     const presetContainer = document.querySelector('.preset-phrases');
 
     // Vérifier si le clic est en dehors de la bulle de chat et de la fenêtre de chat
-    if (popup.style.display === "block" && !popup.contains(event.target) && !bubble.contains(event.target)) {
+    if (popup.style.display === "flex" && !popup.contains(event.target) && !bubble.contains(event.target)) {
         popup.style.display = "none"; // Fermer la fenêtre
         bubble.style.animation = ""; // Réactive l'animation de la bulle
     }
@@ -223,17 +246,33 @@ async function sendMessage(userMessage = null) {
     try {
         // Charger le contexte du chatbot
         const promptContext = await loadChatbotPrompt();
-        const context = `${promptContext}
+        
+        // Créer le prompt final en ajoutant l'historique des messages
+        const pageTitle = document.title;
+        let pageContent = "";
+        
+        // Tenter de récupérer le contenu selon le type de page (Projet ou Article)
+        const summaryElement = document.getElementById("projectSummary");
+        const articleElement = document.querySelector(".article-content .content");
+        if (summaryElement) {
+            pageContent = "\\nL'utilisateur consulte actuellement ce projet. Voici son contenu : " + summaryElement.innerText.substring(0, 1500); // Limiter à 1500 chars pour le token api
+        } else if (articleElement) {
+            pageContent = "\\nL'utilisateur lit actuellement cet article de blog. Voici son contenu : " + articleElement.innerText.substring(0, 1500);
+        }
 
-Réponds à la question suivante comme si tu étais moi: "${messageToSend}"`;
+        const context = `${promptContext}
+        
+[Contexte Visiteur] L'utilisateur visite actuellement la page dont le titre est : "${pageTitle}". Si le contexte correspond, réponds à ses questions en te basant sur le contenu fourni ci-dessous.${pageContent}
+
+Réponds à la question suivante de l'utilisateur comme si tu étais moi (Joris Salmon): "${messageToSend}"`;
 
         // Créer le prompt final en ajoutant l'historique des messages
         const messages = [{ role: "system", content: context }];
         conversationHistory.forEach(msg => messages.push(msg));
         messages.push({ role: "user", content: messageToSend });
 
-        // Appel à l'API OpenAI existante via votre endpoint Vercel
-        const response = await fetch('https://porte-folio-kappa.vercel.app/api/callopenai', {
+        // Appel à l'API OpenAI existante via votre endpoint (Vercel ou local)
+        const response = await fetch('/api/callopenai', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -271,7 +310,9 @@ Réponds à la question suivante comme si tu étais moi: "${messageToSend}"`;
 
         // Créer un élément pour l'image
         const avatarImage = document.createElement('img');
-        avatarImage.src = 'img/contact.jpg'; // Chemin vers l'image de favicon
+        // Résoudre dynamiquement le chemin de l'image si on est dans un sous-dossier
+        const isSubfolder = window.location.pathname.includes('/articles/') || window.location.pathname.includes('/projets/');
+        avatarImage.src = isSubfolder ? '../img/contact.jpg' : 'img/contact.jpg';
         avatarImage.alt = 'Joris';
 
         // Créer un nouvel élément pour le message texte
@@ -281,7 +322,7 @@ Réponds à la question suivante comme si tu étais moi: "${messageToSend}"`;
 
         // Ajouter l'image et le contenu dans une div flex
         const contentWrapper = document.createElement('div');
-        contentWrapper.className = 'content-wrapper'; // Conteneur pour l'image et le texte
+        contentWrapper.className = 'chat-content-wrapper'; // Conteneur pour l'image et le texte
         contentWrapper.appendChild(avatarImage); //Ajouter l'image
         contentWrapper.appendChild(bubbleContent); // Ajouter le texte
 
@@ -316,35 +357,46 @@ Réponds à la question suivante comme si tu étais moi: "${messageToSend}"`;
     }
 }
 
-// Fonction d'animation de type "mot par mot" qui respecte le HTML
+// Fonction d'animation de type "plus fluide" qui respecte le HTML
 function typeWriterEffect(element, text) {
     let index = 0;
     let currentText = ''; // Stocker le texte actuellement affiché
     let isInTag = false;  // Indique si on est à l'intérieur d'une balise HTML
+    
+    // Vitesse plus rapide pour un effet "streaming" fluide
     const typingEffect = setInterval(() => {
-        if (index < text.length) {
+        // Ajouter jusqu'à 15 caractères par itération pour une fluidité accrue (effet streaming très fluide)
+        let charsToAdd = 0;
+        
+        while (charsToAdd < 15 && index < text.length) {
             // Vérifier si on est à l'intérieur d'une balise HTML
             if (text[index] === '<') {
                 isInTag = true;
             }
-            if (isInTag) {
-                currentText += text[index]; // Accumuler les caractères d'une balise
-                if (text[index] === '>') {
-                    isInTag = false; // Fin de la balise
-                }
-            } else {
-                currentText += text[index]; // Ajouter un caractère normal
+            
+            currentText += text[index];
+            
+            if (text[index] === '>') {
+                isInTag = false; // Fin de la balise
             }
-
-            // Ajouter tout le texte au fur et à mesure (balises + contenu)
-            element.innerHTML = currentText;
+            
             index++;
+            
+            // Si on n'est pas dans une balise on incrémente le nombre de caractères visibles ajoutés
+            if (!isInTag) {
+                charsToAdd++;
+            }
+        }
 
-            // Scroll jusqu'en bas
-            const chatBody = document.getElementById("chatPopupBody");
-            if (chatBody) chatBody.scrollTop = chatBody.scrollHeight;
-        } else {
+        // Ajouter tout le texte au fur et à mesure (balises + contenu)
+        element.innerHTML = currentText;
+
+        // Scroll jusqu'en bas
+        const chatBody = document.getElementById("chatPopupBody");
+        if (chatBody) chatBody.scrollTop = chatBody.scrollHeight;
+
+        if (index >= text.length) {
             clearInterval(typingEffect); // Arrêter l'animation quand c'est fini
         }
-    }, 5); // Vitesse d'animation, en millisecondes
+    }, 10); // Intervalle court mais plusieurs caractères à la fois
 }

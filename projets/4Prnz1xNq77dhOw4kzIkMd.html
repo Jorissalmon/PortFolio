@@ -1,50 +1,19 @@
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
+<!DOCTYPE html><html lang="fr"><head>
     <meta charset="utf-8">
-    <title>Projet | Joris Salmon</title>
-
-    <!-- Google Analytics (GA4) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-336STN5D4J"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-336STN5D4J');
-    </script>
-
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="../meta/site.webmanifest">
+    <title>Assistant de veille d'actualités | Projet | Joris Salmon</title>
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
     <meta content="projet, portfolio, Joris Salmon, data analyst, business intelligence" name="keywords">
     <meta content="Détails du projet de Joris Salmon" name="description">
-
-    <!-- Open Graph / Meta -->
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="Projet | Joris Salmon">
-    <meta property="og:description" content="Découvrez ce projet sur le portfolio de Joris Salmon.">
-    <meta property="og:image" content="https://www.jorissalmon.com/img/og-image.jpg">
-    <meta property="og:url" content="https://www.jorissalmon.com/">
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Projet | Joris Salmon">
-    <meta name="twitter:description" content="Découvrez ce projet de Joris Salmon.">
-    <meta name="twitter:image" content="https://www.jorissalmon.com/img/og-image.jpg">
 
     <!-- Theme-color pour améliorer l'apparence sur mobile -->
     <meta name="theme-color" content="#EF233C">
 
     <!-- Favicon -->
-    <link rel="icon" href="meta/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../meta/favicon.ico" type="image/x-icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
 
     <!-- CSS Libraries -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -52,99 +21,60 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/glass-theme.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/project.css" rel="stylesheet">
+    <link href="../css/glass-theme.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/project.css" rel="stylesheet">
 </head>
 
 <body>
-    <!-- Chatbot Elements - Version améliorée -->
-    <div class="chatbot-bubble" id="chatbotBubble" title="Discuter avec Joris">
-        <i class="fas fa-comments"></i>
-    </div>
-
-    <div class="chat-popup" id="chatPopup">
-        <div class="chat-popup-header">
-            <span>Assistant de Joris</span>
-            <button class="close-chat" id="closeChat">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="chat-popup-body" id="chatPopupBody">
-            <p>Bonjour ! Je suis l'assistant virtuel de Joris. Comment puis-je vous aider aujourd'hui ?</p>
-        </div>
-        <div class="chat-popup-footer">
-            <input type="text" id="userMessage" placeholder="Posez votre question...">
-            <button onclick="sendMessage()" aria-label="Envoyer">
-                <i class="fas fa-paper-plane"></i>
-            </button>
-        </div>
-    </div>
-
-    <!-- Ajoutez ce script pour le bouton de fermeture -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const closeButton = document.getElementById('closeChat');
-            if (closeButton) {
-                closeButton.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    const popup = document.getElementById('chatPopup');
-                    const bubble = document.getElementById('chatbotBubble');
-                    if (popup) {
-                        popup.style.display = 'none';
-                        if (bubble) bubble.style.animation = '';
-                    }
-                });
-            }
-        });
-    </script>
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top glass-nav">
         <div class="container">
-            <a class="navbar-brand" href="index.html">Joris Salmon</a>
+            <a class="navbar-brand" href="../index.html">Joris Salmon</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html#home">Accueil</a>
+                        <a class="nav-link" href="../index.html#home">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html#about">À propos</a>
+                        <a class="nav-link" href="../index.html#about">À propos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.html#portfolio">Portfolio</a>
+                        <a class="nav-link active" href="../index.html#portfolio">Portfolio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html#blog">Blog</a>
+                        <a class="nav-link" href="../index.html#blog">Blog</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html#contact">Contact</a>
+                        <a class="nav-link" href="../index.html#contact">Contact</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <!-- Navbar End --> <!-- Article Style Header for Projects -->
-    <header class="article-header" style="padding-top: 150px; padding-bottom: 80px; text-align: center;">
-        <div class="container">
-            <div class="project-category mb-3">
-                <span id="projectCategoryBadge" class="category-badge"
-                    style="color: var(--accent-cyan); font-weight: 600; text-transform: uppercase;">Intelligence
-                    Artificielle</span>
-            </div>
-            <h1 id="projectTitle" class="pink-glow">SmartVision : Sécurité Routière IA</h1>
-            <p id="projectShortDescription" class="mt-4"
-                style="max-width: 800px; margin: 0 auto; color: var(--text-color);">Une solution...</p>
-            <div class="article-meta mt-4 justify-content-center">
-                <span id="projectDate" class="date"><i class="fas fa-calendar-alt me-2"></i></span>
-                <span id="projectClient" class="author ms-3"><i class="fas fa-user-tie me-2"></i></span>
-                <span id="projectTechnologies" class="ms-3"><i class="fas fa-code me-2"></i></span>
+    <!-- Navbar End -->    <!-- Hero Banner Section -->
+    <section class="project-hero-section" id="projectHeroSection" style="background-size: cover; background-position: center;">
+        <div class="hero-bg-overlay"></div>
+        <div class="container text-center">
+            <div class="project-simple-header" data-aos="fade-up">
+                <div class="project-category mb-3">
+                    <span id="projectCategoryBadge" class="category-badge">data-science</span>
+                </div>
+                <h1 id="projectTitle" class="project-main-title">Assistant de veille d'actualités</h1>
+                <p id="projectShortDescription" class="project-lead-text mt-4">Agrégateur des actualités des dernières 24 heures RAG</p>
+                <div class="project-meta-bar mt-4">
+                    <span id="projectDate" class="meta-item">01/04/2025</span>
+                    <span class="meta-separator">•</span>
+                    <span id="projectClient" class="meta-item">Sorbonne Paris 1</span>
+                    <span class="meta-separator">•</span>
+                    <span id="projectTechnologies" class="meta-item">--</span>
+                </div>
             </div>
         </div>
-    </header>
+    </section>
 
 
     <!-- Main Content Section -->
@@ -153,9 +83,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-10">
                     <div class="content-wrapper" data-aos="fade-up">
-                        <div id="projectSummary" class="project-rich-content">
-                            <!-- Contenu chargé dynamiquement -->
-                        </div>
+                        <div id="projectSummary" class="project-rich-content"><p>Bonjour à tous ! Je suis ravi de vous présenter aujourd'hui mon projet "24h Actus", un système que j'ai développé pour transformer la façon dont nous consommons l'information quotidienne.</p><p>Face au flux constant d'actualités, je me suis demandé : comment créer un outil qui nous permettrait de rester informés efficacement, sans y passer des heures ? C'est ainsi qu'est né "24h Actus".</p><p>Mon système récupère automatiquement les dernières actualités depuis France Info via leur flux RSS. J'ai implémenté un processus complet qui utilise l'IA (ChatGPT 3.5) pour analyser ces articles, les résumer de façon concise et les classifier par catégories comme la politique, l'économie ou la société.</p><p>Pour le stockage et la recherche d'informations, j'ai mis en place une base de données vectorielle FAISS qui permet des requêtes rapides et pertinentes. C'est ce qui alimente l'assistant d'actualité intégré dans l'application - vous pouvez lui poser n'importe quelle question sur les événements récents !</p><p>La partie dont je suis particulièrement fier est la génération automatique de contenus. Mon système produit :</p><ul><li><p>Une newsletter HTML entièrement mise en forme, organisée par thématiques. Un exemple juste <a href="https://jorissalmon.com/articles/Newsletter_du_vendredi_01_novembre_2024.html">ici</a></p></li><li><p>Un podcast audio qui synthétise les principales actualités du jour</p></li></ul><p>J'ai également automatisé l'upload des podcasts sur YouTube, créant ainsi une chaîne d'information qui se met à jour quotidiennement sans intervention manuelle.</p><p>Pour l'interface utilisateur, j'ai opté pour Streamlit qui m'a permis de créer une expérience simple et intuitive. Quelques clics suffisent pour générer la newsletter ou le podcast du jour.</p><p>Ce projet démontre comment l'IA peut transformer des processus complexes comme la veille d'actualité et la production de contenus informatifs. J'ai combiné différentes technologies - web scraping, traitement du langage naturel, vectorisation de données, génération de texte et audio - pour créer un outil complet qui fait en quelques secondes ce qui prendrait des heures à une équipe de rédaction.</p><ul><li><p>Retrouver la présentation <a href="https://drive.google.com/file/d/13kWSQP0_A-4cc5kxOp_i_fhb9EuIs9Zi/view?usp=sharing">ici</a></p></li><li><p>Retrouvez le code <a href="https://github.com/Jorissalmon/DU_Assistant_actu.git">ici</a></p></li></ul><p></p></div>
                     </div>
                 </div>
             </div>
@@ -169,14 +97,12 @@
             <div class="media-nav-bar mb-5" data-aos="fade-up">
                 <ul class="nav nav-pills justify-content-center" id="mediaTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="gallery-tab" data-bs-toggle="pill"
-                            data-bs-target="#gallery-pane" type="button" role="tab">
+                        <button class="nav-link active" id="gallery-tab" data-bs-toggle="pill" data-bs-target="#gallery-pane" type="button" role="tab">
                             <i class="fas fa-images me-2"></i>Illustrations
                         </button>
                     </li>
-                    <li class="nav-item" role="presentation" id="videoTabItem" style="display: none;">
-                        <button class="nav-link" id="video-tab" data-bs-toggle="pill" data-bs-target="#video-pane"
-                            type="button" role="tab">
+                    <li class="nav-item" role="presentation" id="videoTabItem" style="display: block;">
+                        <button class="nav-link" id="video-tab" data-bs-toggle="pill" data-bs-target="#video-pane" type="button" role="tab">
                             <i class="fas fa-video me-2"></i>Vidéo Démo
                         </button>
                     </li>
@@ -187,16 +113,16 @@
             <div class="tab-content" id="mediaTabContent">
                 <div class="tab-pane fade show active" id="gallery-pane" role="tabpanel" tabindex="0">
                     <div class="row gallery-container g-4" id="projectGallery">
-                        <!-- Images chargées dynamiquement -->
+                    <div class="col-md-4 gallery-item">
+                        <img src="https://images.ctfassets.net/wflklw0xa5gp/269jP8Pxv4tyHDwlkaFXX1/d9a7ccd1d0d4184b132d7a8b2bdcaf39/gallery.PNG" alt="Assistant_actu_gallery_1" class="img-fluid">
                     </div>
+                </div>
                 </div>
                 <div class="tab-pane fade" id="video-pane" role="tabpanel" tabindex="0">
                     <div class="row justify-content-center">
                         <div class="col-lg-10">
                             <div class="video-container-wrapper glass-panel p-3">
-                                <div class="video-container" id="projectVideo">
-                                    <!-- Vidéo chargée dynamiquement -->
-                                </div>
+                                <div class="video-container" id="projectVideo"><iframe src="https://www.youtube.com/embed/vokON5zzDlA?si=KOrz_wyE7sWjH4by" frameborder="0" allowfullscreen=""></iframe></div>
                             </div>
                         </div>
                     </div>
@@ -216,7 +142,7 @@
             </div>
 
             <div class="row" id="relatedProjectsContainer">
-                [[RECOMMENDATIONS]]
+                <!-- Projets reliés chargés dynamiquement -->
             </div>
         </div>
     </section>
@@ -249,7 +175,7 @@
                             <h4>Restez informé</h4>
                             <p>Abonnez-vous pour recevoir mes derniers articles et projets</p>
                             <form id="newsletterForm" class="newsletter-form">
-                                <input type="email" name="email" placeholder="Votre email" required>
+                                <input type="email" name="email" placeholder="Votre email" required="">
                                 <button type="submit">S'abonner</button>
                             </form>
                             <div id="newsletterMessageContainer"></div>
@@ -259,7 +185,7 @@
             </div>
             <div class="footer-legal">
                 <div class="copyright">
-                    &copy; <span id="currentYear"></span> <strong>Joris Salmon</strong>. Tous droits réservés
+                    © <span id="currentYear"></span> <strong>Joris Salmon</strong>. Tous droits réservés
                 </div>
             </div>
         </div>
@@ -280,13 +206,12 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <!-- Main JavaScript File -->
-    <script src="js/main.js"></script>
-    <script src="js/config.js"></script>
-    <script src="js/contentful.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/contentful.js"></script>
     <!-- Assurez-vous que contentful.js est complètement chargé avant project.js -->
-    <script src="js/project.js"></script>
-    <script src="js/chatbot.js"></script>
-    <script src="js/portfolio.js"></script>
-</body>
+    
+    
 
-</html>
+
+</body></html>

@@ -9,115 +9,44 @@
 let currentPosition = 0;
 let allBlogItems = [];
 let filteredBlogItems = [];
-let itemsPerPage = 2; // Nombre d'articles par page
+let itemsPerPage = 100; // Render all articles for scroll
 
-document.addEventListener('DOMContentLoaded', function() {
-  // Chargement des articles
-  loadArticles();
-  
-  // Gestionnaires d'événements pour les boutons du carrousel
-  const prevButton = document.querySelector('.carousel-prev');
-  const nextButton = document.querySelector('.carousel-next');
-  
-  if (prevButton && nextButton) {
-    prevButton.addEventListener('click', movePrev);
-    nextButton.addEventListener('click', moveNext);
-  }
-  
-  // Redimensionnement de la fenêtre
-  window.addEventListener('resize', adjustItemsPerPage);
+document.addEventListener('DOMContentLoaded', function () {
+  // Les articles sont déjà rendus statiquement.
+  initializeBlogInteractivity();
 });
 
 /**
- * Charge les articles depuis Contentful
+ * Initialise l'interactivité du blog
  */
-async function loadArticles() {
-  try {
-    // Référence au conteneur des articles
-    const blogContainer = document.getElementById("blogjorisContainer");
-    
-    if (!blogContainer) {
-      console.error("Conteneur d'articles introuvable");
-      return;
-    }
-    
-    // Afficher un indicateur de chargement
-    blogContainer.innerHTML = `
-      <div class="col-12 text-center py-4">
-        <div class="spinner-border text-primary" role="status">
-          <span class="visually-hidden">Chargement...</span>
-        </div>
-        <p class="mt-2">Chargement des articles...</p>
-      </div>
-    `;
-    
-    // Récupération des articles depuis Contentful
-    const articles = await window.contentfulService.getArticles();
-    
-    // Vérifier s'il y a des articles
-    if (!articles || articles.length === 0) {
-      blogContainer.innerHTML = `
-        <div class="col-12 text-center py-4">
-          <div class="alert alert-info">
-            Aucun article n'est disponible pour le moment.
-          </div>
-        </div>
-      `;
-      
-      // Masquer les boutons de navigation
-      const navButtons = document.querySelector('.carousel-nav');
-      if (navButtons) {
-        navButtons.style.display = 'none';
-      }
-      return;
-    }
-    
-    console.log("Articles chargés:", articles.length);
-    
-    // Vide le conteneur
-    blogContainer.innerHTML = "";
-    
-    // Créer les éléments HTML pour chaque article
-    allBlogItems = articles.map((article, index) => createBlogElement(article, index));
-    
-    // Initialiser les articles filtrés avec tous les articles
-    filteredBlogItems = [...allBlogItems];
-    
-    // Ajuster le nombre d'articles par page en fonction de la taille de l'écran
-    adjustItemsPerPage();
-    
-    // Afficher la première page
-    displayCurrentPage();
-    
-    // Initialiser les filtres
-    initializeFilters();
-    
-    // Rafraîchir les animations AOS
-    if (window.AOS) {
-      AOS.refresh();
-    }
-    
-  } catch (error) {
-    console.error("Erreur lors du chargement des articles:", error);
-    
-    const blogContainer = document.getElementById("blogjorisContainer");
-    if (blogContainer) {
-      blogContainer.innerHTML = `
-        <div class="col-12">
-          <div class="alert alert-danger text-center">
-            <i class="fas fa-exclamation-triangle me-2"></i> 
-            Erreur lors du chargement des articles. Veuillez réessayer plus tard.
-          </div>
-        </div>
-      `;
-    }
-    
-    // Masquer les boutons de navigation
-    const navButtons = document.querySelector('.carousel-nav');
-    if (navButtons) {
-      navButtons.style.display = 'none';
-    }
+function initializeBlogInteractivity() {
+  const container = document.getElementById("blogjorisContainer");
+  if (!container) return;
+
+  const carouselConfig = {
+    container: container,
+    allItems: Array.from(container.querySelectorAll('.blog-item'))
+  };
+
+  // Gestionnaires d'événements pour les boutons du carrousel
+  const prevButton = document.querySelector('.blog-prev');
+  const nextButton = document.querySelector('.blog-next');
+  
+  if (prevButton && nextButton) {
+    prevButton.addEventListener('click', () => {
+      const firstItem = container.querySelector('.modern-scroll-item');
+      const scrollAmount = firstItem ? firstItem.offsetWidth + 30 : 400;
+      container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    });
+    nextButton.addEventListener('click', () => {
+      const firstItem = container.querySelector('.modern-scroll-item');
+      const scrollAmount = firstItem ? firstItem.offsetWidth + 30 : 400;
+      container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    });
   }
+
+  // Initialiser les filtres
+  initializeFilters(carouselConfig);
 }
 
 /**
@@ -128,20 +57,20 @@ async function loadArticles() {
  */
 function createBlogElement(article, index) {
   // Calcul du délai d'animation
-  const delay = (index % 2) * 100; // Décalage pour une animation en cascade
-  
+  const delay = (index % 3) * 100; // Décalage pour une animation en cascade
+
   // Création du div principal
   const articleDiv = document.createElement("div");
-  
+
   // S'assurer que la catégorie est exactement comme attendue
   let categoryClass = article.category || "filter-data";
   // Si la catégorie n'a pas le préfixe "filter-", l'ajouter
   if (!categoryClass.startsWith("filter-")) {
     console.warn(`Catégorie "${categoryClass}" sans préfixe "filter-". Article:`, article.title);
   }
-  
-  articleDiv.classList.add("col-lg-6", "blog-item", categoryClass);
-  
+
+  articleDiv.classList.add("modern-scroll-item", "blog-item", categoryClass);
+
   // Débogage des classes
   console.log(`Article créé: ${article.title}`, {
     category: article.category,
@@ -151,12 +80,12 @@ function createBlogElement(article, index) {
     articleDiv.setAttribute("data-aos", "fade-up");
     articleDiv.setAttribute("data-aos-delay", delay.toString());
   }
-  
+
   // Structure HTML interne
   articleDiv.innerHTML = `
     <div class="blog-card">
       <div class="blog-img">
-        <img src="${article.image_url}" class="img-fluid" alt="${article.title}" onerror="this.src='img/blog/placeholder1.jpg'">
+        <img src="${article.image_url}" class="img-fluid" alt="${article.title}" onerror="this.onerror=null; this.src='img/blog/placeholder1.jpg'">
       </div>
       <div class="blog-content">
         <h3>${article.title}</h3>
@@ -166,7 +95,7 @@ function createBlogElement(article, index) {
       </div>
     </div>
   `;
-  
+
   return articleDiv;
 }
 
@@ -175,13 +104,9 @@ function createBlogElement(article, index) {
  */
 function adjustItemsPerPage() {
   const windowWidth = window.innerWidth;
-  
-  if (windowWidth < 768) {
-    itemsPerPage = 1; // Mobile: 1 article par page
-  } else {
-    itemsPerPage = 2; // Tablette/Desktop: 2 articles par page
-  }
-  
+
+  itemsPerPage = 100; // Always render all for horizontal scroll
+
   // Réinitialise la position et affiche la page en cours
   currentPosition = 0;
   displayCurrentPage();
@@ -194,12 +119,14 @@ function adjustItemsPerPage() {
 function displayCurrentPage() {
   const blogContainer = document.getElementById("blogjorisContainer");
   if (!blogContainer) return;
-  
+
   blogContainer.innerHTML = '';
-  
-  const startIndex = currentPosition * itemsPerPage;
-  const endIndex = Math.min(startIndex + itemsPerPage, filteredBlogItems.length);
-  
+
+  // Afficher tous les articles filtrés
+  filteredBlogItems.forEach(item => {
+    blogContainer.appendChild(item.cloneNode(true));
+  });
+
   // Vérifier s'il y a des articles à afficher
   if (filteredBlogItems.length === 0) {
     blogContainer.innerHTML = `
@@ -209,27 +136,18 @@ function displayCurrentPage() {
         </div>
       </div>
     `;
-    
-    // Masquer les boutons de navigation
-    const navButtons = document.querySelector('.carousel-nav');
-    if (navButtons) {
-      navButtons.style.display = 'none';
-    }
-    
     return;
   }
-  
-  // Afficher les boutons de navigation
-  const navButtons = document.querySelector('.carousel-nav');
-  if (navButtons) {
-    navButtons.style.display = 'flex';
+
+  // Montrer le wrapper si articles présents
+  const wrapper = blogContainer.closest('.modern-carousel-wrapper');
+  if (wrapper) {
+    wrapper.style.display = 'block';
   }
-  
+
   // Afficher les articles de la page actuelle
-  for (let i = startIndex; i < endIndex; i++) {
-    blogContainer.appendChild(filteredBlogItems[i].cloneNode(true));
-  }
-  
+  // All rendered
+
   // Réinitialiser les animations AOS
   if (window.AOS) {
     AOS.refresh();
@@ -239,24 +157,37 @@ function displayCurrentPage() {
 /**
  * Initialise les filtres pour les articles
  */
-function initializeFilters() {
+function initializeFilters(carouselConfig) {
   // Gestionnaire d'événements pour les filtres
   document.querySelectorAll('.blog-filter li').forEach(filter => {
-    filter.addEventListener('click', function() {
+    filter.addEventListener('click', function () {
       // Retirer la classe active de tous les filtres
       const activeFilter = document.querySelector('.blog-filter .filter-active');
       if (activeFilter) {
         activeFilter.classList.remove('filter-active');
       }
-      
+
       // Ajouter la classe active au filtre cliqué
       this.classList.add('filter-active');
-      
+
       // Obtenir la valeur du filtre
       const filterValue = this.getAttribute('data-filter');
-      
-      // Appliquer le filtre
-      applyFilter(filterValue);
+
+      carouselConfig.allItems.forEach(item => {
+        if (filterValue === '*' || item.classList.contains(filterValue.substring(1))) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      // Réinitialiser le scroll
+      carouselConfig.container.scrollLeft = 0;
+
+      // Sync AOS
+      if (window.AOS) {
+        AOS.refresh();
+      }
     });
   });
 }
@@ -274,17 +205,21 @@ function applyFilter(filterValue) {
     // Articles correspondant au filtre
     // Enlever le point du début du filterValue
     const className = filterValue.replace('.', '');
-    filteredBlogItems = allBlogItems.filter(item => 
+    filteredBlogItems = allBlogItems.filter(item =>
       item.classList.contains(className)
     );
   }
-  
+
+  // Réinitialiser le scroll
+  const blogContainer = document.getElementById("blogjorisContainer");
+  if (blogContainer) blogContainer.scrollLeft = 0;
+
   // Réinitialiser la position
   currentPosition = 0;
-  
+
   // Afficher la première page des articles filtrés
   displayCurrentPage();
-  
+
   // Mettre à jour les boutons du carrousel
   updateCarouselButtons();
 }
@@ -293,10 +228,11 @@ function applyFilter(filterValue) {
  * Déplace le carrousel vers la page précédente
  */
 function movePrev() {
-  if (currentPosition > 0) {
-    currentPosition--;
-    displayCurrentPage();
-    updateCarouselButtons();
+  const blogContainer = document.getElementById("blogjorisContainer");
+  if (blogContainer) {
+    const firstItem = blogContainer.querySelector('.modern-scroll-item');
+    const scrollAmount = firstItem ? firstItem.offsetWidth + 30 : 400;
+    blogContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
   }
 }
 
@@ -304,11 +240,11 @@ function movePrev() {
  * Déplace le carrousel vers la page suivante
  */
 function moveNext() {
-  const maxPosition = Math.ceil(filteredBlogItems.length / itemsPerPage) - 1;
-  if (currentPosition < maxPosition) {
-    currentPosition++;
-    displayCurrentPage();
-    updateCarouselButtons();
+  const blogContainer = document.getElementById("blogjorisContainer");
+  if (blogContainer) {
+    const firstItem = blogContainer.querySelector('.modern-scroll-item');
+    const scrollAmount = firstItem ? firstItem.offsetWidth + 30 : 400;
+    blogContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
   }
 }
 
@@ -316,27 +252,10 @@ function moveNext() {
  * Met à jour l'état des boutons du carrousel
  */
 function updateCarouselButtons() {
-  const prevButton = document.querySelector('.carousel-prev');
-  const nextButton = document.querySelector('.carousel-next');
-  
-  if (!prevButton || !nextButton) return;
-  
-  // Activer/désactiver le bouton précédent
-  if (currentPosition <= 0) {
-    prevButton.classList.add('disabled');
-    prevButton.setAttribute('disabled', 'disabled');
-  } else {
+  const prevButton = document.querySelector('.blog-prev');
+  const nextButton = document.querySelector('.blog-next');
+  if (prevButton && nextButton) {
     prevButton.classList.remove('disabled');
-    prevButton.removeAttribute('disabled');
-  }
-  
-  // Activer/désactiver le bouton suivant
-  const maxPosition = Math.ceil(filteredBlogItems.length / itemsPerPage) - 1;
-  if (currentPosition >= maxPosition) {
-    nextButton.classList.add('disabled');
-    nextButton.setAttribute('disabled', 'disabled');
-  } else {
     nextButton.classList.remove('disabled');
-    nextButton.removeAttribute('disabled');
   }
 }

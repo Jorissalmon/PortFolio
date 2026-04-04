@@ -1,77 +1,27 @@
-/**
- * portfolio.js - Gestion de l'affichage des projets avec Contentful
- * 
- * Ce fichier gère le chargement, le filtrage et l'affichage des projets
- * dans la section portfolio du site.
- */
-
-document.addEventListener('DOMContentLoaded', function() {
-  // Chargement des projets
-  loadProjects();
+document.addEventListener('DOMContentLoaded', function () {
+  // Les projets sont déjà rendus statiquement par le script de génération.
+  // On initialise uniquement l'interactivité.
+  initializeInteractivity();
 });
 
 /**
- * Charge les projets depuis Contentful
+ * Initialise l'interactivité du portfolio (filtres et navigation)
  */
-async function loadProjects() {
-  try {
-    // Afficher un indicateur de chargement
-    const projectsContainer = document.getElementById("projectsContainer");
-    
-    if (!projectsContainer) {
-      console.error("Conteneur de projets introuvable");
-      return;
-    }
-    
-    projectsContainer.innerHTML = `
-      <div class="col-12 text-center py-5">
-        <div class="spinner-border text-primary" role="status">
-          <span class="visually-hidden">Chargement...</span>
-        </div>
-        <p class="mt-2">Chargement des projets...</p>
-      </div>
-    `;
-    
-    // Récupération des projets depuis Contentful
-    const projects = await window.contentfulService.getProjects();
-    
-    // Vérifier s'il y a des projets
-    if (!projects || projects.length === 0) {
-      projectsContainer.innerHTML = `
-        <div class="col-12 text-center py-5">
-          <div class="alert alert-info">
-            Aucun projet n'est disponible pour le moment.
-          </div>
-        </div>
-      `;
-      return;
-    }
-    
-    console.log("Projets chargés:", projects.length);
-    
-    // Initialiser le carrousel avec les projets chargés
-    initializeCarousel(projects);
-    
-    // Rafraîchir les animations AOS
-    if (window.AOS) {
-      AOS.refresh();
-    }
-    
-  } catch (error) {
-    console.error("Erreur lors du chargement des projets:", error);
-    
-    const projectsContainer = document.getElementById("projectsContainer");
-    if (projectsContainer) {
-      projectsContainer.innerHTML = `
-        <div class="col-12">
-          <div class="alert alert-danger text-center">
-            <i class="fas fa-exclamation-triangle me-2"></i> 
-            Erreur lors du chargement des projets. Veuillez réessayer plus tard.
-          </div>
-        </div>
-      `;
-    }
-  }
+function initializeInteractivity() {
+  const container = document.getElementById("projectsContainer");
+  if (!container) return;
+
+  // Configuration simplifiée pour les filtres existants
+  const carouselConfig = {
+    container: container,
+    allItems: Array.from(container.querySelectorAll('.portfolio-item'))
+  };
+
+  // Initialiser les boutons de filtrage
+  initFilterButtons(carouselConfig);
+
+  // Initialiser les contrôles du carrousel
+  initCarouselControls(carouselConfig);
 }
 
 /**
@@ -83,22 +33,20 @@ function initializeCarousel(projects) {
   const carouselConfig = {
     projects: projects,
     filteredProjects: projects,
-    currentPage: 0,
-    itemsPerPage: 4,
     container: document.getElementById('projectsContainer'),
   };
-  
+
   // Ajouter les contrôles de navigation du carrousel s'ils n'existent pas déjà
   addCarouselControls();
-  
+
   // Initialiser les boutons de filtrage
   initFilterButtons(carouselConfig);
-  
+
   // Initialiser les contrôles du carrousel
   initCarouselControls(carouselConfig);
-  
-  // Afficher la première page
-  renderProjectsPage(carouselConfig);
+
+  // Afficher tous les projets (au lieu d'une page)
+  renderAllProjects(carouselConfig);
 }
 
 /**
@@ -109,14 +57,14 @@ function addCarouselControls() {
   if (!document.querySelector('.carousel-nav')) {
     const portfolioSection = document.querySelector('.portfolio-section .container');
     const portfolioFilter = document.querySelector('.portfolio-filter');
-    
+
     if (portfolioSection && portfolioFilter) {
       // Créer l'élément des contrôles
       const controlsDiv = document.createElement('div');
       controlsDiv.className = 'carousel-nav';
       controlsDiv.setAttribute('data-aos', 'fade-up');
       controlsDiv.setAttribute('data-aos-delay', '150');
-      
+
       // Ajouter le HTML des contrôles avec le compteur de pages
       controlsDiv.innerHTML = `
         <button class="carousel-prev" aria-label="Projets précédents">
@@ -129,10 +77,10 @@ function addCarouselControls() {
           <i class="fas fa-chevron-right"></i>
         </button>
       `;
-      
+
       // Insérer après les filtres
       portfolioFilter.after(controlsDiv);
-      
+
       // Ajouter des styles pour le compteur si nécessaire
       addCarouselStyles();
     }
@@ -163,7 +111,7 @@ function addCarouselStyles() {
         color: var(--primary-color);
       }
     `;
-    
+
     document.head.appendChild(styleEl);
   }
 }
@@ -174,35 +122,34 @@ function addCarouselStyles() {
  */
 function initFilterButtons(carouselConfig) {
   const filterButtons = document.querySelectorAll('.portfolio-filter li');
-  
+
   filterButtons.forEach(button => {
-    // Supprimer les anciens écouteurs d'événements s'il y en a
-    const newButton = button.cloneNode(true);
-    button.parentNode.replaceChild(newButton, button);
-    
-    // Ajouter le nouvel écouteur d'événements
-    newButton.addEventListener('click', function() {
+    button.addEventListener('click', function () {
       // Mettre à jour l'état actif
       const activeFilter = document.querySelector('.portfolio-filter .filter-active');
       if (activeFilter) {
         activeFilter.classList.remove('filter-active');
       }
       this.classList.add('filter-active');
-      
+
       // Appliquer le filtre
       const filterValue = this.getAttribute('data-filter');
       
-      if (filterValue === '*') {
-        carouselConfig.filteredProjects = carouselConfig.projects;
-      } else {
-        carouselConfig.filteredProjects = carouselConfig.projects.filter(project => 
-          '.' + project.category === filterValue
-        );
-      }
+      carouselConfig.allItems.forEach(item => {
+        if (filterValue === '*' || item.classList.contains(filterValue.substring(1))) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      // Réinitialiser le défilement
+      carouselConfig.container.scrollLeft = 0;
       
-      // Réinitialiser la page et afficher les projets
-      carouselConfig.currentPage = 0;
-      renderProjectsPage(carouselConfig);
+      // Sync AOS
+      if (window.AOS) {
+        AOS.refresh();
+      }
     });
   });
 }
@@ -214,57 +161,41 @@ function initFilterButtons(carouselConfig) {
 function initCarouselControls(carouselConfig) {
   const prevButton = document.querySelector('.portfolio-prev'); // Changé de carousel-prev
   const nextButton = document.querySelector('.portfolio-next'); // Changé de carousel-next
-  
+
   if (prevButton && nextButton) {
     // Supprimer les anciens écouteurs d'événements s'il y en a
     const newPrevButton = prevButton.cloneNode(true);
     const newNextButton = nextButton.cloneNode(true);
-    
+
     prevButton.parentNode.replaceChild(newPrevButton, prevButton);
     nextButton.parentNode.replaceChild(newNextButton, nextButton);
-    
+
     // Bouton précédent
-    newPrevButton.addEventListener('click', function() {
-      if (carouselConfig.currentPage > 0) {
-        carouselConfig.currentPage--;
-        renderProjectsPage(carouselConfig);
-      } else {
-        // Ajouter la classe disabled quand on ne peut pas aller plus loin
-        this.classList.add('disabled');
-      }
+    newPrevButton.addEventListener('click', function () {
+      const firstItem = carouselConfig.container.querySelector('.modern-scroll-item');
+      const scrollAmount = firstItem ? firstItem.offsetWidth + 30 : 400;
+      carouselConfig.container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
     });
-    
+
     // Bouton suivant
-    newNextButton.addEventListener('click', function() {
-      const totalPages = Math.ceil(carouselConfig.filteredProjects.length / carouselConfig.itemsPerPage);
-      if (carouselConfig.currentPage < totalPages - 1) {
-        carouselConfig.currentPage++;
-        renderProjectsPage(carouselConfig);
-      } else {
-        // Ajouter la classe disabled quand on ne peut pas aller plus loin
-        this.classList.add('disabled');
-      }
+    newNextButton.addEventListener('click', function () {
+      const firstItem = carouselConfig.container.querySelector('.modern-scroll-item');
+      const scrollAmount = firstItem ? firstItem.offsetWidth + 30 : 400;
+      carouselConfig.container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     });
   }
 }
 
 /**
- * Affiche une page de projets
+ * Affiche tous les projets filtrés
  * @param {Object} carouselConfig - Configuration du carrousel
  */
-function renderProjectsPage(carouselConfig) {
-  // Calculer les indices de début et fin pour la page courante
-  const startIndex = carouselConfig.currentPage * carouselConfig.itemsPerPage;
-  const endIndex = startIndex + carouselConfig.itemsPerPage;
-  
-  // Projets à afficher pour cette page
-  const pageProjects = carouselConfig.filteredProjects.slice(startIndex, endIndex);
-  
+function renderAllProjects(carouselConfig) {
   // Vider le conteneur
   carouselConfig.container.innerHTML = '';
-  
+
   // Si aucun projet après filtrage
-  if (pageProjects.length === 0) {
+  if (carouselConfig.filteredProjects.length === 0) {
     carouselConfig.container.innerHTML = `
       <div class="col-12 text-center py-4">
         <div class="alert alert-info">
@@ -272,69 +203,31 @@ function renderProjectsPage(carouselConfig) {
         </div>
       </div>
     `;
-    
-    // Mettre à jour les contrôles
-    updateControls(carouselConfig, 0);
     return;
   }
-  
+
   // Créer un élément pour chaque projet
-  pageProjects.forEach((project, index) => {
+  carouselConfig.filteredProjects.forEach((project, index) => {
     const projectElement = createProjectElement(project, index);
     carouselConfig.container.appendChild(projectElement);
   });
-  
-  // Mettre à jour les contrôles et indicateurs
-  const totalPages = Math.ceil(carouselConfig.filteredProjects.length / carouselConfig.itemsPerPage);
-  updateControls(carouselConfig, totalPages);
-  
-  // Animation AOS
+
+  // Sync AOS
   if (window.AOS) {
     AOS.refresh();
   }
 }
 
 /**
- * Met à jour les contrôles du carrousel
- * @param {Object} carouselConfig - Configuration du carrousel
- * @param {Number} totalPages - Nombre total de pages
+ * Met à jour les contrôles du carrousel (Optionnel pour le scroll horizontal)
  */
-function updateControls(carouselConfig, totalPages) {
-  const prevButton = document.querySelector('.portfolio-prev'); // Changé de carousel-prev
-  const nextButton = document.querySelector('.portfolio-next'); // Changé de carousel-next
-  
+function updateControls(carouselConfig) {
+  // Les boutons restent actifs car le scroll est libre
+  const prevButton = document.querySelector('.portfolio-prev');
+  const nextButton = document.querySelector('.portfolio-next');
   if (prevButton && nextButton) {
-    // Activer/désactiver les boutons suivant/précédent
-    if (carouselConfig.currentPage === 0) {
-      prevButton.classList.add('disabled');
-    } else {
-      prevButton.classList.remove('disabled');
-    }
-    
-    if (carouselConfig.currentPage >= totalPages - 1 || totalPages === 0) {
-      nextButton.classList.add('disabled');
-    } else {
-      nextButton.classList.remove('disabled');
-    }
-  }
-  
-  // Mettre à jour le compteur de projets
-  const currentPageElement = document.querySelector('.portfolio-counter .current-page');
-  const totalPagesElement = document.querySelector('.portfolio-counter .total-pages');
-  
-  if (currentPageElement && totalPagesElement) {
-    // Calculer les indices de début et fin pour la page courante
-    const startIndex = (carouselConfig.currentPage * carouselConfig.itemsPerPage) + 1;
-    const endIndex = Math.min((startIndex + carouselConfig.itemsPerPage - 1), carouselConfig.filteredProjects.length);
-    
-    // Afficher les projets actuels sur le total
-    if (carouselConfig.filteredProjects.length > 0) {
-      currentPageElement.textContent = `${startIndex}-${endIndex}`;
-      totalPagesElement.textContent = carouselConfig.filteredProjects.length;
-    } else {
-      currentPageElement.textContent = "0";
-      totalPagesElement.textContent = "0";
-    }
+    prevButton.classList.remove('disabled');
+    nextButton.classList.remove('disabled');
   }
 }
 
@@ -346,46 +239,42 @@ function updateControls(carouselConfig, totalPages) {
  */
 function createProjectElement(project, index) {
   // Calcul du délai d'animation
-  const delay = (index % 4) * 100; // Modifié pour 4 par page
-  
+  const delay = (index % 3) * 100; // Modifié pour 3 par page
+
   const projectDiv = document.createElement("div");
-  projectDiv.classList.add("col-lg-3", "col-md-6", "portfolio-item", project.category); // Modifié à col-lg-3 pour 4 par ligne
-  
+  projectDiv.classList.add("modern-scroll-item", "portfolio-item", project.category);
+
   if (window.AOS) {
     projectDiv.setAttribute("data-aos", "zoom-in");
     projectDiv.setAttribute("data-aos-delay", delay.toString());
   }
-  
+
   const categoryMap = {
     'filter-bi': 'Business Intelligence',
     'filter-data': 'Data Science',
     'filter-recherche': 'Recherche'
   };
-  
+
   const categoryName = categoryMap[project.category] || 'Projet';
-  
+
   projectDiv.innerHTML = `
-    <div class="portfolio-wrap">
-      <div class="portfolio-img">
-        <img src="${project.image_url}" alt="${project.name}" onerror="this.src='img/portfolio/placeholder1.jpg'">
+    <div class="blog-card">
+      <div class="blog-img">
+        <img src="${project.image_url}" class="img-fluid" alt="${project.name}" onerror="this.onerror=null; this.src='img/portfolio/placeholder1.jpg'">
       </div>
-      <div class="portfolio-info">
-        <span class="portfolio-category">${categoryName}</span>
-        <h4>${project.name}</h4>
+      <div class="blog-content">
+        <span class="portfolio-category" style="color: var(--accent-cyan); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">${categoryName}</span>
+        <h3 class="mt-2">${project.name}</h3>
         <p>${project.description || 'Aucune description disponible.'}</p>
-        <div class="portfolio-links">
-          <a href="project.html?id=${project.id}" class="details-link">
-            <i class="fas fa-link"></i>Voir le projet
-          </a>
-        </div>
+        <a href="${project.link}" class="read-more">Voir le projet</a>
       </div>
     </div>
   `;
-  
+
   return projectDiv;
 }
 
 /**
- * Fonction pour recharger les projets (utile pour les mises à jour)
+/**
+ * Fonction supprimée car les projets sont maintenant chargés statiquement
  */
-window.reloadProjects = loadProjects;

@@ -7,6 +7,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import contentful from 'contentful';
+import fetch from 'node-fetch';
 
 dotenv.config();
 
@@ -66,6 +67,39 @@ app.post('/api/contentful', async (req, res) => {
             error: error.message,
             details: error.sys || {}
         });
+    }
+});
+
+// Route API OpenAI/OpenRouter (compatible avec Vercel et local)
+app.post('/api/callopenai', async (req, res) => {
+    try {
+        const { messages } = req.body;
+        const OPENROUTER_API_KEY = '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';
+
+        const fetchResponse = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+                'HTTP-Referer': 'http://localhost:3000',
+                'X-Title': 'Joris Salmon Portfolio (Local)',
+            },
+            body: JSON.stringify({
+                model: 'google/gemini-2.0-flash-lite-001',
+                messages: messages,
+            }),
+        });
+
+        if (!fetchResponse.ok) {
+            const errorData = await fetchResponse.json();
+            throw new Error(`OpenRouter API error: ${fetchResponse.status} - ${JSON.stringify(errorData)}`);
+        }
+
+        const data = await fetchResponse.json();
+        res.json(data);
+    } catch (error) {
+        console.error('Erreur API Chatbot:', error);
+        res.status(500).json({ message: 'Internal server error', error: error.message });
     }
 });
 

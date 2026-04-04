@@ -435,7 +435,7 @@ window.contentfulService = {
           date: date,
           summary: fields.rsum || 'Aucun résumé disponible',
           image_url: imageUrl,
-          link: `article.html?id=${item.sys.id}`,
+          link: `articles/${item.sys.id}.html`,
           category: category
         };
       });
@@ -494,7 +494,7 @@ window.contentfulService = {
           description: fields.description || 'Aucune description disponible',
           category: category,
           image_url: imageUrl,
-          link: fields.url || '#'
+          link: `projets/${item.sys.id}.html`
         };
       });
     } catch (error) {

@@ -1,6 +1,11 @@
 /*--------------------------------------------------------------
 # Additional Responsive Design Improvements
 --------------------------------------------------------------*/
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
 
 /* Hero Section - Responsive Enhancements */
 @media (max-width: 991px) {
@@ -18,9 +23,59 @@
         font-size: 20px;
     }
     
-    .hero-image {
-        max-width: 90%;
-        margin: 40px auto 0;
+    /* Hide the inline hero image on tablet/mobile — use the mobile avatar instead */
+    .hero-image-box {
+        display: none !important;
+    }
+}
+
+/* Fix Contact Placeholders globally */
+#contactForm input::placeholder,
+#contactForm textarea::placeholder,
+.newsletter-form input::placeholder {
+    color: rgba(255, 255, 255, 0.8) !important;
+    opacity: 1;
+}
+
+/* Footer Responsive fixes */
+@media (max-width: 767px) {
+    .footer-content .row > div {
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    .footer-links ul {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+    .footer-newsletter form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    .footer-newsletter input, .footer-newsletter button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .contact-info {
+        text-align: center;
+        padding: 0 15px;
+    }
+    
+    .contact-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 25px;
+        word-break: break-all;
+    }
+    
+    .contact-item .icon {
+        margin-bottom: 15px;
+        margin-right: 0 !important;
     }
 }
 
@@ -71,6 +126,43 @@
         font-size: 16px;
     }
 }
+
+/* ==========================================================
+   Mobile Circular Avatar (shown below hero on small screens)
+   ========================================================== */
+.mobile-avatar-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.mobile-avatar-img {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--primary-color);
+    box-shadow: 0 0 20px rgba(188, 19, 254, 0.5), 0 0 40px rgba(188, 19, 254, 0.2);
+    animation: avatarPulse 3s ease-in-out infinite;
+    display: block;
+}
+
+@keyframes avatarPulse {
+    0%, 100% { box-shadow: 0 0 15px rgba(188, 19, 254, 0.4), 0 0 30px rgba(188, 19, 254, 0.1); }
+    50% { box-shadow: 0 0 28px rgba(188, 19, 254, 0.7), 0 0 55px rgba(188, 19, 254, 0.3); }
+}
+
+/* Très petits écrans : encore plus petit */
+@media (max-width: 380px) {
+    .mobile-avatar-img {
+        width: 85px;
+        height: 85px;
+    }
+}
+
+/* On large screens the mobile avatar is hidden (d-lg-none handles this via Bootstrap) */
 
 /* About Section - Responsive Enhancements */
 @media (max-width: 767px) {
@@ -246,12 +338,31 @@
     .portfolio-carousel-controls {
         margin-bottom: 20px;
     }
-    
-    .portfolio-prev,
-    .portfolio-next {
-        width: 35px;
-        height: 35px;
-        font-size: 16px;
+}
+
+/* Modern Carousel Scroll Items - Responsive */
+@media (max-width: 767px) {
+    .modern-scroll-item {
+        flex: 0 0 90% !important;
+    }
+    .modern-scroll-item-2 {
+        flex: 0 0 90% !important;
+    }
+}
+
+/* Education filter slicer mobile spacing */
+@media (max-width: 767px) {
+    .education-filter ul,
+    .portfolio-filter ul,
+    .blog-filter ul {
+        gap: 8px;
+        padding: 0 10px;
+    }
+    .education-filter li,
+    .portfolio-filter li,
+    .blog-filter li {
+        font-size: 12px;
+        padding: 6px 14px;
     }
 }
 
@@ -343,12 +454,30 @@
         text-align: center;
     }
     
-    .hero-image {
-        max-width: 80%;
+    .hero-image-box {
+        display: none !important;
     }
     
     .about-text {
         padding-left: 0;
+    }
+}
+
+/* Desktop hero image: keep reasonably sized, not too tall */
+@media (min-width: 992px) {
+    .hero-profile-container img {
+        max-height: 520px;
+        max-width: 400px;
+        object-fit: cover;
+        border-radius: 20px;
+    }
+}
+
+/* Edge case: very large screens */
+@media (min-width: 1400px) {
+    .hero-profile-container img {
+        max-height: 580px;
+        max-width: 440px;
     }
 }
 

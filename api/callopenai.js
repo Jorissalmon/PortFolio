@@ -17,15 +17,20 @@ export default async function handler(req, res) {
         try {
             // Récupère les messages du corps de la requête
             const { messages } = req.body;
-
-            const response = await fetch('https://api.openai.com/v1/chat/completions', {
+            
+            // Configuration OpenRouter
+            const OPENROUTER_API_KEY = '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';
+            
+            const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+                    'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+                    'HTTP-Referer': 'https://www.jorissalmon.com', // Optionnel pour OpenRouter
+                    'X-Title': 'Joris Salmon Portfolio', // Optionnel pour OpenRouter
                 },
                 body: JSON.stringify({
-                    model: 'gpt-3.5-turbo',
+                    model: 'google/gemini-2.0-flash-lite-001', // Modèle performant et économique
                     messages: messages,
                 }),
             });

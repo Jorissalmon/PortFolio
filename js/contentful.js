@@ -430,7 +430,8 @@ window.contentfulService = {
           "img/placeholder1.jpg";
 
         // Catégorie : utiliser la valeur Contentful directement comme classe CSS
-        const category = fields.categorie || fields.category || 'data';
+        const categoryValue = fields.categorie || fields.category || 'data';
+        const category = String(categoryValue).replace(/\s+/g, '-');
 
         // Construire le slug à partir du titre (identique à generate-pages.js)
         const rawTitle = fields.Titre || 'article';
@@ -495,7 +496,8 @@ window.contentfulService = {
 
         // Catégorie : valeur brute Contentful = classe CSS directe
         // Toute valeur mise dans Contentful devient automatiquement un filtre
-        const category = fields.category || fields.categorie || 'data';
+        const categoryValue = fields.category || fields.categorie || 'data';
+        const category = String(categoryValue).replace(/\s+/g, '-');
 
         // Construire le slug (identique à generate-pages.js)
         const rawTitle = fields.title || 'projet';

@@ -1,0 +1,30 @@
+{
+  "filters": [
+    {
+      "label": "Tous",
+      "filter": "*"
+    },
+    {
+      "label": "BUSINESS INTELLIGENCE",
+      "filter": ".Business Intelligence"
+    },
+    {
+      "label": "DATA SCIENCE",
+      "filter": ".data-science"
+    }
+  ],
+  "projects": [
+    {
+      "class": "modern-scroll-item portfolio-item Business Intelligence",
+      "title": "Création d'un reporting PowerBI"
+    },
+    {
+      "class": "modern-scroll-item portfolio-item data-science",
+      "title": "Analyse de sentiments"
+    },
+    {
+      "class": "modern-scroll-item portfolio-item data-science",
+      "title": "Mon projet de classification des panneaux de signalisation routière"
+    }
+  ]
+}

@@ -459,8 +459,9 @@ async function generatePages() {
 
     const portfolioFiltersHtml = '<li class="filter-active" data-filter="*">Tous</li>' + 
         Array.from(portfolioCategories).map(cat => {
+            const safeClass = String(cat).replace(/\s+/g, '-');
             const label = String(cat).replace('filter-', '').replace(/-/g, ' ').toUpperCase();
-            return `<li data-filter=".${cat}">${label}</li>`;
+            return `<li data-filter=".${safeClass}">${label}</li>`;
         }).join('');
 
     // Gathering Blog Categories
@@ -476,8 +477,9 @@ async function generatePages() {
     });
     const blogFiltersHtml = '<li class="filter-active" data-filter="*">Tous</li>' + 
         Array.from(blogCategories).map(cat => {
+            const safeClass = String(cat).replace(/\s+/g, '-');
             const label = String(cat).replace('filter-', '').replace(/-/g, ' ').toUpperCase();
-            return `<li data-filter=".${cat}">${label}</li>`;
+            return `<li data-filter=".${safeClass}">${label}</li>`;
         }).join('');
 
     // Gathering Education Categories (Slicer)
@@ -566,11 +568,12 @@ async function generatePages() {
             const { title, description, category, image } = project.fields;
             const imageUrl = image?.fields?.file?.url ? (image.fields.file.url.startsWith('//') ? `https:${image.fields.file.url}` : image.fields.file.url) : 'img/portfolio/placeholder1.jpg';
             const delay = (index % 3) * 100;
-            // Catégorie : valeur brute Contentful = classe CSS directe (compatible avec le filtre)
-            const categoryClass = Array.isArray(category)
+            // Catégorie : valeur brute Contentful = classe CSS directe (compatible avec le filtre, sans espace)
+            const categoryValue = Array.isArray(category)
                 ? category[0] || 'data'
                 : (category || 'data');
-            const categoryLabel = String(categoryClass)
+            const categoryClass = String(categoryValue).replace(/\s+/g, '-');
+            const categoryLabel = String(categoryValue)
                 .replace(/-/g, ' ')
                 .replace(/_/g, ' ')
                 .toUpperCase();

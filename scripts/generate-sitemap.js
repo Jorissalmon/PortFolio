@@ -30,6 +30,22 @@ const client = contentful.createClient({
 });
 
 /**
+ * Generate a URL-friendly slug (identical to generate-pages.js and contentful.js)
+ */
+function slugify(text) {
+    return text.toString().normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .replace(/['\u2018\u2019]/g, '-')
+        .replace(/[^\w\s-]/g, '')
+        .trim()
+        .replace(/[\s_]+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '')
+        .slice(0, 80);
+}
+
+/**
  * Formate une date au format YYYY-MM-DD
  */
 function formatDate(date) {
@@ -101,11 +117,12 @@ async function generateSitemap() {
         if (blogEntries.items.length > 0) {
             xml += '    <!-- Articles de blog -->\n';
             blogEntries.items.forEach(entry => {
-                const id = entry.sys.id;
-                const updatedAt = entry.sys.updatedAt;
+                const title = entry.fields.Titre || entry.fields.title || entry.sys.id;
+                const slug = slugify(title);
+                const updatedAt = entry.fields.dateDePublication || entry.sys.updatedAt;
 
                 xml += '    <url>\n';
-                xml += `        <loc>${SITE_URL}/articles/${id}.html</loc>\n`;
+                xml += `        <loc>${SITE_URL}/articles/${slug}.html</loc>\n`;
                 xml += `        <lastmod>${formatDate(updatedAt)}</lastmod>\n`;
                 xml += '        <changefreq>monthly</changefreq>\n';
                 xml += '        <priority>0.8</priority>\n';
@@ -118,11 +135,13 @@ async function generateSitemap() {
         if (projectEntries.items.length > 0) {
             xml += '    <!-- Projets portfolio -->\n';
             projectEntries.items.forEach(entry => {
-                const id = entry.sys.id;
-                const updatedAt = entry.sys.updatedAt;
+                const rawTitle = entry.fields.title || entry.sys.id;
+                const cleanTitle = rawTitle.replace(/^mon projet (d[e']\s*)?/i, '');
+                const slug = slugify(cleanTitle);
+                const updatedAt = entry.fields.date || entry.sys.updatedAt;
 
                 xml += '    <url>\n';
-                xml += `        <loc>${SITE_URL}/projets/${id}.html</loc>\n`;
+                xml += `        <loc>${SITE_URL}/projets/${slug}.html</loc>\n`;
                 xml += `        <lastmod>${formatDate(updatedAt)}</lastmod>\n`;
                 xml += '        <changefreq>monthly</changefreq>\n';
                 xml += '        <priority>0.8</priority>\n';

@@ -502,8 +502,9 @@ window.contentfulService = {
         // Mapper la catégorie Contentful vers la classe CSS
         const categoryMap = {
           'data-analyse': 'filter-bi',
+          'bi':           'filter-bi',
           'data-science': 'filter-data',
-          'recherche': 'filter-recherche'
+          'recherche':    'filter-recherche'
         };
         const category = categoryMap[fields.category] || 'filter-1';
 

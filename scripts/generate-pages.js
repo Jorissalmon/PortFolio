@@ -281,7 +281,7 @@ async function generatePages() {
     // 2. Generate Portfolio Projects
     console.log('💼 Génération des projets individuels...');
     for (const entry of projectEntries.items) {
-        const { title, description, detailedDescription, category, date, tools, client: clientName, url, image, galleryImages, videoUrl } = entry.fields;
+        const { title, description, detailedDescription, category, date, technologies, tools, client: clientName, url, image, galleryImages, videoUrl } = entry.fields;
         const id = entry.sys.id;
         const projectSlug = projectSlugMap.get(id);
         console.log(`- Projet: ${title} → ${projectSlug}.html`);
@@ -298,7 +298,8 @@ async function generatePages() {
         doc.querySelector('meta[name="description"]')?.setAttribute('content', description || `Projet: ${title}`);
 
         // SEO: canonical + Schema.org JSON-LD + geo tags
-        const toolsList = Array.isArray(tools) ? tools : (tools ? [tools] : []);
+        const actualTools = technologies || tools || [];
+        const toolsList = Array.isArray(actualTools) ? actualTools : (actualTools ? [actualTools] : []);
         injectSEOMeta(doc, {
             canonicalUrl: `https://www.jorissalmon.com/projets/${projectSlug}.html`,
             jsonLdData: {
@@ -342,12 +343,12 @@ async function generatePages() {
         const elDate = doc.querySelector('#projectDate');
         if (elDate) elDate.textContent = date ? new Date(date).toLocaleDateString('fr-FR') : '--';
 
-        // Handle tools (could be string or array)
+        // Handle tools/technologies (could be string or array)
         let toolsText = '--';
-        if (Array.isArray(tools)) {
-            toolsText = tools.join(', ');
-        } else if (tools) {
-            toolsText = tools;
+        if (Array.isArray(actualTools)) {
+            toolsText = actualTools.join(', ');
+        } else if (actualTools) {
+            toolsText = actualTools;
         }
         const elTech = doc.querySelector('#projectTechnologies');
         if (elTech) elTech.textContent = toolsText;

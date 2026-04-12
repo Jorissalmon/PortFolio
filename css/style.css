@@ -578,25 +578,6 @@ p {
   width: 100%;
 }
 
-.content-wrapper {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-}
-
-.content-wrapper img {
-  width: 24px;
-  height: 24px;
-  margin-top: 3px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.content-wrapper p {
-  margin: 0;
-  line-height: 1.5;
-}
-
 /* Style des liens dans le chat */
 .styled-link {
   color: var(--primary-color);

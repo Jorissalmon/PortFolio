@@ -17,6 +17,13 @@ const PORT = 3000;
 // Middleware
 app.use(cors());
 app.use(express.json());
+// Désactiver le cache local pour toujours voir les dernières modifications (utile après build)
+app.use((req, res, next) => {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    next();
+});
 app.use(express.static('.'));
 
 // Client Contentful

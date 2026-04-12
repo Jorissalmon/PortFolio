@@ -32,6 +32,76 @@ const renderOptions = {
 };
 
 /**
+ * Generate a URL-friendly slug from a title
+ */
+function slugify(text) {
+    return text.toString().normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .replace(/[''\u2018\u2019]/g, '-') // apostrophes → hyphens (L'IA → l-ia)
+        .replace(/[^\w\s-]/g, '')
+        .trim()
+        .replace(/[\s_]+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '') // trim leading/trailing hyphens
+        .slice(0, 80);
+}
+
+function generateUniqueSlug(title, existingSlugs) {
+    let slug = slugify(title) || 'page';
+    let unique = slug;
+    let n = 1;
+    while (existingSlugs.has(unique)) { unique = `${slug}-${n++}`; }
+    existingSlugs.add(unique);
+    return unique;
+}
+
+/**
+ * Inject canonical, JSON-LD and geo tags into a document head
+ */
+function injectSEOMeta(doc, { canonicalUrl, jsonLdData }) {
+    // Canonical
+    let canonical = doc.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+        canonical = doc.createElement('link');
+        canonical.setAttribute('rel', 'canonical');
+        doc.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', canonicalUrl);
+
+    // JSON-LD
+    if (jsonLdData) {
+        const s = doc.createElement('script');
+        s.setAttribute('type', 'application/ld+json');
+        s.textContent = JSON.stringify(jsonLdData, null, 2);
+        doc.head.appendChild(s);
+    }
+
+    // Geo (Aix-en-Provence)
+    [['geo.region','FR-PAC'],['geo.placename','Aix-en-Provence'],
+     ['geo.position','43.529742;5.447427'],['ICBM','43.529742, 5.447427']]
+    .forEach(([name, content]) => {
+        let el = doc.querySelector(`meta[name="${name}"]`);
+        if (!el) { el = doc.createElement('meta'); el.setAttribute('name', name); doc.head.appendChild(el); }
+        el.setAttribute('content', content);
+    });
+}
+
+/**
+ * Replace generic anchor text ("ici", "here") with descriptive text
+ */
+function improveAnchorText(html) {
+    return html.replace(/<a([^>]*)>\s*(ici|here|lien|link)\s*<\/a>/gi, (m, attrs) => {
+        const href = (attrs.match(/href="([^"]+)"/) || [])[1] || '';
+        if (href.includes('github')) return `<a${attrs}>Voir le code source sur GitHub</a>`;
+        if (href.includes('drive.google') && href.toLowerCase().includes('pdf')) return `<a${attrs}>Télécharger le rapport du projet</a>`;
+        if (href.includes('drive.google')) return `<a${attrs}>Voir la présentation du projet</a>`;
+        if (href.includes('youtube') || href.includes('youtu.be')) return `<a${attrs}>Voir la démonstration vidéo</a>`;
+        return `<a${attrs}>Voir la ressource</a>`;
+    });
+}
+
+/**
  * Update all relative links in the HTML to point one level up
  * and remove dynamic loading scripts to prevent errors.
  */
@@ -79,6 +149,11 @@ function updateRelativePaths(dom) {
             }));
         }
     });
+
+    // Add defer to non-async scripts (Core Web Vitals improvement)
+    document.querySelectorAll('script[src]:not([async])').forEach(script => {
+        script.setAttribute('defer', '');
+    });
 }
 
 async function generatePages() {
@@ -102,94 +177,105 @@ async function generatePages() {
     const passionEntries = await client.getEntries({ content_type: 'passion', order: 'fields.order' });
     const profileEntries = await client.getEntries({ content_type: 'profileSettings', include: 10 });
 
+    // Build slug maps (id → slug) for all entries
+    const articleSlugMap = new Map();
+    const articleSlugsUsed = new Set();
+    blogEntries.items.forEach(e => {
+        const t = e.fields.Titre || e.fields.title || e.sys.id;
+        articleSlugMap.set(e.sys.id, generateUniqueSlug(t, articleSlugsUsed));
+    });
+
+    const projectSlugMap = new Map();
+    const projectSlugsUsed = new Set();
+    projectEntries.items.forEach(e => {
+        // Strip "Mon projet de/d'" before slugifying
+        const rawTitle = e.fields.title || e.sys.id;
+        const t = rawTitle.replace(/^mon projet (d[e']\s*)?/i, '');
+        projectSlugMap.set(e.sys.id, generateUniqueSlug(t, projectSlugsUsed));
+    });
+
     // 1. Generate Blog Articles
     console.log('📰 Génération des articles individuels...');
     for (const entry of blogEntries.items) {
         const { Titre, contenu, dateDePublication, rsum } = entry.fields;
         const id = entry.sys.id;
-        console.log(`- Article: ${Titre}`);
-        // ... (rest of blog generation)
+        const articleSlug = articleSlugMap.get(id);
+        console.log(`- Article: ${Titre} → ${articleSlug}.html`);
 
         const dom = new JSDOM(articleTemplate);
         const doc = dom.window.document;
 
-        // Update content
-        doc.querySelector('title').textContent = `${Titre} | Joris Salmon`;
-        doc.querySelector('meta[name="description"]').setAttribute('content', rsum || `Article: ${Titre}`);
-        // Mise à jour Open Graph et Twitter dynamique
-        const setMeta = (query, val, nameAttr = 'property') => { 
-            let el = doc.querySelector(query); 
-            if (!el) {
-                el = doc.createElement('meta');
-                const name = query.match(/"([^"]+)"/)[1];
-                el.setAttribute(nameAttr, name);
-                doc.head.appendChild(el);
-            }
-            el.setAttribute('content', val); 
-        };
         const titleText = `${Titre} | Joris Salmon`;
+        doc.querySelector('title').textContent = titleText;
+        doc.querySelector('meta[name="description"]')?.setAttribute('content', rsum || `Article: ${Titre}`);
+
+        // SEO: canonical + JSON-LD + geo
+        injectSEOMeta(doc, {
+            canonicalUrl: `https://www.jorissalmon.com/articles/${articleSlug}.html`,
+            jsonLdData: {
+                '@context': 'https://schema.org',
+                '@type': 'Article',
+                'headline': Titre,
+                'description': rsum || `Article: ${Titre}`,
+                'datePublished': new Date(dateDePublication).toISOString(),
+                'url': `https://www.jorissalmon.com/articles/${articleSlug}.html`,
+                'author': { '@type': 'Person', 'name': 'Joris Salmon', 'url': 'https://www.jorissalmon.com' },
+                'publisher': { '@type': 'Person', 'name': 'Joris Salmon' }
+            }
+        });
+
+        // Open Graph / Twitter
+        const setMeta = (query, val, nameAttr = 'property') => {
+            let el = doc.querySelector(query);
+            if (!el) { el = doc.createElement('meta'); const n = query.match(/"([^"]+)"/)[1]; el.setAttribute(nameAttr, n); doc.head.appendChild(el); }
+            el.setAttribute('content', val);
+        };
         setMeta('meta[property="og:title"]', titleText, 'property');
         setMeta('meta[name="twitter:title"]', titleText, 'name');
         setMeta('meta[property="og:description"]', rsum || `Article de blog: ${Titre}`, 'property');
         setMeta('meta[name="twitter:description"]', rsum || `Article de blog: ${Titre}`, 'name');
-        setMeta('meta[property="og:url"]', `https://www.jorissalmon.com/articles/${id}.html`, 'property');
-        // if imagePrincipale is set, update og:image
+        setMeta('meta[property="og:url"]', `https://www.jorissalmon.com/articles/${articleSlug}.html`, 'property');
         const mainImg = entry.fields.imagePrincipale || entry.fields.image;
         if (mainImg?.fields?.file?.url) {
-             const imgUrl = mainImg.fields.file.url.startsWith('//') ? `https:${mainImg.fields.file.url}` : mainImg.fields.file.url;
-             setMeta('meta[property="og:image"]', imgUrl, 'property');
-             setMeta('meta[name="twitter:image"]', imgUrl, 'name');
+            const imgUrl = mainImg.fields.file.url.startsWith('//') ? `https:${mainImg.fields.file.url}` : mainImg.fields.file.url;
+            setMeta('meta[property="og:image"]', imgUrl, 'property');
+            setMeta('meta[name="twitter:image"]', imgUrl, 'name');
         }
+
         doc.querySelector('.article-header h1').textContent = Titre;
         doc.querySelector('.article-meta .date').innerHTML = `<i class="fas fa-calendar-alt me-2"></i>${new Date(dateDePublication).toLocaleDateString('fr-FR')}`;
-        
-        // Update social sharing links
-        const articleFullUrl = `https://www.jorissalmon.com/articles/${id}.html`;
+
+        // Social sharing
+        const articleFullUrl = `https://www.jorissalmon.com/articles/${articleSlug}.html`;
         const encodedUrl = encodeURIComponent(articleFullUrl);
         const encodedTitle = encodeURIComponent(Titre);
-        
         const twShare = doc.querySelector('.share-twitter');
         if (twShare) { twShare.href = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`; twShare.target = '_blank'; }
-        
         const fbShare = doc.querySelector('.share-facebook');
         if (fbShare) { fbShare.href = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`; fbShare.target = '_blank'; }
-        
         const liShare = doc.querySelector('.share-linkedin');
         if (liShare) { liShare.href = `https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}&title=${encodedTitle}`; liShare.target = '_blank'; }
 
         const contentArea = doc.querySelector('.article-content .content');
         if (contenu) {
-            contentArea.innerHTML = documentToHtmlString(contenu, renderOptions);
+            contentArea.innerHTML = improveAnchorText(documentToHtmlString(contenu, renderOptions));
         }
 
-        // Recommendations logic
+        // Related articles
         const otherArticles = blogEntries.items.filter(a => a.sys.id !== id);
         const randomArticles = otherArticles.sort(() => 0.5 - Math.random()).slice(0, 2);
         const recoHtml = randomArticles.map(a => {
-            const t = a.fields.Titre || a.fields.title || "Sans titre";
+            const aTitle = a.fields.Titre || a.fields.title || 'Sans titre';
             const img = a.fields.imagePrincipale || a.fields.image || a.fields.photo;
-            const title = a.fields.Titre || a.fields.title || "Sans titre";
-            const imgUrl = img?.fields?.file?.url ? (img.fields.file.url.startsWith('//') ? `https:${img.fields.file.url}` : img.fields.file.url) : `https://via.placeholder.com/600x400/1a1a2e/ef233c?text=${encodeURIComponent(title)}`;
-            return `
-                <div class="col-md-6 mb-4">
-                    <div class="blog-card" style="height: 100%;">
-                        <div class="blog-img">
-                            <img src="${imgUrl}" class="img-fluid" alt="${title}" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x400/1a1a2e/ef233c?text=Article'">
-                        </div>
-                        <div class="blog-content">
-                            <h3>${t}</h3>
-                            <a href="${a.sys.id}.html" class="read-more">Lire plus</a>
-                        </div>
-                    </div>
-                </div>
-            `;
+            const imgUrl = img?.fields?.file?.url ? (img.fields.file.url.startsWith('//') ? `https:${img.fields.file.url}` : img.fields.file.url) : `https://via.placeholder.com/600x400/1a1a2e/ef233c?text=${encodeURIComponent(aTitle)}`;
+            const relSlug = articleSlugMap.get(a.sys.id);
+            return `<div class="col-md-6 mb-4"><div class="blog-card" style="height:100%;"><div class="blog-img"><img src="${imgUrl}" class="img-fluid" alt="${aTitle}" onerror="this.onerror=null;this.src='https://via.placeholder.com/600x400/1a1a2e/ef233c?text=Article'"></div><div class="blog-content"><h3>${aTitle}</h3><a href="${relSlug}.html" class="read-more">Lire l'article</a></div></div></div>`;
         }).join('');
 
-        // Fix paths and save
         updateRelativePaths(dom);
         let finalHtml = dom.serialize();
         finalHtml = finalHtml.replace('[[RECOMMENDATIONS]]', recoHtml);
-        fs.writeFileSync(path.join('articles', `${id}.html`), finalHtml);
+        fs.writeFileSync(path.join('articles', `${articleSlug}.html`), finalHtml);
     }
 
     // 2. Generate Portfolio Projects
@@ -197,39 +283,52 @@ async function generatePages() {
     for (const entry of projectEntries.items) {
         const { title, description, detailedDescription, category, date, tools, client: clientName, url, image, galleryImages, videoUrl } = entry.fields;
         const id = entry.sys.id;
-        console.log(`- Projet: ${title}`);
+        const projectSlug = projectSlugMap.get(id);
+        console.log(`- Projet: ${title} → ${projectSlug}.html`);
 
         const dom = new JSDOM(projectTemplate);
         const doc = dom.window.document;
 
-        // Update metadata
+        // Clean title for HTML <title>: remove "Mon projet de/d'" prefix
+        const cleanTitle = title.replace(/^mon projet (d[e']\s*)?/i, '');
+        const htmlTitle = `${cleanTitle} | Joris Salmon`;
         const elTitle = doc.querySelector('title');
-        if (elTitle) elTitle.textContent = `${title} | Projet | Joris Salmon`;
+        if (elTitle) elTitle.textContent = htmlTitle;
 
         doc.querySelector('meta[name="description"]')?.setAttribute('content', description || `Projet: ${title}`);
-        
-        // Mise à jour Open Graph et Twitter dynamique
-        const setMeta = (query, val, nameAttr = 'property') => { 
-            let el = doc.querySelector(query); 
-            if (!el) {
-                el = doc.createElement('meta');
-                const name = query.match(/"([^"]+)"/)[1];
-                el.setAttribute(nameAttr, name);
-                doc.head.appendChild(el);
+
+        // SEO: canonical + Schema.org JSON-LD + geo tags
+        const toolsList = Array.isArray(tools) ? tools : (tools ? [tools] : []);
+        injectSEOMeta(doc, {
+            canonicalUrl: `https://www.jorissalmon.com/projets/${projectSlug}.html`,
+            jsonLdData: {
+                '@context': 'https://schema.org',
+                '@type': 'SoftwareSourceCode',
+                'name': title,
+                'description': description || `Projet data: ${title}`,
+                'url': `https://www.jorissalmon.com/projets/${projectSlug}.html`,
+                'author': { '@type': 'Person', 'name': 'Joris Salmon', 'url': 'https://www.jorissalmon.com' },
+                ...(toolsList.length ? { 'programmingLanguage': toolsList.join(', ') } : {}),
+                ...(date ? { 'dateCreated': new Date(date).toISOString().split('T')[0] } : {}),
+                ...(url ? { 'codeRepository': url } : {})
             }
-            el.setAttribute('content', val); 
+        });
+
+        // Open Graph / Twitter
+        const setMeta = (query, val, nameAttr = 'property') => {
+            let el = doc.querySelector(query);
+            if (!el) { el = doc.createElement('meta'); const n = query.match(/"([^"]+)"/)[1]; el.setAttribute(nameAttr, n); doc.head.appendChild(el); }
+            el.setAttribute('content', val);
         };
-        const titleText = `${title} | Projet | Joris Salmon`;
-        setMeta('meta[property="og:title"]', titleText, 'property');
-        setMeta('meta[name="twitter:title"]', titleText, 'name');
+        setMeta('meta[property="og:title"]', htmlTitle, 'property');
+        setMeta('meta[name="twitter:title"]', htmlTitle, 'name');
         setMeta('meta[property="og:description"]', description || `Découvrez ce projet de Joris Salmon.`, 'property');
         setMeta('meta[name="twitter:description"]', description || `Découvrez ce projet de Joris Salmon.`, 'name');
-        setMeta('meta[property="og:url"]', `https://www.jorissalmon.com/projets/${id}.html`, 'property');
-        // if image is set, update og:image
+        setMeta('meta[property="og:url"]', `https://www.jorissalmon.com/projets/${projectSlug}.html`, 'property');
         if (image?.fields?.file?.url) {
-             const imgUrl = image.fields.file.url.startsWith('//') ? `https:${image.fields.file.url}` : image.fields.file.url;
-             setMeta('meta[property="og:image"]', imgUrl, 'property');
-             setMeta('meta[name="twitter:image"]', imgUrl, 'name');
+            const imgUrl = image.fields.file.url.startsWith('//') ? `https:${image.fields.file.url}` : image.fields.file.url;
+            setMeta('meta[property="og:image"]', imgUrl, 'property');
+            setMeta('meta[name="twitter:image"]', imgUrl, 'name');
         }
         const elProjTitle = doc.querySelector('#projectTitle');
         if (elProjTitle) elProjTitle.textContent = title;
@@ -263,10 +362,10 @@ async function generatePages() {
             externalLink.remove();
         }
 
-        // Update Detailed Description
+        // Update Detailed Description (with improved anchor text)
         const summaryArea = doc.querySelector('#projectSummary');
         if (detailedDescription) {
-            summaryArea.innerHTML = documentToHtmlString(detailedDescription, renderOptions);
+            summaryArea.innerHTML = improveAnchorText(documentToHtmlString(detailedDescription, renderOptions));
         }
 
         // Update Gallery
@@ -321,36 +420,25 @@ async function generatePages() {
             }
         }
 
-        // Recommendations logic
+        // Related projects
         const otherProjects = projectEntries.items.filter(p => p.sys.id !== id);
         const randomProjects = otherProjects.sort(() => 0.5 - Math.random()).slice(0, 2);
         const recoHtml = randomProjects.map(p => {
-            const t = p.fields.title;
+            const pTitle = p.fields.title || 'Projet Portfolio';
             const cat = p.fields.category || 'PROJET';
-            const title = p.fields.title || 'Projet Portfolio';
-            const imageUrl = p.fields.image?.fields?.file?.url ? (p.fields.image.fields.file.url.startsWith('//') ? `https:${p.fields.image.fields.file.url}` : p.fields.image.fields.file.url) : `https://via.placeholder.com/600x400/1a1a2e/ef233c?text=${encodeURIComponent(title)}`;
-
-            return `
-                <div class="col-md-6 mb-4">
-                    <div class="blog-card" style="height: 100%;">
-                        <div class="blog-img">
-                            <img src="${imageUrl}" class="img-fluid" alt="${title}" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x400/1a1a2e/ef233c?text=Projet'">
-                        </div>
-                        <div class="blog-content">
-                            <span class="portfolio-category" style="color: var(--accent-cyan); font-size: 0.8rem; text-transform: uppercase;">${cat}</span>
-                            <h3 class="mt-2">${t}</h3>
-                            <a href="${p.sys.id}.html" class="read-more mt-3">Voir le projet</a>
-                        </div>
-                    </div>
-                </div>
-            `;
+            const imageUrl = p.fields.image?.fields?.file?.url
+                ? (p.fields.image.fields.file.url.startsWith('//') ? `https:${p.fields.image.fields.file.url}` : p.fields.image.fields.file.url)
+                : `https://via.placeholder.com/600x400/1a1a2e/ef233c?text=${encodeURIComponent(pTitle)}`;
+            const relSlug = projectSlugMap.get(p.sys.id);
+            // Alt text: remove "Mon projet de" prefix
+            const cleanAlt = pTitle.replace(/^mon projet (d[e']\s*)?/i, '');
+            return `<div class="col-md-6 mb-4"><div class="blog-card" style="height:100%;"><div class="blog-img"><img src="${imageUrl}" class="img-fluid" alt="${cleanAlt}" onerror="this.onerror=null;this.src='https://via.placeholder.com/600x400/1a1a2e/ef233c?text=Projet'"></div><div class="blog-content"><span class="portfolio-category" style="color:var(--accent-cyan);font-size:.8rem;text-transform:uppercase">${cat}</span><h3 class="mt-2">${pTitle}</h3><a href="${relSlug}.html" class="read-more mt-3">Voir ce projet</a></div></div></div>`;
         }).join('');
 
-        // Fix paths and save
         updateRelativePaths(dom);
         let finalHtml = dom.serialize();
         finalHtml = finalHtml.replace('[[RECOMMENDATIONS]]', recoHtml);
-        fs.writeFileSync(path.join('projets', `${id}.html`), finalHtml);
+        fs.writeFileSync(path.join('projets', `${projectSlug}.html`), finalHtml);
     }
 
     // 3. Generate Homepage (index.html)
@@ -492,7 +580,7 @@ async function generatePages() {
                             <span class="portfolio-category" style="color: var(--accent-cyan); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">${categoryLabel}</span>
                             <h3 class="mt-2">${title}</h3>
                             <p>${description || 'Aucune description disponible.'}</p>
-                            <a href="projets/${itemId}.html" class="read-more">Voir le projet</a>
+                            <a href="projets/${projectSlugMap.get(itemId)}.html" class="read-more">Voir le projet</a>
                         </div>
                     </div>
                 </div>
@@ -528,7 +616,7 @@ async function generatePages() {
                             <h3>${Titre}</h3>
                             <p class="author">${auteur} | ${dateStr}</p>
                             <p>${rsum}</p>
-                            <a href="articles/${id}.html" class="read-more">Lire plus</a>
+                            <a href="articles/${articleSlugMap.get(id)}.html" class="read-more">Lire plus</a>
                         </div>
                     </div>
                 </div>

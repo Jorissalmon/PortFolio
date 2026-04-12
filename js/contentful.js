@@ -6,16 +6,16 @@
  * Generate a URL-friendly slug (must match generate-pages.js logic)
  */
 function slugify(text) {
-    return text.toString().normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .toLowerCase()
-        .replace(/['\u2018\u2019]/g, '-')
-        .replace(/[^\w\s-]/g, '')
-        .trim()
-        .replace(/[\s_]+/g, '-')
-        .replace(/-+/g, '-')
-        .replace(/^-|-$/g, '')
-        .slice(0, 80);
+  return text.toString().normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/['\u2018\u2019]/g, '-')
+    .replace(/[^\w\s-]/g, '')
+    .trim()
+    .replace(/[\s_]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+    .slice(0, 80);
 }
 
 // Styles CSS pour le bouton amélioré uniquement
@@ -429,23 +429,17 @@ window.contentfulService = {
           `https:${asset.fields.file.url}` :
           "img/placeholder1.jpg";
 
-        // Déterminer la catégorie
-        const categoryMap = {
-          'data': 'filter-data',
-          'bi': 'filter-bi',
-          'ia': 'filter-ia',
-          'career': 'filter-career'
-        };
-        const category = categoryMap[fields.categorie] || 'filter-data';
-
-        // Formatter la date
-        const date = fields.dateDePublication ?
-          new Date(fields.dateDePublication).toLocaleDateString('fr-FR') :
-          new Date().toLocaleDateString('fr-FR');
+        // Catégorie : utiliser la valeur Contentful directement comme classe CSS
+        const category = fields.categorie || fields.category || 'data';
 
         // Construire le slug à partir du titre (identique à generate-pages.js)
         const rawTitle = fields.Titre || 'article';
         const articleSlug = slugify(rawTitle);
+
+        // Formatter la date
+        const date = fields.dateDePublication
+          ? new Date(fields.dateDePublication).toLocaleDateString('fr-FR')
+          : new Date().toLocaleDateString('fr-FR');
 
         // Construire l'objet article formaté
         return {
@@ -499,14 +493,9 @@ window.contentfulService = {
           `https:${asset.fields.file.url}` :
           "img/placeholder1.jpg";
 
-        // Mapper la catégorie Contentful vers la classe CSS
-        const categoryMap = {
-          'data-analyse': 'filter-bi',
-          'bi':           'filter-bi',
-          'data-science': 'filter-data',
-          'recherche':    'filter-recherche'
-        };
-        const category = categoryMap[fields.category] || 'filter-1';
+        // Catégorie : valeur brute Contentful = classe CSS directe
+        // Toute valeur mise dans Contentful devient automatiquement un filtre
+        const category = fields.category || fields.categorie || 'data';
 
         // Construire le slug (identique à generate-pages.js)
         const rawTitle = fields.title || 'projet';

@@ -566,8 +566,14 @@ async function generatePages() {
             const { title, description, category, image } = project.fields;
             const imageUrl = image?.fields?.file?.url ? (image.fields.file.url.startsWith('//') ? `https:${image.fields.file.url}` : image.fields.file.url) : 'img/portfolio/placeholder1.jpg';
             const delay = (index % 3) * 100;
-            const categoryClass = Array.isArray(category) ? category.join(' ') : (category || 'filter-data');
-            const categoryLabel = (typeof categoryClass === 'string') ? categoryClass.replace('filter-', '').replace(/-/g, ' ').toUpperCase() : 'PROJET';
+            // Catégorie : valeur brute Contentful = classe CSS directe (compatible avec le filtre)
+            const categoryClass = Array.isArray(category)
+                ? category[0] || 'data'
+                : (category || 'data');
+            const categoryLabel = String(categoryClass)
+                .replace(/-/g, ' ')
+                .replace(/_/g, ' ')
+                .toUpperCase();
             const itemId = project.sys.id;
 
             return `

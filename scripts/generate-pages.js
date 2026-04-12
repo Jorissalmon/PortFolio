@@ -727,6 +727,51 @@ async function generatePages() {
     // Final clean up and save
     fs.writeFileSync(path.resolve('index.html'), indexDom.serialize());
 
+    // 7. Generate sitemap.xml automatically
+    console.log('🗺️  Génération du sitemap.xml...');
+    const today = new Date().toISOString().split('T')[0];
+    const BASE_URL = 'https://www.jorissalmon.com';
+
+    const staticUrls = [
+        { loc: `${BASE_URL}/`,            priority: '1.0', changefreq: 'weekly',  lastmod: today },
+        { loc: `${BASE_URL}/#about`,      priority: '0.9', changefreq: 'monthly', lastmod: today },
+        { loc: `${BASE_URL}/#portfolio`,  priority: '0.9', changefreq: 'weekly',  lastmod: today },
+        { loc: `${BASE_URL}/#blog`,       priority: '0.9', changefreq: 'weekly',  lastmod: today },
+        { loc: `${BASE_URL}/#education`,  priority: '0.8', changefreq: 'monthly', lastmod: today },
+        { loc: `${BASE_URL}/#experience`, priority: '0.8', changefreq: 'monthly', lastmod: today },
+        { loc: `${BASE_URL}/#contact`,    priority: '0.7', changefreq: 'yearly',  lastmod: today },
+    ];
+
+    const projectUrls = projectEntries.items.map(e => ({
+        loc: `${BASE_URL}/projets/${projectSlugMap.get(e.sys.id)}.html`,
+        priority: '0.8',
+        changefreq: 'monthly',
+        lastmod: e.fields.date ? new Date(e.fields.date).toISOString().split('T')[0] : today,
+    }));
+
+    const articleUrls = blogEntries.items.map(e => ({
+        loc: `${BASE_URL}/articles/${articleSlugMap.get(e.sys.id)}.html`,
+        priority: '0.8',
+        changefreq: 'monthly',
+        lastmod: e.fields.dateDePublication ? new Date(e.fields.dateDePublication).toISOString().split('T')[0] : today,
+    }));
+
+    const allUrls = [...staticUrls, ...projectUrls, ...articleUrls];
+
+    const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${allUrls.map(u => `    <url>
+        <loc>${u.loc}</loc>
+        <lastmod>${u.lastmod}</lastmod>
+        <changefreq>${u.changefreq}</changefreq>
+        <priority>${u.priority}</priority>
+    </url>`).join('\n')}
+</urlset>`;
+
+    fs.writeFileSync(path.resolve('sitemap.xml'), sitemapXml);
+    console.log(`  → ${allUrls.length} URLs indexées dans sitemap.xml`);
+
     console.log('✨ Génération terminée avec succès !');
 }
 

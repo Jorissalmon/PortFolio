@@ -2,6 +2,22 @@
  * contentful.js - Version adaptée pour Vercel
  */
 
+/**
+ * Generate a URL-friendly slug (must match generate-pages.js logic)
+ */
+function slugify(text) {
+    return text.toString().normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .replace(/['\u2018\u2019]/g, '-')
+        .replace(/[^\w\s-]/g, '')
+        .trim()
+        .replace(/[\s_]+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '')
+        .slice(0, 80);
+}
+
 // Styles CSS pour le bouton amélioré uniquement
 document.head.insertAdjacentHTML(
   "beforeend",
@@ -427,6 +443,10 @@ window.contentfulService = {
           new Date(fields.dateDePublication).toLocaleDateString('fr-FR') :
           new Date().toLocaleDateString('fr-FR');
 
+        // Construire le slug à partir du titre (identique à generate-pages.js)
+        const rawTitle = fields.Titre || 'article';
+        const articleSlug = slugify(rawTitle);
+
         // Construire l'objet article formaté
         return {
           id: item.sys.id,
@@ -435,7 +455,7 @@ window.contentfulService = {
           date: date,
           summary: fields.rsum || 'Aucun résumé disponible',
           image_url: imageUrl,
-          link: `articles/${item.sys.id}.html`,
+          link: `articles/${articleSlug}.html`,
           category: category
         };
       });
@@ -487,6 +507,11 @@ window.contentfulService = {
         };
         const category = categoryMap[fields.category] || 'filter-1';
 
+        // Construire le slug (identique à generate-pages.js)
+        const rawTitle = fields.title || 'projet';
+        const cleanTitle = rawTitle.replace(/^mon projet (d[e']\s*)?/i, '');
+        const projectSlug = slugify(cleanTitle);
+
         // Construire l'objet projet formaté
         return {
           id: item.sys.id,
@@ -494,7 +519,7 @@ window.contentfulService = {
           description: fields.description || 'Aucune description disponible',
           category: category,
           image_url: imageUrl,
-          link: `projets/${item.sys.id}.html`
+          link: `projets/${projectSlug}.html`
         };
       });
     } catch (error) {

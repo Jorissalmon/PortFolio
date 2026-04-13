@@ -1,19 +1,32 @@
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
+<!DOCTYPE html><html lang="fr"><head>
     <meta charset="utf-8">
-    <title>Joris Salmon | Data Analyst & Consultant BI - Expert en Data Analytics</title>
+    <title>Joris Salmon | Data Analyst &amp; Consultant BI</title>
+
+    <!-- Google Analytics (GA4) -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-336STN5D4J"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-336STN5D4J');
+    </script>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="meta/site.webmanifest">
 
     <!-- SEO Meta Tags -->
-    <meta name="description"
-        content="Joris Salmon - Data Analyst & Consultant BI. Expert en Data Analytics, Business Intelligence et IA. Portfolio de projets innovants en data science, Power BI et analyse de données.">
-    <meta name="keywords"
-        content="Data Analyst, Data Scientist, Analytics Engineer, Business Intelligence, BI Consultant, Joris Salmon, Portfolio Data, Machine Learning, Power BI, Tableau, Python, SQL">
+    <meta name="description" content="Consultant BI &amp; Data Engineer chez Talan. Je transforme vos données en pipelines ETL, dashboards Power BI et solutions IA. Basé à Marseille.">
+    <meta name="keywords" content="Consultant BI, Data Engineer, Power BI, ETL, Talend, Python, SQL, Intelligence Artificielle, Joris Salmon, Marseille, PACA, Business Intelligence">
     <meta name="author" content="Joris Salmon">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://www.jorissalmon.com/">
 
+    <!-- Geo Tags -->
+    <meta name="geo.region" content="FR-PAC">
+    <meta name="geo.placename" content="Marseille">
+    <meta name="geo.position" content="43.296482;5.381090">
+    <meta name="ICBM" content="43.296482, 5.381090">
     <!-- Viewport -->
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" name="viewport">
 
@@ -21,9 +34,8 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.jorissalmon.com/">
     <meta property="og:site_name" content="Joris Salmon Portfolio">
-    <meta property="og:title" content="Joris Salmon | Data Analyst & Consultant BI">
-    <meta property="og:description"
-        content="Expert en Data Analytics et Business Intelligence. Découvrez mes projets et mon expertise en data science, BI et intelligence artificielle.">
+    <meta property="og:title" content="Data Engineer &amp; Consultant BI | Joris Salmon — Marseille">
+    <meta property="og:description" content="Expert en Data Analytics et Business Intelligence. Découvrez mes projets et mon expertise en data science, BI et intelligence artificielle.">
     <meta property="og:image" content="https://www.jorissalmon.com/img/og-image.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -32,9 +44,8 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://www.jorissalmon.com/">
-    <meta name="twitter:title" content="Joris Salmon | Data Analyst & Consultant BI">
-    <meta name="twitter:description"
-        content="Expert en Data Analytics et Business Intelligence. Portfolio de projets innovants en data science.">
+    <meta name="twitter:title" content="Data Engineer &amp; Consultant BI | Joris Salmon — Marseille">
+    <meta name="twitter:description" content="Expert en Data Analytics et Business Intelligence. Portfolio de projets innovants en data science.">
     <meta name="twitter:image" content="https://www.jorissalmon.com/img/og-image.jpg">
     <meta name="twitter:creator" content="@JorisSalmon">
 
@@ -49,13 +60,24 @@
     <link rel="icon" href="meta/favicon.ico" type="image/x-icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <!-- Schema.org JSON-LD pour les moteurs de recherche et l'IA -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Joris Salmon",
+      "jobTitle": "Data Engineer & Consultant BI",
+      "url": "https://www.jorissalmon.com/",
+      "sameAs": [
+        "https://www.linkedin.com/in/jorissalmon/",
+        "https://github.com/JorisSalmon"
+      ],
+      "knowsAbout": ["Data Science", "Business Intelligence", "Machine Learning", "Power BI", "Python", "SQL"]
+    }
+    </script>
 
     <!-- CSS Libraries -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -68,8 +90,7 @@
     <link href="css/responsive.css" rel="stylesheet">
 
     <!-- Contentful Rich Text Renderer -->
-    <script
-        src="https://cdn.jsdelivr.net/npm/@contentful/rich-text-html-renderer@16.0.3/dist/rich-text-html-renderer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@contentful/rich-text-html-renderer@16.0.3/dist/rich-text-html-renderer.min.js"></script>
 
     <!-- JSON-LD Structured Data for SEO -->
     <script type="application/ld+json">
@@ -82,7 +103,7 @@
           "name": "Joris Salmon",
           "givenName": "Joris",
           "familyName": "Salmon",
-          "jobTitle": ["Data Analyst", "Data Scientist", "Analytics Engineer", "Consultant BI"],
+          "jobTitle": "Consultant BI & Data Engineer",
           "description": "Expert en Data Analytics et Business Intelligence, spécialisé en analyse de données, BI, et intelligence artificielle",
           "url": "https://www.jorissalmon.com",
           "email": "joris.salmon53290@gmail.com",
@@ -90,7 +111,7 @@
           "image": "https://www.jorissalmon.com/img/me.jpg",
           "address": {
             "@type": "PostalAddress",
-            "addressLocality": "Aix-en-Provence",
+            "addressLocality": "Marseille",
             "addressRegion": "Provence-Alpes-Côte d'Azur",
             "addressCountry": "FR"
           },
@@ -162,8 +183,8 @@
           ],
           "worksFor": {
             "@type": "Organization",
-            "name": "Micropole",
-            "url": "https://www.micropole.com"
+            "name": "Talan",
+            "url": "https://www.talan.com"
           }
         },
         {
@@ -279,125 +300,50 @@
 
     <!-- Hero Section Start -->
     <section id="home" class="hero-section">
+        <div class="hero-bg-overlay"></div>
         <div class="hero-particles" id="particles-js"></div>
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6" data-aos="fade-right">
-                    <div class="hero-content">
-                        <h4 class="subtitle">Bonjour, je suis</h4>
-                        <h1 class="title">Joris Salmon</h1>
-                        <div class="typed-text"></div>
-                        <div class="skills">
-                            <span class="skill-tag">Data Analyst</span>
-                            <span class="skill-tag">Data-Scientist</span>
-                            <span class="skill-tag">Analytics Engineer</span>
-                        </div>
-                        <div class="hero-btn mt-4">
-                            <a href="#contact" class="btn btn-primary me-3">Contactez-moi</a>
-                            <a href="#portfolio" class="btn btn-outline">Mes projets</a>
-                        </div>
+            <div class="hero-header-grid">
+                <div class="hero-header-content" data-aos="fade-right">
+                    <h4 class="subtitle">Bonjour, je suis</h4>
+                    <h1 class="title">Joris Salmon</h1>
+                    <div class="typed-text-wrapper">
+                        <div class="typed-text" data-strings="Data Engineer,Business Intelligence,IA Engineer"></div>
+                    </div>
+
+                    <div class="hero-btn mt-5">
+                        <a href="#contact" class="btn btn-primary me-3">Contactez-moi</a>
+                        <a href="#portfolio" class="btn btn-outline">Mes projets</a>
                     </div>
                 </div>
-                <div class="col-lg-6 d-none d-lg-block" data-aos="fade-left">
-                    <div class="hero-image">
-                        <img src="img/contact.jpg" alt="Joris Salmon" class="img-fluid">
+                <div class="hero-image-box" data-aos="fade-left">
+                    <div class="hero-profile-container">
+                        <img src="img/contact.jpg" alt="Joris Salmon" class="img-fluid" id="heroProfileImage">
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="scroll-down">
-            <a href="#about"><i class="fas fa-chevron-down"></i></a>
         </div>
     </section>
     <!-- Hero Section End -->
 
     <!-- About Section Start -->
-    <section id="about" class="about-section section-padding">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-5 mb-4 mb-lg-0" data-aos="fade-right">
-                    <div class="about-img">
-                        <img src="img/me.jpg" alt="Joris Salmon" class="img-fluid rounded">
+    <section id="about" class="about-section dark-immersive section-padding">
+        <div class="container-fluid px-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center" data-aos="fade-up">
+                    <!-- Mobile avatar: visible only on small screens -->
+                    <div class="mobile-avatar-wrapper d-lg-none mb-4">
+                        <img src="img/contact.jpg" alt="Joris Salmon" class="mobile-avatar-img">
                     </div>
-                </div>
-                <div class="col-lg-7" data-aos="fade-left">
-                    <div class="section-title">
-                        <h2>À propos de moi</h2>
-                        <p>Qui suis-je ?</p>
+                    <div class="section-title centered-brilliant">
+                        <h2 class="brilliant-text">À propos de moi</h2>
+                        <p class="subtitle-neon">Qui suis-je ?</p>
                     </div>
-                    <div class="about-text">
-                        <p>
-                            🎓 <strong>Consultant digital</strong>, je m’engage aux côtés des organisations pour les
-                            aider à exploiter tout le potentiel du numérique et de la donnée. Grâce à mes formations en
-                            transformation digitale à la <strong>Sorbonne Paris 1</strong> et à mon <strong>Master en
-                                Data-Analytics</strong>, j’ai acquis une vision stratégique des enjeux métiers et des
-                            leviers d’action concrets pour accompagner le changement.
-                        </p>
-                        <p>
-                            🚀 Grâce à des expériences enrichissantes chez <strong>Micropole</strong>,
-                            <strong>ArianeGroup</strong>, <strong>le Crédit Agricole</strong> et
-                            <strong>Météo-France</strong>, j’ai appris à accompagner les équipes dans leurs
-                            problématiques, qu’elles relèvent de la <strong>stratégie data</strong> ou du
-                            <strong>pilotage digital</strong>.
-                        </p>
-                        <p>
-                            🤝 Ce qui me distingue ? Une capacité à écouter, à comprendre les besoins réels, et à
-                            construire des solutions sur mesure avec une approche à la fois rigoureuse, pédagogique et
-                            orientée impact. Mon objectif : créer de la valeur, simplifier la complexité, et faire du
-                            digital un vrai levier de performance.
-                        </p>
+                    <div class="about-text-centered mb-5" id="aboutText">
+                        <p>🎓 Data Engineer de formation, je conçois et mets en œuvre des solutions data adaptées aux enjeux métiers : pipelines ETL, modélisation décisionnelle, reporting PowerBI et automatisation par l'IA.<br><br></p><p>Après des expériences chez Talan, ArianeGroup, le Crédit Agricole et Météo-France, j'interviens aujourd'hui en tant que Consultant BI &amp; IA auprès de clients variés : secteur public, industrie, RH, achats.<br><br></p><p>🤝 J'aime autant la technique que le contact avec les équipes métiers : comprendre un problème, trouver la bonne approche, et livrer quelque chose qui sert vraiment.</p>
                     </div>
-                    <div class="skills-section">
-                        <h3>Mes domaines</h3>
-                        <div class="skill-item">
-                            <div class="skill-header">
-                                <h6 class="skill-title">Data-Science</h6>
-                                <div class="skill-percentage">
-                                    <div class="count-box"><span class="count-text" data-speed="2000"
-                                            data-stop="80">Intermédiare</span></div>
-                                </div>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="bar-inner">
-                                    <div class="bar progress-line" data-width="80"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="skill-item">
-                            <div class="skill-header">
-                                <h6 class="skill-title">Data Analyse</h6>
-                                <div class="skill-percentage">
-                                    <div class="count-box"><span class="count-text" data-speed="2000"
-                                            data-stop="90">Avancé</span></div>
-                                </div>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="bar-inner">
-                                    <div class="bar progress-line" data-width="90"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="skill-item">
-                            <div class="skill-header">
-                                <h6 class="skill-title">Web Analyse / Stratégie</h6>
-                                <div class="skill-percentage">
-                                    <div class="count-box"><span class="count-text" data-speed="2000"
-                                            data-stop="90">Avancé</span></div>
-                                </div>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="bar-inner">
-                                    <div class="bar progress-line" data-width="90"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-4">
-                        <a href="https://drive.google.com/file/d/1l1Q60fNVPEX93Csqe5-r7imZV3Icr5Yu/view?usp=sharing"
-                            class="btn btn-primary" target="_blank">
+                    <div class="about-action">
+                        <a href="https://drive.google.com/file/d/1Omzljcg3a4jGLaIzfClBokyXq0gmk3bq/view?usp=sharing" id="cvLink" class="btn btn-primary btn-lg" target="_blank">
                             <i class="fas fa-download me-2"></i>Télécharger mon CV
                         </a>
                     </div>
@@ -416,41 +362,63 @@
             </div>
 
             <div class="portfolio-filter text-center" data-aos="fade-up" data-aos-delay="100">
-                <ul>
-                    <li class="filter-active" data-filter="*">Tous</li>
-                    <li data-filter=".filter-bi">Data-Analyse & BI</li>
-                    <li data-filter=".filter-data">Data Science</li>
-                    <li data-filter=".filter-recherche">Recherches</li>
+                <ul id="portfolioFilters">
+                    <li class="filter-active" data-filter="*">Tous</li><li data-filter=".Business-Intelligence">BUSINESS INTELLIGENCE</li><li data-filter=".data-science">DATA SCIENCE</li>
                 </ul>
-            </div>
-
-            <!-- Ajout des contrôles de navigation du carrousel -->
-            <div class="portfolio-carousel-controls" data-aos="fade-up" data-aos-delay="150">
-                <button class="portfolio-prev" aria-label="Projets précédents">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <div class="portfolio-indicators"></div>
-                <button class="portfolio-next" aria-label="Projets suivants">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
             </div>
 
             <!-- Conteneur du carrousel -->
             <div class="portfolio-carousel" data-aos="fade-up" data-aos-delay="200">
-                <div class="row portfolio-container" id="projectsContainer">
-                    <!-- Les projets seront chargés dynamiquement ici -->
-                    <div class="col-lg-3 col-md-6 portfolio-item filter-1">
-                        <div class="portfolio-wrap">
-                            <img src="img/portfolio/placeholder1.jpg" class="img-fluid" alt="Projet 1">
-                            <div class="portfolio-info">
-                                <h4>Chargement...</h4>
-                                <p>Veuillez patienter</p>
-                                <div class="portfolio-links">
-                                    <a href="#" class="details-link"><i class="fas fa-link"></i></a>
-                                </div>
-                            </div>
+                <div class="modern-carousel-wrapper">
+                    <button class="nav-overlay-btn nav-prev portfolio-prev" aria-label="Précédent">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="nav-overlay-btn nav-next portfolio-next" aria-label="Suivant">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <div class="portfolio-container modern-scroll-container" id="projectsContainer">
+                <div class="modern-scroll-item portfolio-item Business-Intelligence" data-aos="zoom-in" data-aos-delay="0">
+                    <div class="blog-card">
+                        <div class="blog-img">
+                            <img src="https://images.ctfassets.net/wflklw0xa5gp/2PRlNhpRyNoC2SadQY5Gnp/24d4979e805e03f804802ceb13fefa4f/PowerBI_Synthese.png" class="img-fluid" alt="Création d'un reporting PowerBI" onerror="this.onerror=null; this.src='img/portfolio/placeholder1.jpg'">
+                        </div>
+                        <div class="blog-content">
+                            <span class="portfolio-category" style="color: var(--accent-cyan); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">BUSINESS INTELLIGENCE</span>
+                            <h3 class="mt-2">Création d'un reporting PowerBI</h3>
+                            <p>Pour moderniser le suivi des subventions d'un client, j'ai remplacé un système complexe de macros Excel par un pipeline de données automatisé (Oracle ODI) et un dashboard interactif Power BI. Résultat : une donnée centralisée, l'activation de la "Self-BI", et un gain de temps d'un à deux jours par semaine pour les équipes métiers.</p>
+                            <a href="projets/creation-d-un-reporting-powerbi.html" class="read-more">Voir le projet</a>
                         </div>
                     </div>
+                </div>
+            
+                <div class="modern-scroll-item portfolio-item data-science" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="blog-card">
+                        <div class="blog-img">
+                            <img src="https://images.ctfassets.net/wflklw0xa5gp/4xxz0RPd1pI9JOhizoplzN/d75743e94fa5e3a0acad67484051f517/ChatGPT_Image_25_avr._2025__08_22_59.png" class="img-fluid" alt="Analyse de sentiments" onerror="this.onerror=null; this.src='img/portfolio/placeholder1.jpg'">
+                        </div>
+                        <div class="blog-content">
+                            <span class="portfolio-category" style="color: var(--accent-cyan); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">DATA SCIENCE</span>
+                            <h3 class="mt-2">Analyse de sentiments</h3>
+                            <p>Analyse de messages Twitter, Instagram, Facebook, etc...</p>
+                            <a href="projets/analyse-de-sentiments.html" class="read-more">Voir le projet</a>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="modern-scroll-item portfolio-item data-science" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="blog-card">
+                        <div class="blog-img">
+                            <img src="https://images.ctfassets.net/wflklw0xa5gp/1FpuOL4YaSSaQhOkjpUs09/7fc59392e3e347692c6f8fa5611e19cb/affiche_V2.png" class="img-fluid" alt="Mon projet de classification des panneaux de signalisation routière" onerror="this.onerror=null; this.src='img/portfolio/placeholder1.jpg'">
+                        </div>
+                        <div class="blog-content">
+                            <span class="portfolio-category" style="color: var(--accent-cyan); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">DATA SCIENCE</span>
+                            <h3 class="mt-2">Mon projet de classification des panneaux de signalisation routière</h3>
+                            <p>Réseaux convolutifs pour la détection de panneaux de signalisation</p>
+                            <a href="projets/classification-des-panneaux-de-signalisation-routiere.html" class="read-more">Voir le projet</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
                 </div>
             </div>
         </div>
@@ -467,35 +435,50 @@
 
             <!-- Filtres avec classes modifiées pour mieux s'adapter au mobile -->
             <div class="blog-filter text-center" data-aos="fade-up" data-aos-delay="100">
-                <ul class="d-flex flex-wrap justify-content-center">
-                    <li class="filter-active" data-filter="*">Tous</li>
-                    <li data-filter=".filter-data">Data</li>
-                    <li data-filter=".filter-bi">Data-Analyse & BI</li>
-                    <li data-filter=".filter-ia">L'IA</li>
-                    <li data-filter=".filter-career">Métier</li>
+                <ul class="d-flex flex-wrap justify-content-center" id="blogFilters">
+                    <li class="filter-active" data-filter="*">Tous</li><li data-filter=".data">DATA</li><li data-filter=".ia">IA</li>
                 </ul>
             </div>
 
-            <!-- Boutons de navigation réorganisés -->
+            <!-- Carrousel avec boutons overlay -->
             <div class="blog-carousel" data-aos="fade-up" data-aos-delay="200">
-                <div class="carousel-nav">
-                    <button class="carousel-prev" aria-label="Article précédent">
+                <div class="modern-carousel-wrapper">
+                    <button class="nav-overlay-btn nav-prev blog-prev" aria-label="Article précédent">
                         <i class="fas fa-chevron-left"></i>
                     </button>
-                    <button class="carousel-next" aria-label="Article suivant">
+                    <button class="nav-overlay-btn nav-next blog-next" aria-label="Article suivant">
                         <i class="fas fa-chevron-right"></i>
                     </button>
-                </div>
 
-                <!-- Conteneur du carrousel avec classe supplémentaire pour la transition -->
-                <div class="row blog-container" id="blogjorisContainer">
-                    <!-- Les articles seront chargés dynamiquement ici -->
-                    <div class="col-12 text-center">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Chargement...</span>
+                    <div class="blog-container modern-scroll-container" id="blogjorisContainer">
+                <div class="modern-scroll-item blog-item data" data-aos="fade-up" data-aos-delay="0">
+                    <div class="blog-card">
+                        <div class="blog-img">
+                            <img src="https://images.ctfassets.net/wflklw0xa5gp/1bNIQRkZ8Iqgz5zVn0jCbb/0801a4f2f534b58af10d263196bea79e/data_analyst.jpg" class="img-fluid" alt="L’Open Data : vecteur d'innovation sociale et territoriale" onerror="this.onerror=null; this.src='img/blog/placeholder1.jpg'">
                         </div>
-                        <p class="mt-2">Chargement des articles...</p>
+                        <div class="blog-content">
+                            <h3>L’Open Data : vecteur d'innovation sociale et territoriale</h3>
+                            <p class="author">Joris | février 2025</p>
+                            <p>L'importance de l'Open-Data pour les collectivités</p>
+                            <a href="articles/l-open-data-vecteur-d-innovation-sociale-et-territoriale.html" class="read-more">Lire plus</a>
+                        </div>
                     </div>
+                </div>
+            
+                <div class="modern-scroll-item blog-item ia" data-aos="fade-up" data-aos-delay="100">
+                    <div class="blog-card">
+                        <div class="blog-img">
+                            <img src="https://images.ctfassets.net/wflklw0xa5gp/4mwbf19MnOmNaCrxbPlVEb/709d2a3e51172b077e136078168f5438/Miniature-interview_nolwenn_V2.png" class="img-fluid" alt="L'IA générative dans les médias" onerror="this.onerror=null; this.src='img/blog/placeholder1.jpg'">
+                        </div>
+                        <div class="blog-content">
+                            <h3>L'IA générative dans les médias</h3>
+                            <p class="author">Joris Salmon, interview de Nolwenn Chapellon, data journaliste | mai 2025</p>
+                            <p>Comment un média transforme sa réticence technologique en avantage concurrentiel pour préserver la valeur du journalisme.</p>
+                            <a href="articles/l-ia-generative-dans-les-medias.html" class="read-more">Lire plus</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
                 </div>
             </div>
         </div>
@@ -510,65 +493,73 @@
                 <p>Parcours Académique</p>
             </div>
 
-            <div class="education-carousel" data-aos="fade-up" data-aos-delay="200">
-                <div class="row">
-                    <div class="col-md-6" data-aos="fade-right">
-                        <div class="education-item">
-                            <div class="education-icon">
-                                <img src="img/sorbonne-paris.png" alt="Sorbonne">
-                            </div>
-                            <div class="education-content">
-                                <h3>Université Panthéon Sorbonne</h3>
-                                <p class="period">2024 - 2025</p>
-                                <p class="degree">DU Data Analytics</p>
-                                <p class="location">Paris, France</p>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="col-md-6" data-aos="fade-left">
-                        <div class="education-item">
-                            <div class="education-icon">
-                                <img src="img/univ-tln.png" alt="Toulon">
-                            </div>
-                            <div class="education-content">
-                                <h3>Université de Toulon</h3>
-                                <p class="period">2023 - 2025</p>
-                                <p class="degree">Master Data Analytics</p>
-                                <p class="location">Toulon, France</p>
-                            </div>
+
+            <div class="education-carousel" data-aos="fade-up" data-aos-delay="200">
+                <div class="modern-carousel-wrapper">
+                    <button class="nav-overlay-btn nav-prev education-prev" aria-label="Formation précédente">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="nav-overlay-btn nav-next education-next" aria-label="Formation suivante">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <div class="education-container modern-scroll-container" id="educationContainer">
+                <div class="modern-scroll-item-2 education-item-wrap formations" data-aos="fade-right" data-aos-delay="0">
+                    <div class="education-item">
+                        <div class="education-icon">
+                            <img src="https://images.ctfassets.net/wflklw0xa5gp/5SeOs7dz6LcTfDfVVbxaHl/0d24fe4ca5a3db1c95e2d954b0833171/logo-sorbonne.jpeg" alt="Université Panthéon Sorbonne">
+                        </div>
+                        <div class="education-content">
+                            <h3>Université Panthéon Sorbonne</h3>
+                            <p class="period">2024 - 2025</p>
+                            <p class="degree">DU Data Engineering</p>
+                            <p class="location">Paris, France</p>
                         </div>
                     </div>
                 </div>
-
-                <div class="row mt-4">
-                    <div class="col-md-6" data-aos="fade-right" data-aos-delay="300">
-                        <div class="education-item">
-                            <div class="education-icon">
-                                <img src="img/univ-rennes.jpg" alt="Rennes">
-                            </div>
-                            <div class="education-content">
-                                <h3>Université de Rennes 1</h3>
-                                <p class="period">2023 - 2024</p>
-                                <p class="degree">Licence 3 MIASHS</p>
-                                <p class="location">Rennes, France</p>
-                            </div>
+            
+                <div class="modern-scroll-item-2 education-item-wrap diplomes" data-aos="fade-left" data-aos-delay="100">
+                    <div class="education-item">
+                        <div class="education-icon">
+                            <img src="https://images.ctfassets.net/wflklw0xa5gp/dugtvXjpZtv6EzZymn80P/6d764c676bfc118c74291e5b0ba3f19f/univ-tln.png" alt="Université de Toulon">
+                        </div>
+                        <div class="education-content">
+                            <h3>Université de Toulon</h3>
+                            <p class="period">2023 - 2025</p>
+                            <p class="degree">Master Data Analytics</p>
+                            <p class="location">Toulon, France</p>
                         </div>
                     </div>
-
-                    <div class="col-md-6" data-aos="fade-left" data-aos-delay="300">
-                        <div class="education-item">
-                            <div class="education-icon">
-                                <img src="img/iut-vannes.jpg" alt="IUT Vannes">
-                            </div>
-                            <div class="education-content">
-                                <h3>IUT de Vannes</h3>
-                                <p class="period">2020 - 2022</p>
-                                <p class="degree">DUT Statistique et Informatique Décisionnelle (STID)</p>
-                                <p class="location">Vannes, France</p>
-                            </div>
+                </div>
+            
+                <div class="modern-scroll-item-2 education-item-wrap diplomes" data-aos="fade-right" data-aos-delay="200">
+                    <div class="education-item">
+                        <div class="education-icon">
+                            <img src="https://images.ctfassets.net/wflklw0xa5gp/EDXdOMw69NlU29sZnsd6n/95513b232903bd99249142d27ccd2f36/univ-rennes.jpg" alt="Université de Rennes 1">
+                        </div>
+                        <div class="education-content">
+                            <h3>Université de Rennes 1</h3>
+                            <p class="period">2023 - 2024</p>
+                            <p class="degree">Licence 3 MIASHS</p>
+                            <p class="location">Rennes, France</p>
                         </div>
                     </div>
+                </div>
+            
+                <div class="modern-scroll-item-2 education-item-wrap formations" data-aos="fade-left" data-aos-delay="300">
+                    <div class="education-item">
+                        <div class="education-icon">
+                            <img src="https://images.ctfassets.net/wflklw0xa5gp/4HEm1wezTh9JkZMCSQyvMd/313997aed0be02ee2e6e15a1d446b8a9/iut-vannes.jpg" alt="IUT de Vannes">
+                        </div>
+                        <div class="education-content">
+                            <h3>IUT de Vannes</h3>
+                            <p class="period">2020 - 2022</p>
+                            <p class="degree">DUT Statistique et Informatique Décisionnelle (STID)</p>
+                            <p class="location">Vannes, France</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
                 </div>
             </div>
         </div>
@@ -583,110 +574,79 @@
                 <p>Parcours Professionnel</p>
             </div>
 
-            <div class="timeline" data-aos="fade-up" data-aos-delay="200">
-
+            <div class="timeline" id="experienceTimeline" data-aos="fade-up" data-aos-delay="200">
                 <div class="timeline-item right" data-aos="fade-left">
                     <div class="timeline-content">
-                        <div class="date">Février 2025 - Juin 2025 <span>(5 mois)</span></div>
+                        <div class="date">février 2025 - Présent <span>(1 an et 2 mois)</span></div>
                         <div class="content-header">
-                            <h3>Micropole</h3>
+                            <h3>Talan (ex : Micropole)</h3>
                             <div class="company-logo">
-                                <img src="img/micropole.png" alt="Micropole">
+                                <img src="https://images.ctfassets.net/wflklw0xa5gp/6bF23pv216pOm2tX1BJw58/329a874723a4d31e395f2ab1b6deefba/talan-logo.svg" alt="Talan (ex : Micropole)">
                             </div>
                         </div>
-                        <h4>Consultant BI</h4>
+                        <h4>Consultant BI &amp; IA</h4>
                         <p class="location">Aix-en-Provence, France</p>
-                        <ul>
-                            <li>Missions pour différents clients au sein du service Data Expérience : <strong>Reporting,
-                                    modélisation, ETL, Cloud</strong></li>
-                            <li>Client Région Ile de France : migration de reporting de Oracle BI sur PowerBI</li>
-                            <!-- <li>Élaboration de solutions via VBA, Access, MS SQL, Python et JS.</li> -->
-                        </ul>
+                        <ul><li><p>Conception de solutions BI : ETL (ODI, Talend), Modélisation &amp; Reporting (PowerBI), solutions IA (documentation automatisée, recueil de données semi-structurées).</p></li><li><p>Domaines : Public &amp; Éducation, RH, Production, Achats. Clients : Région Île-de-France, Air Liquide, EFFIA, etc.</p></li></ul><p></p>
                     </div>
                 </div>
-
+            
                 <div class="timeline-item left" data-aos="fade-right">
                     <div class="timeline-content">
-                        <div class="date">Mars 2024 - Juillet 2024 <span>(5 mois)</span></div>
+                        <div class="date">mars 2024 - juillet 2024 <span>(4 mois)</span></div>
                         <div class="content-header">
                             <h3>ArianeGroup</h3>
                             <div class="company-logo">
-                                <img src="img/ariane-logo.png" alt="ArianeGroup">
+                                <img src="https://images.ctfassets.net/wflklw0xa5gp/5NFT9taFQ4wFyhu7XQ71q6/6416ea8d4e425e25200d9c2f8445af20/icon.webp" alt="ArianeGroup">
                             </div>
                         </div>
                         <h4>Ingénieur Business Intelligence</h4>
                         <p class="location">Bordeaux, France</p>
-                        <ul>
-                            <li>Au sein du service BI, j'ai défini les besoins avec les clients et rédigé des cahiers
-                                des charges techniques.</li>
-                            <li>Exécution des cahiers des charges par la création de rapports sur Cognos Analytics.</li>
-                            <li>L'ensemble des travaux et réunions ont été effectués en anglais.</li>
-                            <li><strong>Objectif :</strong> Amélioration de la cadence de production de la fusée Ariane
-                                6.</li>
-                        </ul>
+                        <ul><li><p>Mise en place de reporting COGNOS pour le suivi de production des lanceurs (qualité, fabrication).</p></li><li><p>Algorithmes de détection en amont des défauts de fabrication pour réduire les erreurs coûteuses.</p></li></ul><p></p>
                     </div>
                 </div>
-
+            
                 <div class="timeline-item right" data-aos="fade-left">
                     <div class="timeline-content">
-                        <div class="date">Juin 2023 - Juillet 2023 <span>(2 mois)</span></div>
+                        <div class="date">juin 2023 - juillet 2023 <span>(1 mois)</span></div>
                         <div class="content-header">
                             <h3>Crédit Agricole La Réunion - Mayotte</h3>
                             <div class="company-logo">
-                                <img src="img/credit-agricole-logo.jpg" alt="Crédit Agricole">
+                                <img src="https://images.ctfassets.net/wflklw0xa5gp/20PPC3Exbo3dtuxYmTEvbh/32d5fec87b0da86b26f50b3a5298e3e3/credit-agricole-logo.jpg" alt="Crédit Agricole La Réunion - Mayotte">
                             </div>
                         </div>
-                        <h4>Data Manager</h4>
+                        <h4>Data Engineer</h4>
                         <p class="location">Saint-Denis, Réunion</p>
-                        <ul>
-                            <li><strong>Objectif :</strong> Rendre les données plus accessibles pour créer de la valeur.
-                            </li>
-                            <li>Construction et mise en œuvre d'un système automatisé avec ACCESS, permettant la
-                                redirection de données existantes sur des fichiers EXCEL dans une BDD interne MS-SQL.
-                            </li>
-                            <li>Élaboration de solutions via VBA, Access, MS SQL, Python et JS.</li>
-                        </ul>
+                        <ul><li><p>Migration de sources silotées vers une base centralisée</p></li><li><p>Présentation des bénéfices aux directions.</p></li></ul><p></p>
                     </div>
                 </div>
-
+            
                 <div class="timeline-item left" data-aos="fade-right">
                     <div class="timeline-content">
-                        <div class="date">Avril 2023 - Juin 2023 <span>(3 mois)</span></div>
+                        <div class="date">avril 2023 - juin 2023 <span>(2 mois)</span></div>
                         <div class="content-header">
                             <h3>Météo France</h3>
                             <div class="company-logo">
-                                <img src="img/meteo-france-logo.jpg" alt="Météo France">
+                                <img src="https://images.ctfassets.net/wflklw0xa5gp/73lNeO8RNE61VzbCv5y5F9/94ae393097149b2af7d0a9eececaf48b/meteo-france-logo.jpg" alt="Météo France">
                             </div>
                         </div>
-                        <h4>Data Analyst</h4>
+                        <h4>Ingénieur de recherche</h4>
                         <p class="location">Rennes, France</p>
-                        <ul>
-                            <li><strong>Sujet de recherche :</strong> Analyse de l'impact du réchauffement climatique
-                                sur les phénomènes de fortes précipitations en Bretagne.</li>
-                            <li>Modélisation et tests sur des séries temporelles pour observer et analyser les impacts
-                                du réchauffement climatique sur la pluviométrie (analyses sur R).</li>
-                            <li>Présentation du travail de recherche au niveau national.</li>
-                        </ul>
+                        <ul><li><p>Modélisation de l'impact climatique sur les précipitations en Bretagne</p></li><li><p>Modèles statistiques sur séries temporelles (R).</p></li></ul><p></p>
                     </div>
                 </div>
-
+            
                 <div class="timeline-item right" data-aos="fade-left">
                     <div class="timeline-content">
-                        <div class="date">Avril 2022 - Juin 2022 <span>(3 mois)</span></div>
+                        <div class="date">avril 2022 - juin 2022 <span>(2 mois)</span></div>
                         <div class="content-header">
                             <h3>Les Sables d'Olonne Agglomération</h3>
                             <div class="company-logo">
-                                <img src="img/sables-olonne-logo.jpg" alt="Les Sables d'Olonne">
+                                <img src="https://images.ctfassets.net/wflklw0xa5gp/7euerds5oNmLT7P51xL1DG/6b649ec45a2beadc232859460b40c30f/sables-olonne-logo.jpg" alt="Les Sables d'Olonne Agglomération">
                             </div>
                         </div>
                         <h4>Data Analyst</h4>
                         <p class="location">Les Sables-d'Olonne, France</p>
-                        <ul>
-                            <li>Conseils sur l'élaboration d'une solution data au sein de l'agglomération.</li>
-                            <li>Création d'une solution automatisée avec VBA et Python pour la récolte et l'analyse de
-                                données pour le territoire.</li>
-                            <li>Utilisation de Web Scraping et construction d'une BDD avec MS SQL.</li>
-                        </ul>
+                        <ul><li><p>Conseils sur l'élaboration d'une solution data au sein de l'agglomération.</p></li><li><p>Création d'une solution automatisée avec VBA et Python pour la récolte et l'analyse de données pour le territoire.</p></li><li><p>Utilisation de Web Scraping et construction d'une BDD avec MS SQL.</p></li></ul>
                     </div>
                 </div>
             </div>
@@ -702,51 +662,50 @@
                 <p>La course à pied et les voyages !</p>
             </div>
 
-            <div class="row">
-                <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="row" id="passionsContainer">
+                <div class="col-lg-6 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="passion-card">
                         <div class="passion-img">
-                            <img src="img/crew.jpeg" alt="Course à pied" class="img-fluid">
+                            <img src="https://images.ctfassets.net/wflklw0xa5gp/Gt2htd9hdpVkulX1p1IIP/7ffe7972b4aa5cf8fde2fc4c53aac539/crew.jpeg" alt="S'entraîner" class="img-fluid">
                         </div>
                         <div class="passion-content">
-                            <h3>S'entrainer</h3>
+                            <h3>S'entraîner</h3>
                             <p class="passion-category">Course à pied</p>
                             <p>Marathon, Trail, et peut-être un triathlon, qui sait ?😅</p>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            
+                <div class="col-lg-6 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="passion-card">
                         <div class="passion-img">
-                            <img src="img/bde.jpg" alt="Voyages" class="img-fluid">
+                            <img src="https://images.ctfassets.net/wflklw0xa5gp/53R9zHYjWRIXwt6JL93YPV/f7d42ec3cca00abad15b1ef795a9739e/bde.jpg" alt="S'engager" class="img-fluid">
                         </div>
                         <div class="passion-content">
                             <h3>S'engager</h3>
                             <p class="passion-category">Associatif</p>
-                            <p>L'AFEV, Fédération étudiante, évènements sociaux & solidaires</p>
+                            <p>L'AFEV, Fédération étudiante, évènements sociaux &amp; solidaires</p>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            
+                <div class="col-lg-6 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
                     <div class="passion-card">
                         <div class="passion-img">
-                            <img src="img/hackathon_navalgroup.jpg" alt="Hackathons" class="img-fluid">
+                            <img src="https://images.ctfassets.net/wflklw0xa5gp/54rSHatLWgd6xyoHSFREej/2595a3f2121d04264ddf93a5b69f9a12/hackathon_navalgroup.jpg" alt="Se lancer des défis" class="img-fluid">
                         </div>
                         <div class="passion-content">
                             <h3>Se lancer des défis</h3>
                             <p class="passion-category">Hackathons</p>
-                            <p>Solution pour accéler les opérations de sauvetage en mer pour la Marine Nationale avec
-                                NavalGroup</p>
+                            <p>Solution pour accélérer les opérations de sauvetage en mer pour la Marine Nationale avec NavalGroup</p>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="400">
+            
+                <div class="col-lg-6 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
                     <div class="passion-card">
                         <div class="passion-img">
-                            <img src="img/pepite.jpg" alt="Startup" class="img-fluid">
+                            <img src="https://images.ctfassets.net/wflklw0xa5gp/6bunkRVRJl6r6csdByOa0h/20a7a4da0471f821654af9f6615ed974/pepite.jpg" alt="Sauter dans l'inconnu" class="img-fluid">
                         </div>
                         <div class="passion-content">
                             <h3>Sauter dans l'inconnu</h3>
@@ -796,10 +755,8 @@
                         </div>
 
                         <div class="social-links">
-                            <a href="https://github.com/Jorissalmon" target="_blank" aria-label="GitHub"><i
-                                    class="fab fa-github"></i></a>
-                            <a href="https://www.linkedin.com/in/joris-salmon/" target="_blank" aria-label="LinkedIn"><i
-                                    class="fab fa-linkedin-in"></i></a>
+                            <a href="https://github.com/Jorissalmon" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/joris-salmon/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                 </div>
@@ -809,8 +766,7 @@
                     <div id="contactMessage" class="alert d-none mb-4"></div>
 
                     <!-- Formulaire avec action et méthode -->
-                    <form id="contactForm" class="contact-form"
-                        action="https://formsubmit.co/el/confirm/joris.salmon53290@gmail.com" method="POST">
+                    <form id="contactForm" class="contact-form" action="https://formsubmit.co/el/confirm/joris.salmon53290@gmail.com" method="POST">
                         <!-- Configurer formsubmit.co - options cachées -->
                         <input type="hidden" name="_subject" value="Nouveau message depuis votre portfolio">
                         <input type="hidden" name="_captcha" value="false">
@@ -819,32 +775,27 @@
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
-                                    <input type="text" class="form-control" name="name" id="name"
-                                        placeholder="Votre Nom" required>
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="Votre Nom" required="">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
-                                    <input type="email" class="form-control" name="email" id="email"
-                                        placeholder="Votre Email" required>
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="Votre Email" required="">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group mb-3">
-                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Sujet"
-                                required>
+                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Sujet" required="">
                         </div>
                         <div class="form-group mb-3">
-                            <textarea class="form-control" name="message" id="message" rows="5" placeholder="Message"
-                                required></textarea>
+                            <textarea class="form-control" name="message" id="message" rows="5" placeholder="Message" required=""></textarea>
                         </div>
 
                         <!-- Bouton d'envoi et indicateur de chargement -->
                         <div class="d-grid d-md-flex">
                             <button type="submit" class="btn btn-primary" id="submitButton">
                                 <span>Envoyer Message</span>
-                                <span class="spinner-border spinner-border-sm ms-2 d-none" role="status"
-                                    aria-hidden="true"></span>
+                                <span class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
                             </button>
                         </div>
                     </form>
@@ -864,7 +815,7 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="footer-info">
                             <h3>Joris Salmon</h3>
-                            <p>Consultant IA & Data</p>
+                            <p>Data Engineer &amp; Consultant BI</p>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
@@ -884,7 +835,7 @@
                             <h4>Restez informé</h4>
                             <p>Abonnez-vous pour recevoir mes derniers articles et projets</p>
                             <form id="newsletterForm" class="newsletter-form">
-                                <input type="email" name="email" placeholder="Votre email" required>
+                                <input type="email" name="email" placeholder="Votre email" required="">
                                 <button type="submit">S'abonner</button>
                             </form>
                             <div id="newsletterMessageContainer"></div>
@@ -894,7 +845,7 @@
             </div>
             <div class="footer-legal">
                 <div class="copyright">
-                    &copy; <span id="currentYear"></span> <strong>Joris Salmon</strong>. Tous droits réservés
+                    © <span id="currentYear"></span> <strong>Joris Salmon</strong>. Tous droits réservés
                 </div>
             </div>
         </div>
@@ -910,18 +861,16 @@
     </div>
 
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer=""></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12" defer=""></script>
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js" defer=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js" defer=""></script>
 
     <!-- Main JavaScript File -->
-    <script src="js/main.js"></script>
-    <script src="js/blog.js"></script>
-    <script src="js/chatbot.js"></script>
-    <script src="js/contentful.js"></script>
-    <script src="js/portfolio.js"></script>
-    <script src="js/portfolio-loader.js"></script>
-    <script src="js/config.js"></script>
+    <script src="js/main.js" defer=""></script>
+    <script src="js/blog.js" defer=""></script>
+    <script src="js/chatbot.js" defer=""></script>
+    <script src="js/portfolio.js" defer=""></script>
+    <script src="js/config.js" defer=""></script></body></html>

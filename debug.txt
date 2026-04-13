@@ -1,0 +1,13 @@
+<div class="modern-scroll-item portfolio-item Business-Intelligence" data-aos="zoom-in" data-aos-delay="0">
+                    <div class="blog-card">
+                        <div class="blog-img">
+                            <img src="https://images.ctfassets.net/wflklw0xa5gp/2PRlNhpRyNoC2SadQY5Gnp/24d4979e805e03f804802ceb13fefa4f/PowerBI_Synthese.png" class="img-fluid" alt="Création d'un reporting PowerBI" onerror="this.onerror=null; this.src='img/portfolio/placeholder1.jpg'">
+                        </div>
+                        <div class="blog-content">
+                            <span class="portfolio-category" style="color: var(--accent-cyan); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">BUSINESS INTELLIGENCE</span>
+                            <h3 class="mt-2">Création d'un reporting PowerBI</h3>
+                            <p>Pour moderniser le suivi des subventions d'un client, j'ai remplacé un système complexe de macros Excel par un pipeline de données automatisé (Oracle ODI) et un dashboard interactif Power BI. Résultat : une donnée centralisée, l'activation de la "Self-BI", et un gain de temps d'un à deux jours par semaine pour les équipes métiers.</p>
+                            <a href="projets/creation-d-un-reporting-powerbi.html" class="read-more">Voir le projet</a>
+                        </div>
+                    </div>
+                </div>

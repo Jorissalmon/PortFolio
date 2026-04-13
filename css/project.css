@@ -1,0 +1,256 @@
+/* ==========================================================================
+   PROJECT PAGE - PREMIUM AI ENGINEER STYLE
+   ========================================================================== */
+
+:root {
+    --bg-dark: #0a0e17;
+    --bg-anthracite: #12141a;
+    --text-white: #ffffff;
+    --text-gray: #b0b0b0;
+    --accent-pink: #bc13fe;
+    --accent-cyan: #00ffff;
+    --accent-purple: #6e00ff;
+    --gradient-cta: linear-gradient(135deg, #6e00ff 0%, #bc13fe 100%);
+    --font-main: 'Inter', 'Space Grotesk', sans-serif;
+}
+
+body {
+    color: var(--text-gray) !important;
+    font-family: var(--font-main);
+    line-height: 1.6;
+}
+
+/* 40% Opacity and Rounded Borders */
+.glass-panel,
+.content-wrapper,
+.modal-content,
+.key-point-card,
+.stat-box {
+    background: rgba(20, 20, 30, 0.4) !important; /* 40% Opacity */
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(138, 43, 226, 0.2) !important;
+    border-radius: 24px !important;
+    padding: 2.5rem !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+.navbar-brand {
+    color: var(--text-white) !important;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+h2 {
+    color: var(--accent-cyan) !important;
+    font-size: 2rem;
+    margin-top: 3rem;
+    position: relative;
+}
+
+/* Pink Diffuse Glow for Titles */
+.boxed-title {
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 0 15px rgba(255, 0, 127, 0.3);
+}
+
+.boxed-title::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140%;
+    height: 140%;
+    background: radial-gradient(circle, rgba(255, 0, 127, 0.1) 0%, rgba(255, 0, 127, 0) 70%);
+    filter: blur(30px);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Hero Section Refinement */
+.project-hero-section {
+    padding: 120px 0 60px;
+    background: radial-gradient(circle at top right, rgba(138, 43, 226, 0.05), transparent),
+        radial-gradient(circle at bottom left, rgba(0, 255, 255, 0.05), transparent);
+}
+
+.title-container h1 {
+    padding: 180px 0 100px;
+}
+
+.project-main-title {
+    font-size: 4rem;
+    font-weight: 800;
+    color: var(--text-white);
+    margin-bottom: 1.5rem;
+    letter-spacing: -1px;
+}
+
+.project-lead-text {
+    font-size: 1.4rem;
+    color: var(--text-gray);
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Content Wrapper - Large Padding & Clean Background */
+.content-wrapper {
+    background: rgba(20, 20, 30, 0.4) !important;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(138, 43, 226, 0.2) !important;
+    border-radius: 32px !important;
+    padding: 5rem !important; /* Large padding for editorial feel */
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5) !important;
+    margin-top: -50px;
+    position: relative;
+    z-index: 5;
+}
+
+.project-rich-content {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    text-align: justify;
+}
+
+.project-rich-content h2, 
+.project-rich-content h3 {
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-white);
+}
+
+.project-meta-bar {
+    color: var(--text-gray);
+    font-size: 0.95rem;
+    opacity: 0.7;
+}
+
+.meta-separator {
+    margin: 0 15px;
+    color: var(--primary-color);
+}
+
+.meta-item {
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .project-main-title {
+        font-size: 2.5rem;
+    }
+    
+    .content-wrapper {
+        padding: 2.5rem !important;
+        border-radius: 24px !important;
+    }
+}
+
+/* Header Grid Simulation (applied to row) */
+.project-header-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.hero-image-box img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+}
+
+/* Content Images in Rich Text */
+.content-image {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    margin: 2rem 0;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Key Points Cards */
+.key-point-card {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 2.5rem;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.key-point-card:hover {
+    background: rgba(255, 255, 255, 0.04);
+    transform: translateY(-10px);
+    border-color: var(--accent-pink);
+}
+
+.key-point-card i {
+    font-size: 3rem;
+    background: var(--gradient-cta);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 2rem;
+}
+
+/* Cyan Side Borber Stats */
+.stat-box {
+    border-left: 4px solid var(--accent-cyan);
+    background: rgba(0, 255, 255, 0.03);
+    padding: 2rem;
+    margin: 2rem 0;
+    border-radius: 0 12px 12px 0;
+}
+
+.stat-box .value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text-white);
+    display: block;
+}
+
+/* Purple Links & Keywords */
+a,
+.tech-tag {
+    color: var(--accent-purple) !important;
+    font-weight: 600;
+}
+
+/* CTA Button */
+.btn-primary {
+    background: var(--gradient-cta) !important;
+    border: none !important;
+    padding: 15px 40px !important;
+    border-radius: 50px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    box-shadow: 0 10px 30px rgba(235, 35, 60, 0.3) !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-primary:hover {
+    transform: scale(1.05) !important;
+    box-shadow: 0 15px 40px rgba(235, 35, 60, 0.5) !important;
+}
+
+/* Navbar transparency */
+.glass-nav {
+    background: rgba(10, 14, 23, 0.8) !important;
+    backdrop-filter: blur(10px);
+}
+
+@media (max-width: 991px) {
+    .project-header-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .title-container h1 {
+        font-size: 3rem;
+    }
+}

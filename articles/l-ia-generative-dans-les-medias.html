@@ -1,0 +1,259 @@
+<!DOCTYPE html><html lang="fr"><head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>L'IA générative dans les médias | Joris Salmon</title>
+
+    <!-- Google Analytics (GA4) -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-336STN5D4J"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-336STN5D4J');
+    </script>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="../../meta/site.webmanifest">
+    <meta content="blog, article, data, data analyst, business intelligence" name="keywords">
+    <meta content="Comment un média transforme sa réticence technologique en avantage concurrentiel pour préserver la valeur du journalisme." name="description">
+
+    <!-- Open Graph / Meta -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="L'IA générative dans les médias | Joris Salmon">
+    <meta property="og:description" content="Comment un média transforme sa réticence technologique en avantage concurrentiel pour préserver la valeur du journalisme.">
+    <meta property="og:image" content="https://images.ctfassets.net/wflklw0xa5gp/4mwbf19MnOmNaCrxbPlVEb/709d2a3e51172b077e136078168f5438/Miniature-interview_nolwenn_V2.png">
+    <meta property="og:url" content="https://www.jorissalmon.com/articles/l-ia-generative-dans-les-medias.html">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="L'IA générative dans les médias | Joris Salmon">
+    <meta name="twitter:description" content="Comment un média transforme sa réticence technologique en avantage concurrentiel pour préserver la valeur du journalisme.">
+    <meta name="twitter:image" content="https://images.ctfassets.net/wflklw0xa5gp/4mwbf19MnOmNaCrxbPlVEb/709d2a3e51172b077e136078168f5438/Miniature-interview_nolwenn_V2.png">
+
+    <!-- Theme-color pour améliorer l'apparence sur mobile -->
+    <!-- Favicon -->
+    <link rel="icon" href="../meta/favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+
+    <!-- CSS Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/glass-theme.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/article.css" rel="stylesheet">
+<link rel="canonical" href="https://www.jorissalmon.com/articles/l-ia-generative-dans-les-medias.html"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "L'IA générative dans les médias",
+  "description": "Comment un média transforme sa réticence technologique en avantage concurrentiel pour préserver la valeur du journalisme.",
+  "datePublished": "2025-05-26T07:00:00.000Z",
+  "url": "https://www.jorissalmon.com/articles/l-ia-generative-dans-les-medias.html",
+  "author": {
+    "@type": "Person",
+    "name": "Joris Salmon",
+    "url": "https://www.jorissalmon.com"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Joris Salmon"
+  }
+}</script><meta name="geo.region" content="FR-PAC"><meta name="geo.placename" content="Aix-en-Provence"><meta name="geo.position" content="43.529742;5.447427"><meta name="ICBM" content="43.529742, 5.447427"></head>
+
+<body>
+    <!-- Chatbot Elements - Version améliorée -->
+    <div class="chatbot-bubble" id="chatbotBubble" title="Discuter avec Joris">
+        <i class="fas fa-comments"></i>
+    </div>
+
+    <div class="chat-popup" id="chatPopup">
+        <div class="chat-popup-header">
+            <span>Assistant de Joris</span>
+            <button class="close-chat" id="closeChat">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chat-popup-body" id="chatPopupBody">
+            <p>Bonjour ! Je suis l'assistant virtuel de Joris. Comment puis-je vous aider aujourd'hui ?</p>
+        </div>
+        <div class="chat-popup-footer">
+            <input type="text" id="userMessage" placeholder="Posez votre question...">
+            <button onclick="sendMessage()" aria-label="Envoyer">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Ajoutez ce script pour le bouton de fermeture -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const closeButton = document.getElementById('closeChat');
+            if (closeButton) {
+                closeButton.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const popup = document.getElementById('chatPopup');
+                    const bubble = document.getElementById('chatbotBubble');
+                    if (popup) {
+                        popup.style.display = 'none';
+                        if (bubble) bubble.style.animation = '';
+                    }
+                });
+            }
+        });
+    </script>
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top glass-nav">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">Joris Salmon</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#home">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#about">À propos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#portfolio">Portfolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../index.html#blog">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#education">Formation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#experience">Expérience</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+    <!-- Article Header -->
+    <header class="article-header">
+        <div class="container">
+            <h1 class="pink-glow">L'IA générative dans les médias</h1>
+            <div class="article-meta">
+                <span class="author"><i class="fas fa-user me-2"></i>Joris Salmon</span>
+                <span class="date"><i class="fas fa-calendar-alt me-2"></i>26/05/2025</span>
+                <div class="article-share">
+                    <span>Partager : </span>
+                    <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.jorissalmon.com%2Farticles%2Fl-ia-generative-dans-les-medias.html&amp;text=L'IA%20g%C3%A9n%C3%A9rative%20dans%20les%20m%C3%A9dias" class="share-twitter" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.jorissalmon.com%2Farticles%2Fl-ia-generative-dans-les-medias.html" class="share-facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fwww.jorissalmon.com%2Farticles%2Fl-ia-generative-dans-les-medias.html&amp;title=L'IA%20g%C3%A9n%C3%A9rative%20dans%20les%20m%C3%A9dias" class="share-linkedin" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Article Content -->
+    <section class="article-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="content"><p><b>L'intelligence artificielle générative bouleverse les médias, c'est un fait. Mais soulève-t-elle pour autant la question qui fâche : cette technologie dévalorise-t-elle ce que pensent les lecteurs du contenu journalistique ? L'approche d'un grand quotidien français nous donne quelques clés pour décrypter cette tension entre course à l'innovation et préservation de la crédibilité.</b></p><p>Nolwenn Chapellon connaît bien cette problématique. Data journaliste dans une rédaction nationale, elle fait partie de ces profils hybrides qui naviguent entre journalisme traditionnel et innovation technologique. Son parcours, marqué par une formation technique plutôt qu'une école de journalisme classique, la place en première ligne de l'expérimentation avec l'IA générative. Un positionnement qui lui offre un regard privilégié sur les transformations en cours. </p><h2>Deux vitesses, deux philosophies</h2><p>Pendant que des médias parisiens comme Le Monde signent des partenariats avec OpenAI, d'autres acteurs préfèrent y aller doucement. <b>L'intégration se fait par petites touches.</b> L'IA reste cantonnée à l'assistance technique - développement informatique, traitement de données - portée par les équipes de data journalistes qui font office de laboratoire. </p><blockquote><p>"Nous, on est là un peu pour faire le lien entre journalisme et technologie", raconte Nolwenn Chapellon, data journaliste. </p></blockquote><p>Cette nouvelle donne redistribue les cartes dans l'écosystème médiatique. </p><p>Certes, quelques expérimentations voient le jour : génération automatique de résumés d'articles, par exemple. Mais tout reste sous surveillance humaine stricte. Et cette prudence révèle quelque chose d'intéressant : <b>une vraie différence d'approche selon les profils</b>. Les data journalistes embrassent ces évolutions sans états d'âme, quand leurs collègues plus traditionnels restent sur la réserve. Particulièrement face à l'automatisation de certaines tâches routinières comme la reprise de dépêches de l'Agence France-Presse (AFP) - ces brèves qui constituent l'ossature de l'information en continu et qui, par leur nature standardisée, semblent naturellement prêtes pour l'automatisation. </p><p>Cette approche prudente ne sort pas de nulle part - elle répond à une logique bien précise. </p><blockquote><p>"Pour que les gens aient confiance en l'intelligence artificielle, il faut qu'ils soient un peu initiés"</p></blockquote><p>Pas faux. Entre un public majoritairement âgé et des technologies qui font peur, le décalage est réel. Du coup, la lenteur devient un atout : charte interne stricte, transparence obligatoire vis-à-vis des lecteurs, validation hiérarchique systématique. Plutôt que de foncer tête baissée, on préfère "prendre des précautions".</p><p>D'ailleurs, côté qualité, on n'y est pas encore. </p><blockquote><p>"Pour l'instant, ça se sent quand c'est écrit par l'IA"</p></blockquote><p>La différence entre production humaine et automatisée reste flagrante. Ce qui impose un processus de vérification basé sur l'expertise journalistique. Autant dire que l'IA reste un outil d'assistance, pas un remplaçant.</p><h2>Le paradoxe de l'authenticité</h2><p><b>Voilà bien le paradoxe de notre époque.</b> L'IA générative promet efficacité et personnalisation, mais risque de saper la perception du contenu journalistique en questionnant son authenticité. Certains médias font de cette contrainte une force : supervision humaine et éthique éditoriale deviennent leurs marqueurs distinctifs. </p><blockquote><p>"C'est vraiment une stratégie de différenciation"</p></blockquote><p>Dans un monde où les contenus automatisés prolifèrent et menacent la crédibilité du secteur, la réputation devient un capital précieux.</p><p>Cette approche dessine peut-être l'avenir : <b>la valeur du journalisme pourrait se renforcer par la réaffirmation de sa dimension humaine</b>. La prudence technologique comme gage de qualité éditoriale, en quelque sorte. Cette expérience montre qu'on peut faire autrement qu'adopter massivement l'IA générative. Une intégration réfléchie qui concilie innovation technologique et impératifs déontologiques. Cette démarche pourrait-elle préfigurer un modèle durable pour l'industrie médiatique française ? L'hypothèse mérite d'être considérée. Quoi qu'il en soit, cette stratégie place la préservation de la confiance du public avant l'efficacité technologique immédiate - un choix qui n'a rien d'anodin dans le contexte actuel. </p></div>
+
+                    <!-- Article Navigation -->
+                    <div class="article-nav">
+                        <a href="../index.html#blog" class="btn btn-primary">
+                            <i class="fas fa-arrow-left me-2"></i>Retour aux articles
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Articles Section -->
+    <section class="related-articles-section section-padding" style="background: rgba(255,255,255,0.03);">
+        <div class="container">
+            <div class="section-title text-center mb-5">
+                <h2>Peut-être aimerez-vous...</h2>
+                <p>D'autres articles intéressants</p>
+            </div>
+            <div class="row justify-content-center" id="relatedArticlesContainer">
+                <div class="col-md-6 mb-4"><div class="blog-card" style="height:100%;"><div class="blog-img"><img src="https://images.ctfassets.net/wflklw0xa5gp/1bNIQRkZ8Iqgz5zVn0jCbb/0801a4f2f534b58af10d263196bea79e/data_analyst.jpg" class="img-fluid" alt="L’Open Data : vecteur d'innovation sociale et territoriale" onerror="this.onerror=null;this.src='https://via.placeholder.com/600x400/1a1a2e/ef233c?text=Article'"></div><div class="blog-content"><h3>L’Open Data : vecteur d'innovation sociale et territoriale</h3><a href="l-open-data-vecteur-d-innovation-sociale-et-territoriale.html" class="read-more">Lire l'article</a></div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Start -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="footer-content">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-info">
+                            <h3>Joris Salmon</h3>
+                            <p>Data Engineer &amp; Consultant BI</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-links">
+                            <h4>Liens rapides</h4>
+                            <ul>
+                                <li><a href="../index.html#home">Accueil</a></li>
+                                <li><a href="../index.html#about">À propos</a></li>
+                                <li><a href="../index.html#portfolio">Portfolio</a></li>
+                                <li><a href="../index.html#blog">Blog</a></li>
+                                <li><a href="../index.html#contact">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-newsletter">
+                            <h4>Restez informé</h4>
+                            <p>Abonnez-vous pour recevoir mes derniers articles et projets</p>
+                            <form id="newsletterForm" class="newsletter-form">
+                                <input type="email" name="email" placeholder="Votre email" required="">
+                                <button type="submit">S'abonner</button>
+                            </form>
+                            <div id="newsletterMessageContainer"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-legal">
+                <div class="copyright">
+                    © <span id="currentYear"></span> <strong>Joris Salmon</strong>. Tous droits réservés
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer End -->
+
+    <!-- Scroll to top button -->
+    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer=""></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer=""></script>
+
+    <!-- Contentful Rich Text Renderer -->
+    <script src="https://cdn.jsdelivr.net/npm/@contentful/rich-text-html-renderer@16.0.3/dist/rich-text-html-renderer.min.js" defer=""></script>
+
+    <!-- Custom JavaScript -->
+    <script src="../js/contentful.js" defer=""></script>
+    
+    <script src="../js/main.js" defer=""></script>
+    <script src="../js/chatbot.js" defer=""></script>
+    <script src="../js/config.js" defer=""></script>
+
+
+</body></html>

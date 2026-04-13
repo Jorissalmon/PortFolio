@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Data Engineer & Consultant BI | Joris Salmon — Marseille</title>
+
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-336STN5D4J"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-336STN5D4J');
+    </script>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="meta/site.webmanifest">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Consultant BI & Data Engineer chez Talan. Je transforme vos données en pipelines ETL, dashboards Power BI et solutions IA. Basé à Marseille.">
+    <meta name="keywords"
+        content="Consultant BI, Data Engineer, Power BI, ETL, Talend, Python, SQL, Intelligence Artificielle, Joris Salmon, Marseille, PACA, Business Intelligence">
+    <meta name="author" content="Joris Salmon">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.jorissalmon.com/">
+
+    <!-- Geo Tags -->
+    <meta name="geo.region" content="FR-PAC" />
+    <meta name="geo.placename" content="Marseille" />
+    <meta name="geo.position" content="43.296482;5.381090" />
+    <meta name="ICBM" content="43.296482, 5.381090" />
+    <!-- Viewport -->
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" name="viewport">
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.jorissalmon.com/">
+    <meta property="og:site_name" content="Joris Salmon Portfolio">
+    <meta property="og:title" content="Data Engineer & Consultant BI | Joris Salmon — Marseille">
+    <meta property="og:description"
+        content="Expert en Data Analytics et Business Intelligence. Découvrez mes projets et mon expertise en data science, BI et intelligence artificielle.">
+    <meta property="og:image" content="https://www.jorissalmon.com/img/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="fr_FR">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://www.jorissalmon.com/">
+    <meta name="twitter:title" content="Data Engineer & Consultant BI | Joris Salmon — Marseille">
+    <meta name="twitter:description"
+        content="Expert en Data Analytics et Business Intelligence. Portfolio de projets innovants en data science.">
+    <meta name="twitter:image" content="https://www.jorissalmon.com/img/og-image.jpg">
+    <meta name="twitter:creator" content="@JorisSalmon">
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#EF233C">
+    <meta name="msapplication-TileColor" content="#EF233C">
+
+    <!-- Language -->
+    <meta http-equiv="content-language" content="fr">
+
+    <!-- Favicon -->
+    <link rel="icon" href="meta/favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Schema.org JSON-LD pour les moteurs de recherche et l'IA -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Joris Salmon",
+      "jobTitle": "Data Engineer & Consultant BI",
+      "url": "https://www.jorissalmon.com/",
+      "sameAs": [
+        "https://www.linkedin.com/in/jorissalmon/",
+        "https://github.com/JorisSalmon"
+      ],
+      "knowsAbout": ["Data Science", "Business Intelligence", "Machine Learning", "Power BI", "Python", "SQL"]
+    }
+    </script>
+
+    <!-- CSS Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/glass-theme.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+
+    <!-- Contentful Rich Text Renderer -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/@contentful/rich-text-html-renderer@16.0.3/dist/rich-text-html-renderer.min.js"></script>
+
+    <!-- JSON-LD Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://www.jorissalmon.com/#person",
+          "name": "Joris Salmon",
+          "givenName": "Joris",
+          "familyName": "Salmon",
+          "jobTitle": "Consultant BI & Data Engineer",
+          "description": "Expert en Data Analytics et Business Intelligence, spécialisé en analyse de données, BI, et intelligence artificielle",
+          "url": "https://www.jorissalmon.com",
+          "email": "joris.salmon53290@gmail.com",
+          "telephone": "+33766840946",
+          "image": "https://www.jorissalmon.com/img/me.jpg",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Marseille",
+            "addressRegion": "Provence-Alpes-Côte d'Azur",
+            "addressCountry": "FR"
+          },
+          "sameAs": [
+            "https://www.linkedin.com/in/joris-salmon/",
+            "https://github.com/Jorissalmon",
+            "https://www.jorissalmon.com"
+          ],
+          "alumniOf": [
+            {
+              "@type": "CollegeOrUniversity",
+              "name": "Université Panthéon Sorbonne",
+              "sameAs": "https://www.pantheonsorbonne.fr/"
+            },
+            {
+              "@type": "CollegeOrUniversity",
+              "name": "Université de Toulon",
+              "sameAs": "https://www.univ-tln.fr/"
+            },
+            {
+              "@type": "CollegeOrUniversity",
+              "name": "Université de Rennes 1"
+            },
+            {
+              "@type": "EducationalOrganization",
+              "name": "IUT de Vannes"
+            }
+          ],
+          "hasCredential": [
+            {
+              "@type": "EducationalOccupationalCredential",
+              "name": "DU Data Analytics",
+              "credentialCategory": "Diploma",
+              "educationalLevel": "Bac+5",
+              "recognizedBy": {
+                "@type": "CollegeOrUniversity",
+                "name": "Université Panthéon Sorbonne"
+              }
+            },
+            {
+              "@type": "EducationalOccupationalCredential",
+              "name": "Master Data Analytics & Stratégie de l'information",
+              "credentialCategory": "Master",
+              "educationalLevel": "Bac+5",
+              "recognizedBy": {
+                "@type": "CollegeOrUniversity",
+                "name": "Université de Toulon"
+              }
+            }
+          ],
+          "knowsAbout": [
+            "Data Analytics",
+            "Business Intelligence",
+            "Data Science",
+            "Machine Learning",
+            "Python",
+            "R",
+            "SQL",
+            "Power BI",
+            "Tableau",
+            "Cognos",
+            "ETL",
+            "Deep Learning",
+            "Intelligence Artificielle",
+            "Web Analytics",
+            "Cloud Computing",
+            "AWS",
+            "Azure"
+          ],
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Talan",
+            "url": "https://www.talan.com"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://www.jorissalmon.com/#website",
+          "url": "https://www.jorissalmon.com",
+          "name": "Joris Salmon Portfolio",
+          "description": "Portfolio professionnel de Joris Salmon - Data Analyst & Consultant BI",
+          "inLanguage": "fr-FR",
+          "author": {
+            "@id": "https://www.jorissalmon.com/#person"
+          },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.jorissalmon.com/?s={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "ProfilePage",
+          "mainEntity": {
+            "@id": "https://www.jorissalmon.com/#person"
+          },
+          "about": {
+            "@id": "https://www.jorissalmon.com/#person"
+          }
+        }
+      ]
+    }
+    </script>
+
+</head>
+
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="51">
+
+    <!-- Chatbot Elements - Version améliorée -->
+    <div class="chatbot-bubble" id="chatbotBubble" title="Discuter avec Joris">
+        <i class="fas fa-comments"></i>
+    </div>
+
+    <div class="chat-popup" id="chatPopup">
+        <div class="chat-popup-header">
+            <span>Assistant de Joris</span>
+            <button class="close-chat" id="closeChat">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chat-popup-body" id="chatPopupBody">
+            <p>Bonjour ! Je suis l'assistant virtuel de Joris. Comment puis-je vous aider aujourd'hui ?</p>
+        </div>
+        <div class="chat-popup-footer">
+            <input type="text" id="userMessage" placeholder="Posez votre question...">
+            <button onclick="sendMessage()" aria-label="Envoyer">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Ajoutez ce script pour le bouton de fermeture -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const closeButton = document.getElementById('closeChat');
+            if (closeButton) {
+                closeButton.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const popup = document.getElementById('chatPopup');
+                    const bubble = document.getElementById('chatbotBubble');
+                    if (popup) {
+                        popup.style.display = 'none';
+                        if (bubble) bubble.style.animation = '';
+                    }
+                });
+            }
+        });
+    </script>
+
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Joris Salmon</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">À propos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#portfolio">Portfolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#blog">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#education">Formation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#experience">Expérience</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+    <!-- Hero Section Start -->
+    <section id="home" class="hero-section">
+        <div class="hero-bg-overlay"></div>
+        <div class="hero-particles" id="particles-js"></div>
+        <div class="container">
+            <div class="hero-header-grid">
+                <div class="hero-header-content" data-aos="fade-right">
+                    <h4 class="subtitle">[[HERO_GREETING]]</h4>
+                    <h1 class="title">[[HERO_NAME]]</h1>
+                    <div class="typed-text-wrapper">
+                        <div class="typed-text" data-strings="[[TYPED_STRINGS]]"></div>
+                    </div>
+
+                    <div class="hero-btn mt-5">
+                        <a href="#contact" class="btn btn-primary me-3">Contactez-moi</a>
+                        <a href="#portfolio" class="btn btn-outline">Mes projets</a>
+                    </div>
+                </div>
+                <div class="hero-image-box" data-aos="fade-left">
+                    <div class="hero-profile-container">
+                        <img src="[[HERO_IMAGE_URL]]" alt="[[HERO_NAME]]" class="img-fluid" id="heroProfileImage">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- About Section Start -->
+    <section id="about" class="about-section dark-immersive section-padding">
+        <div class="container-fluid px-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center" data-aos="fade-up">
+                    <!-- Mobile avatar: visible only on small screens -->
+                    <div class="mobile-avatar-wrapper d-lg-none mb-4">
+                        <img src="[[ABOUT_IMAGE_URL]]" alt="Joris Salmon" class="mobile-avatar-img">
+                    </div>
+                    <div class="section-title centered-brilliant">
+                        <h2 class="brilliant-text">À propos de moi</h2>
+                        <p class="subtitle-neon">Qui suis-je ?</p>
+                    </div>
+                    <div class="about-text-centered mb-5" id="aboutText">
+                        [[ABOUT_DESCRIPTION]]
+                    </div>
+                    <div class="about-action">
+                        <a href="[[CV_URL]]" id="cvLink" class="btn btn-primary btn-lg" target="_blank">
+                            <i class="fas fa-download me-2"></i>Télécharger mon CV
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About Section End -->
+
+    <!-- Portfolio Section Start -->
+    <section id="portfolio" class="portfolio-section section-padding">
+        <div class="container">
+            <div class="section-title text-center" data-aos="fade-up">
+                <h2>Mon Portfolio</h2>
+                <p>Découvrez mes projets récents</p>
+            </div>
+
+            <div class="portfolio-filter text-center" data-aos="fade-up" data-aos-delay="100">
+                <ul id="portfolioFilters">
+                    [[PORTFOLIO_FILTERS]]
+                </ul>
+            </div>
+
+            <!-- Conteneur du carrousel -->
+            <div class="portfolio-carousel" data-aos="fade-up" data-aos-delay="200">
+                <div class="modern-carousel-wrapper">
+                    <button class="nav-overlay-btn nav-prev portfolio-prev" aria-label="Précédent">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="nav-overlay-btn nav-next portfolio-next" aria-label="Suivant">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <div class="portfolio-container" id="projectsContainer">
+                        <!-- Les projets seront chargés dynamiquement ici -->
+                        <div class="col-lg-3 col-md-6 portfolio-item filter-1">
+                            <div class="portfolio-wrap">
+                                <img src="img/portfolio/placeholder1.jpg" class="img-fluid" alt="Projet 1">
+                                <div class="portfolio-info">
+                                    <h4>Chargement...</h4>
+                                    <p>Veuillez patienter</p>
+                                    <div class="portfolio-links">
+                                        <a href="#" class="details-link"><i class="fas fa-link"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Portfolio Section End -->
+
+    <!-- Blog Section Start -->
+    <section id="blog" class="blog-section section-padding">
+        <div class="container">
+            <div class="section-title text-center" data-aos="fade-up">
+                <h2>Blog</h2>
+                <p>Derniers Articles</p>
+            </div>
+
+            <!-- Filtres avec classes modifiées pour mieux s'adapter au mobile -->
+            <div class="blog-filter text-center" data-aos="fade-up" data-aos-delay="100">
+                <ul class="d-flex flex-wrap justify-content-center" id="blogFilters">
+                    [[BLOG_FILTERS]]
+                </ul>
+            </div>
+
+            <!-- Carrousel avec boutons overlay -->
+            <div class="blog-carousel" data-aos="fade-up" data-aos-delay="200">
+                <div class="modern-carousel-wrapper">
+                    <button class="nav-overlay-btn nav-prev blog-prev" aria-label="Article précédent">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="nav-overlay-btn nav-next blog-next" aria-label="Article suivant">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+
+                    <div class="blog-container" id="blogjorisContainer">
+                        <!-- Les articles seront chargés dynamiquement ici -->
+                        <div class="col-12 text-center">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Chargement...</span>
+                            </div>
+                            <p class="mt-2">Chargement des articles...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Blog Section End -->
+
+    <!-- Education Section Start -->
+    <section id="education" class="education-section section-padding">
+        <div class="container">
+            <div class="section-title text-center" data-aos="fade-up">
+                <h2>Mes Formations</h2>
+                <p>Parcours Académique</p>
+            </div>
+
+
+
+            <div class="education-carousel" data-aos="fade-up" data-aos-delay="200">
+                <div class="modern-carousel-wrapper">
+                    <button class="nav-overlay-btn nav-prev education-prev" aria-label="Formation précédente">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="nav-overlay-btn nav-next education-next" aria-label="Formation suivante">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <div class="education-container" id="educationContainer">
+                        [[EDUCATION_LIST]]
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Education Section End -->
+
+    <!-- Experience Section Start -->
+    <section id="experience" class="experience-section section-padding">
+        <div class="container">
+            <div class="section-title text-center" data-aos="fade-up">
+                <h2>Mes Expériences</h2>
+                <p>Parcours Professionnel</p>
+            </div>
+
+            <div class="timeline" id="experienceTimeline" data-aos="fade-up" data-aos-delay="200">
+                [[EXPERIENCE_LIST]]
+            </div>
+        </div>
+    </section>
+    <!-- Experience Section End -->
+
+    <!-- Team/Passions Section Start -->
+    <section id="passions" class="passions-section section-padding">
+        <div class="container">
+            <div class="section-title text-center" data-aos="fade-up">
+                <h2>Mes Passions</h2>
+                <p>La course à pied et les voyages !</p>
+            </div>
+
+            <div class="row" id="passionsContainer">
+                [[PASSIONS_LIST]]
+            </div>
+        </div>
+    </section>
+    <!-- Team/Passions Section End -->
+
+    <!-- Contact Section Start -->
+    <section id="contact" class="contact-section section-padding">
+        <div class="container">
+            <div class="section-title text-center" data-aos="fade-up">
+                <h2>Contact</h2>
+                <p>Envoyez-moi un message</p>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-5 mb-4 mb-lg-0" data-aos="fade-right">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="content">
+                                <h4>Localisation</h4>
+                                <p>Aix-en-Provence, France</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="icon"><i class="fas fa-phone"></i></div>
+                            <div class="content">
+                                <h4>Téléphone</h4>
+                                <p>+33 766840946</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="icon"><i class="fas fa-envelope"></i></div>
+                            <div class="content">
+                                <h4>Email</h4>
+                                <p>Joris.salmon53290@gmail.com</p>
+                            </div>
+                        </div>
+
+                        <div class="social-links">
+                            <a href="https://github.com/Jorissalmon" target="_blank" aria-label="GitHub"><i
+                                    class="fab fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/joris-salmon/" target="_blank" aria-label="LinkedIn"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-7" data-aos="fade-left">
+                    <!-- Notification de succès/erreur -->
+                    <div id="contactMessage" class="alert d-none mb-4"></div>
+
+                    <!-- Formulaire avec action et méthode -->
+                    <form id="contactForm" class="contact-form"
+                        action="https://formsubmit.co/el/confirm/joris.salmon53290@gmail.com" method="POST">
+                        <!-- Configurer formsubmit.co - options cachées -->
+                        <input type="hidden" name="_subject" value="Nouveau message depuis votre portfolio">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_next" value="www.jorissalmon.com">
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <input type="text" class="form-control" name="name" id="name"
+                                        placeholder="Votre Nom" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <input type="email" class="form-control" name="email" id="email"
+                                        placeholder="Votre Email" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Sujet"
+                                required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <textarea class="form-control" name="message" id="message" rows="5" placeholder="Message"
+                                required></textarea>
+                        </div>
+
+                        <!-- Bouton d'envoi et indicateur de chargement -->
+                        <div class="d-grid d-md-flex">
+                            <button type="submit" class="btn btn-primary" id="submitButton">
+                                <span>Envoyer Message</span>
+                                <span class="spinner-border spinner-border-sm ms-2 d-none" role="status"
+                                    aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Notification de succès/erreur -->
+        <div id="contactMessage" class="alert d-none mb-4"></div>
+    </section>
+    <!-- Contact Section End -->
+
+    <!-- Footer Start -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="footer-content">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-info">
+                            <h3>Joris Salmon</h3>
+                            <p>Data Engineer & Consultant BI</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-links">
+                            <h4>Liens rapides</h4>
+                            <ul>
+                                <li><a href="#home">Accueil</a></li>
+                                <li><a href="#about">À propos</a></li>
+                                <li><a href="#portfolio">Portfolio</a></li>
+                                <li><a href="#blog">Blog</a></li>
+                                <li><a href="#contact">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-newsletter">
+                            <h4>Restez informé</h4>
+                            <p>Abonnez-vous pour recevoir mes derniers articles et projets</p>
+                            <form id="newsletterForm" class="newsletter-form">
+                                <input type="email" name="email" placeholder="Votre email" required>
+                                <button type="submit">S'abonner</button>
+                            </form>
+                            <div id="newsletterMessageContainer"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-legal">
+                <div class="copyright">
+                    &copy; <span id="currentYear"></span> <strong>Joris Salmon</strong>. Tous droits réservés
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer End -->
+
+    <!-- Scroll to top button -->
+    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12" defer></script>
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js" defer></script>
+
+    <!-- Main JavaScript File -->
+    <script src="js/main.js" defer></script>
+    <script src="js/blog.js" defer></script>
+    <script src="js/chatbot.js" defer></script>
+    <script src="js/portfolio.js" defer></script>
+    <script src="js/config.js" defer></script>

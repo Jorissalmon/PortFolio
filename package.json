@@ -8,7 +8,10 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node dev-server.js",
+    "start": "node dev-server.js",
     "generate-sitemap": "node scripts/generate-sitemap.js",
+    "build": "node scripts/generate-pages.js && npm run generate-sitemap",
     "create-content-models": "node scripts/create-content-models.js",
     "populate-contentful": "node scripts/populate-contentful.js",
     "fix-missing-data": "node scripts/fix-missing-data.js",
@@ -18,13 +21,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@contentful/rich-text-html-renderer": "^17.1.6",
     "@supabase/supabase-js": "^1.28.0",
     "axios": "^1.7.7",
-    "contentful": "^10.6.0",
+    "contentful": "^10.15.1",
     "contentful-management": "^11.66.0",
     "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
-    "express": "^4.21.1",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.1",
     "jsdom": "^25.0.1",
     "node-fetch": "^3.3.2"
   },

@@ -17,12 +17,11 @@ document.addEventListener('DOMContentLoaded', function () {
   initializeAOS();
   initializeTyped();
   initializeSkillBars();
-  initializeYearUpdate();
   initializeParticles();
   initializeContactForm();
   initializeNewsletterForm();
   setupContactForm();
-
+  initializeEducationCarousel();
 });
 
 /**
@@ -247,8 +246,12 @@ function initializeTyped() {
     // Assurez-vous que l'élément a une position relative ou absolue
     typedElement.style.position = 'relative';
 
-    // Textes à afficher
-    const typedStrings = ['Consultant Digital', 'Data Analyst', 'Data-Scientist', 'Analytics Engineer', 'AI Specialist'];
+    // Textes à afficher récupérés dynamiquement (séparés par virgule)
+    let typedStrings = ['Consultant Digital', 'Data Analyst', 'Data-Scientist']; // Fallback
+    const rawStrings = typedElement.getAttribute('data-strings');
+    if (rawStrings && rawStrings !== '[[TYPED_STRINGS]]') {
+        typedStrings = rawStrings.split(',').map(s => s.trim());
+    }
 
     // Options personnalisées pour Typed.js
     const options = {
@@ -682,6 +685,60 @@ function initializeNewsletterForm() {
  * Affiche une popup de confirmation d'abonnement
  * @param {string} email - Email de l'utilisateur
  */
+
+/**
+ * Initialise le carrousel horizontal pour la section Education avec support du filtrage (slicer)
+ */
+function initializeEducationCarousel() {
+  const container = document.getElementById('educationContainer');
+  const prevBtn = document.querySelector('.education-prev');
+  const nextBtn = document.querySelector('.education-next');
+  const filterButtons = document.querySelectorAll('.education-filter li');
+
+  if (!container || !prevBtn || !nextBtn) {
+    return;
+  }
+
+  // Initialisation des filtres (Slicer)
+  filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      // Classes actives
+      document.querySelector('.education-filter .filter-active')?.classList.remove('filter-active');
+      this.classList.add('filter-active');
+      
+      const filterValue = this.getAttribute('data-filter');
+      const items = container.querySelectorAll('.education-item-wrap');
+      
+      items.forEach(item => {
+        if (filterValue === '*' || item.classList.contains(filterValue.substring(1))) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+      
+      // Reset scroll et rafraîchir AOS
+      container.scrollLeft = 0;
+      if (window.AOS) {
+        setTimeout(() => AOS.refresh(), 100);
+      }
+    });
+  });
+
+  // Navigation par boutons overlay
+  prevBtn.addEventListener('click', function() {
+    const firstItem = container.querySelector('.modern-scroll-item-2');
+    const scrollAmount = firstItem ? firstItem.offsetWidth + 30 : 500;
+    container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  });
+
+  nextBtn.addEventListener('click', function() {
+    const firstItem = container.querySelector('.modern-scroll-item-2');
+    const scrollAmount = firstItem ? firstItem.offsetWidth + 30 : 500;
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  });
+}
+
 function showSubscriptionPopup(email) {
   // Stocker l'email dans sessionStorage pour le récupérer après la redirection
   if (email) {
@@ -925,4 +982,17 @@ function initializeSkillBars() {
     });
     observer.observe(skillsSection);
   }
+}
+
+// Enregistrement du Service Worker pour la PWA
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(registration => {
+        console.log('Service Worker enregistré avec succès:', registration.scope);
+      })
+      .catch(error => {
+        console.log('Échec de l\'enregistrement du Service Worker:', error);
+      });
+  });
 }

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "4jgIfIgWqKlqlfDFcxH88u",
+    "fields": [
+      "title",
+      "chatbotPrompt",
+      "aboutDescription",
+      "cvLink",
+      "location",
+      "phone",
+      "email"
+    ]
+  }
+]

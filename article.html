@@ -1,18 +1,48 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Article - Joris Salmon</title>
-    <meta content="portfolio, Joris Salmon, data Analyst, data science" name="keywords">
-    <meta content="Article du blog de Joris Salmon" name="description">
 
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-336STN5D4J"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-336STN5D4J');
+    </script>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="../meta/site.webmanifest">
+    <meta content="blog, article, data, data analyst, business intelligence" name="keywords">
+    <meta content="Article de blog - Joris Salmon" name="description">
+
+    <!-- Open Graph / Meta -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Article | Joris Salmon">
+    <meta property="og:description" content="Consultez cet article détaillé.">
+    <meta property="og:image" content="https://www.jorissalmon.com/img/og-image.jpg">
+    <meta property="og:url" content="https://www.jorissalmon.com/">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Article | Joris Salmon">
+    <meta name="twitter:description" content="Consultez cet article de Joris Salmon.">
+    <meta name="twitter:image" content="https://www.jorissalmon.com/img/og-image.jpg">
+
+    <!-- Theme-color pour améliorer l'apparence sur mobile -->
     <!-- Favicon -->
     <link rel="icon" href="meta/favicon.ico" type="image/x-icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <!-- CSS Libraries -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -20,13 +50,55 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <!-- Custom CSS -->
+    <link href="css/glass-theme.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/article.css" rel="stylesheet">
 </head>
 
 <body>
+    <!-- Chatbot Elements - Version améliorée -->
+    <div class="chatbot-bubble" id="chatbotBubble" title="Discuter avec Joris">
+        <i class="fas fa-comments"></i>
+    </div>
+
+    <div class="chat-popup" id="chatPopup">
+        <div class="chat-popup-header">
+            <span>Assistant de Joris</span>
+            <button class="close-chat" id="closeChat">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chat-popup-body" id="chatPopupBody">
+            <p>Bonjour ! Je suis l'assistant virtuel de Joris. Comment puis-je vous aider aujourd'hui ?</p>
+        </div>
+        <div class="chat-popup-footer">
+            <input type="text" id="userMessage" placeholder="Posez votre question...">
+            <button onclick="sendMessage()" aria-label="Envoyer">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Ajoutez ce script pour le bouton de fermeture -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const closeButton = document.getElementById('closeChat');
+            if (closeButton) {
+                closeButton.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const popup = document.getElementById('chatPopup');
+                    const bubble = document.getElementById('chatbotBubble');
+                    if (popup) {
+                        popup.style.display = 'none';
+                        if (bubble) bubble.style.animation = '';
+                    }
+                });
+            }
+        });
+    </script>
     <!-- Navbar Start -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top glass-nav">
         <div class="container">
             <a class="navbar-brand" href="index.html">Joris Salmon</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -64,7 +136,7 @@
     <!-- Article Header -->
     <header class="article-header">
         <div class="container">
-            <h1>Chargement de l'article...</h1>
+            <h1 class="pink-glow">Chargement de l'article...</h1>
             <div class="article-meta">
                 <span class="author"><i class="fas fa-user me-2"></i>Joris Salmon</span>
                 <span class="date"><i class="fas fa-calendar-alt me-2"></i>Date de publication</span>
@@ -87,7 +159,7 @@
                         <!-- Le contenu de l'article sera chargé ici dynamiquement -->
                         <p>Chargement de l'article...</p>
                     </div>
-                    
+
                     <!-- Article Navigation -->
                     <div class="article-nav">
                         <a href="index.html#blog" class="btn btn-primary">
@@ -95,6 +167,19 @@
                         </a>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Articles Section -->
+    <section class="related-articles-section section-padding" style="background: rgba(255,255,255,0.03);">
+        <div class="container">
+            <div class="section-title text-center mb-5">
+                <h2>Peut-être aimerez-vous...</h2>
+                <p>D'autres articles intéressants</p>
+            </div>
+            <div class="row justify-content-center" id="relatedArticlesContainer">
+                [[RECOMMENDATIONS]]
             </div>
         </div>
     </section>
@@ -107,7 +192,7 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="footer-info">
                             <h3>Joris Salmon</h3>
-                            <p>Consultant Digital</p>
+                            <p>Data Engineer & Consultant BI</p>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
@@ -143,7 +228,7 @@
         </div>
     </footer>
     <!-- Footer End -->
-    
+
     <!-- Scroll to top button -->
     <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
 
@@ -151,14 +236,17 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
+
     <!-- Contentful Rich Text Renderer -->
-    <script src="https://cdn.jsdelivr.net/npm/@contentful/rich-text-html-renderer@16.0.3/dist/rich-text-html-renderer.min.js"></script>
-    
+    <script
+        src="https://cdn.jsdelivr.net/npm/@contentful/rich-text-html-renderer@16.0.3/dist/rich-text-html-renderer.min.js"></script>
+
     <!-- Custom JavaScript -->
     <script src="js/contentful.js"></script>
     <script src="js/article.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/chatbot.js"></script>
     <script src="js/config.js"></script>
 </body>
+
 </html>

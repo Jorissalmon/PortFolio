@@ -395,7 +395,11 @@ a:hover {
 
 .read-more {
     margin-top: auto;
-    color: var(--accent-cyan);
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -406,9 +410,11 @@ a:hover {
 }
 
 .read-more:hover {
-    color: var(--primary-color);
-    text-shadow: 0 0 8px var(--primary-glow);
-    padding-left: 5px;
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff !important;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+    padding-left: 20px;
 }
 
 .read-more i {
@@ -451,8 +457,30 @@ a:hover {
 }
 
 .chat-popup {
-    background: rgba(20, 20, 25, 0.95);
+    background: rgba(10, 10, 15, 1) !important;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    
+    /* Adaptabilité à l'écran */
+    max-height: calc(100vh - 120px) !important;
+    max-width: 90vw !important;
+    height: 500px !important; /* Hauteur préférée mais limitée par max-height */
+    width: 380px !important;
+    z-index: 2000 !important; /* Au-dessus de la navbar si nécessaire */
+    bottom: 100px !important;
+}
+
+/* Forcer la responsivité des images */
+.article-content img, 
+.content-wrapper img, 
+.hero-image img,
+.blog-img img,
+.portfolio-wrap img {
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+.article-header, .project-hero-section {
+    z-index: 5; /* Bien en dessous de la navbar (1030) et de la popup (2000) */
 }
 
 .chat-popup-header {

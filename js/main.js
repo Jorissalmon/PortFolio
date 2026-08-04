@@ -920,3 +920,51 @@ function initializeSkillBars() {
     observer.observe(skillsSection);
   }
 }
+
+/**
+ * Compteurs KPI animés + déclenchement des mini-graphiques quand la bande
+ * entre dans le viewport (IntersectionObserver, respecte reduced-motion).
+ */
+(function () {
+    function animateCount(el, target) {
+        const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduce) { el.textContent = target; return; }
+        const duration = 1400;
+        const start = performance.now();
+        function step(now) {
+            const p = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+            el.textContent = Math.round(eased * target);
+            if (p < 1) requestAnimationFrame(step);
+            else el.textContent = target;
+        }
+        requestAnimationFrame(step);
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const tiles = document.querySelectorAll('.stat-tile');
+        if (!tiles.length) return;
+
+        if (!('IntersectionObserver' in window)) {
+            tiles.forEach(t => {
+                t.classList.add('is-live');
+                const n = t.querySelector('.kpi');
+                if (n) n.textContent = n.getAttribute('data-target');
+            });
+            return;
+        }
+
+        const obs = new IntersectionObserver(function (entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const tile = entry.target;
+                tile.classList.add('is-live');
+                const num = tile.querySelector('.kpi');
+                if (num) animateCount(num, parseInt(num.getAttribute('data-target'), 10) || 0);
+                observer.unobserve(tile);
+            });
+        }, { threshold: 0.4 });
+
+        tiles.forEach(t => obs.observe(t));
+    });
+})();

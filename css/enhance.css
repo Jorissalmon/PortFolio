@@ -154,6 +154,40 @@ body {
 }
 .theme-toggle i { transition: transform 0.4s var(--e-ease); }
 
+/* Make toggle + hamburger clearly visible over ANY background (incl. top of
+   page where the navbar is transparent), and keep them inside the viewport. */
+.nav-right { flex-shrink: 0; }
+.theme-toggle {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+}
+/* Hamburger bars: light in dark theme (base CSS made them dark violet) */
+.navbar-toggler .navbar-toggler-icon,
+.navbar-toggler .navbar-toggler-icon::before,
+.navbar-toggler .navbar-toggler-icon::after { background-color: #ffffff; }
+@media (max-width: 991px) {
+    .navbar > .container { padding-left: 16px; padding-right: 16px; }
+    .nav-right { gap: 8px; }
+    .theme-toggle { width: 40px; height: 40px; font-size: 0.95rem; }
+}
+
+/* Contact items: consistent, left-aligned rows on mobile (was messy centring) */
+@media (max-width: 767px) {
+    .contact-item {
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+        gap: 14px;
+        margin-bottom: 22px;
+    }
+    .contact-item .icon { margin: 0; flex-shrink: 0; }
+    .contact-item .content h4,
+    .contact-item .content p { text-align: left; }
+    .social-links { justify-content: flex-start; }
+}
+
 /* ------------------------------------------------------------
  * Section titles — readable subtitle + eyebrow feel
  * ---------------------------------------------------------- */
@@ -406,6 +440,97 @@ textarea:focus-visible,
 }
 
 /* ============================================================
+ *  STATS / KPI BAND — data-flavoured
+ * ============================================================ */
+.stats-band {
+    padding: 10px 0 20px;
+    margin-top: -20px;
+}
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+.stat-tile {
+    background: var(--e-surface);
+    border: 1px solid var(--e-border);
+    border-radius: 18px;
+    padding: 22px 22px 18px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--e-shadow);
+    transition: transform 0.35s var(--e-ease), border-color 0.35s var(--e-ease),
+                box-shadow 0.35s var(--e-ease);
+}
+.stat-tile:hover {
+    transform: translateY(-6px);
+    border-color: var(--e-border-hover);
+    box-shadow: 0 22px 44px -20px rgba(0, 0, 0, 0.7), 0 0 22px rgba(188, 19, 254, 0.18);
+}
+.stat-top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+.stat-num {
+    font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    line-height: 1;
+    background: linear-gradient(120deg, #ffffff, #bc13fe 70%, #00f3ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.stat-num .kpi-suffix { -webkit-text-fill-color: #00f3ff; }
+.stat-spark, .stat-bars { width: 74px; height: 30px; opacity: 0.9; }
+.stat-spark polyline {
+    fill: none;
+    stroke: #bc13fe;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 4px rgba(188, 19, 254, 0.6));
+    stroke-dasharray: 240;
+    stroke-dashoffset: 240;
+}
+.stat-tile.is-live .stat-spark polyline {
+    animation: sparkDraw 1.4s var(--e-ease) forwards;
+}
+@keyframes sparkDraw { to { stroke-dashoffset: 0; } }
+.stat-bars rect {
+    fill: #8b2fd6;
+    transform-origin: bottom;
+    transform: scaleY(0);
+}
+.stat-bars rect:last-child { fill: #00f3ff; }
+.stat-tile.is-live .stat-bars rect { animation: barGrow 0.9s var(--e-ease) forwards; }
+.stat-tile.is-live .stat-bars rect:nth-child(2) { animation-delay: 0.1s; }
+.stat-tile.is-live .stat-bars rect:nth-child(3) { animation-delay: 0.2s; }
+.stat-tile.is-live .stat-bars rect:nth-child(4) { animation-delay: 0.3s; }
+@keyframes barGrow { to { transform: scaleY(1); } }
+.stat-label {
+    color: var(--text-secondary, #b0b0cc);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+:root[data-theme="light"] .stat-label { color: #4a4a68; }
+:root[data-theme="light"] .stat-num {
+    background: linear-gradient(120deg, #1a1a2e, #6e00ff 70%, #0a8fa3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+:root[data-theme="light"] .stat-num .kpi-suffix { -webkit-text-fill-color: #0a8fa3; }
+@media (max-width: 767px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .stat-tile { padding: 16px 16px 14px; border-radius: 16px; }
+    .stat-spark, .stat-bars { width: 56px; height: 26px; }
+}
+
+/* ============================================================
  *  MOBILE READABILITY — Hero (Accueil) & Portfolio (Projets)
  * ============================================================ */
 
@@ -604,6 +729,10 @@ textarea:focus-visible,
     border: 2px solid rgba(188, 19, 254, 0.6);
     box-shadow: 0 0 10px rgba(188, 19, 254, 0.4);
 }
+
+/* Keep chat text readable whatever the page theme (popup stays dark) */
+.chat-popup-body { color: #e6e6f5; }
+.chat-popup-body > p { color: #e6e6f5; }
 
 /* Formatted bot answers: readable paragraphs & lists */
 .bot-message-text p { margin: 0 0 8px; line-height: 1.55; }

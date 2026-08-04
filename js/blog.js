@@ -152,6 +152,15 @@ function createBlogElement(article, index) {
     articleDiv.setAttribute("data-aos-delay", delay.toString());
   }
   
+  // Libellé de catégorie (harmonisé avec les cartes projets)
+  const catLabels = {
+    'filter-data': 'Data',
+    'filter-bi': 'Data-Analyse & BI',
+    'filter-ia': 'IA',
+    'filter-career': 'Métier'
+  };
+  const catLabel = catLabels[categoryClass] || 'Article';
+
   // Structure HTML interne
   articleDiv.innerHTML = `
     <div class="blog-card">
@@ -159,10 +168,11 @@ function createBlogElement(article, index) {
         <img src="${article.image_url}" class="img-fluid" alt="${article.title}" onerror="this.src='img/blog/placeholder1.jpg'">
       </div>
       <div class="blog-content">
+        <span class="blog-category">${catLabel}</span>
         <h3>${article.title}</h3>
         <p class="author">${article.author} | ${article.date}</p>
         <p>${article.summary}</p>
-        <a href="${article.link}" class="read-more">Lire plus</a>
+        <a href="${article.link}" class="read-more">Lire l'article <i class="fas fa-arrow-right"></i></a>
       </div>
     </div>
   `;

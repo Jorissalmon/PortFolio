@@ -804,6 +804,93 @@ textarea:focus-visible,
     box-shadow: 0 6px 20px rgba(110, 0, 255, 0.5), 0 0 0 0 rgba(188, 19, 254, 0.5);
 }
 
+/* ============================================================
+ *  NO HORIZONTAL OVERFLOW (fixes the "screen too wide / scroll
+ *  sideways" issue and keeps the top-right toggle on screen)
+ * ============================================================ */
+html, body { overflow-x: hidden; max-width: 100%; }
+img, svg, video, iframe { max-width: 100%; }
+.portfolio-carousel, .blog-carousel,
+.portfolio-container, .blog-container { max-width: 100%; overflow: hidden; }
+
+/* ============================================================
+ *  HARMONISE PROJECTS & ARTICLES
+ * ============================================================ */
+/* Category chip on blog cards, identical to project cards */
+.blog-category {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #00f3ff !important;
+    background: rgba(0, 243, 255, 0.08);
+    padding: 4px 12px;
+    border-radius: 50px;
+    border: 1px solid rgba(0, 243, 255, 0.2);
+    margin-bottom: 12px;
+}
+:root[data-theme="light"] .blog-category,
+:root[data-theme="light"] .portfolio-category { color: #0a8fa3 !important; background: rgba(10, 143, 163, 0.08); border-color: rgba(10, 143, 163, 0.25); }
+
+/* "Lire l'article" becomes a gradient button like "Voir le projet" */
+.read-more {
+    align-self: flex-start;
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #6e00ff, #bc13fe) !important;
+    color: #fff !important;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: 0.2px;
+    text-shadow: none;
+    transition: background 0.3s var(--e-ease), box-shadow 0.3s var(--e-ease), transform 0.3s var(--e-ease);
+}
+.read-more:hover {
+    background: linear-gradient(135deg, #bc13fe, #00f3ff) !important;
+    color: #fff !important;
+    box-shadow: var(--e-glow-violet);
+    transform: translateY(-2px);
+    padding-left: 18px;
+    text-shadow: none;
+}
+.read-more i { margin-left: 0; font-size: 0.8em; }
+
+/* Unify carousel arrows (projects + blog) to the same neon solid circles */
+.portfolio-prev, .portfolio-next,
+.portfolio-section .carousel-prev, .portfolio-section .carousel-next,
+.blog-section .carousel-prev, .blog-section .carousel-next,
+.carousel-prev, .carousel-next {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #6e00ff, #bc13fe);
+    border: none;
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(110, 0, 255, 0.4);
+    transition: transform 0.25s var(--e-ease), box-shadow 0.25s var(--e-ease), background 0.25s var(--e-ease);
+}
+.portfolio-prev:hover, .portfolio-next:hover,
+.carousel-prev:hover, .carousel-next:hover {
+    background: linear-gradient(135deg, #bc13fe, #00f3ff);
+    box-shadow: 0 8px 22px rgba(188, 19, 254, 0.55);
+    transform: translateY(-2px);
+}
+.portfolio-prev.disabled, .portfolio-next.disabled,
+.carousel-prev.disabled, .carousel-next.disabled {
+    opacity: 0.45;
+    box-shadow: none;
+    transform: none;
+}
+
 /* ------------------------------------------------------------
  * Scroll reveal (progressive enhancement, JS toggles .is-visible)
  * ---------------------------------------------------------- */

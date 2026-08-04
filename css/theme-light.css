@@ -216,6 +216,14 @@
 }
 :root[data-theme="light"] .footer-newsletter input::placeholder { color: #9a9ab0; }
 
+/* Detail pages — hero title sits over a dark image overlay: keep it white */
+:root[data-theme="light"] .article-header h1,
+:root[data-theme="light"] .project-hero h1 { color: #ffffff; }
+:root[data-theme="light"] .article-meta,
+:root[data-theme="light"] .article-meta .author,
+:root[data-theme="light"] .article-meta .date { color: #e8e8f5; }
+:root[data-theme="light"] .project-lead { color: #2a2a44; }
+
 /* Detail pages */
 :root[data-theme="light"] .detail-content { color: #3a3a52; }
 :root[data-theme="light"] .detail-content h1,

@@ -107,7 +107,18 @@ function displayProjectInformation(project) {
     document.getElementById('projectTechnologies').textContent = project.technologies || '--';
     document.getElementById('projectClient').textContent = project.client || '--';
     
-    // Résumé du projet
+    // Chapô : description courte, pour saisir la démarche immédiatement
+    const leadElement = document.getElementById('projectLead');
+    if (leadElement) {
+        if (project.description && project.description !== 'Aucune description disponible') {
+            leadElement.textContent = project.description;
+            leadElement.style.display = 'block';
+        } else {
+            leadElement.style.display = 'none';
+        }
+    }
+
+    // Résumé du projet (démarche détaillée)
     document.getElementById('projectSummary').innerHTML = project.content;
     
     // Gérer le lien externe

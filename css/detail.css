@@ -130,6 +130,16 @@ body.detail-page {
 .project-body {
     padding: 60px 0 40px;
 }
+.project-lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: #e6e6f5;
+    font-weight: 500;
+    margin: 0 0 30px;
+    padding-left: 18px;
+    border-left: 3px solid #bc13fe;
+}
+:root[data-theme="light"] .project-lead { color: #2a2a44; }
 .detail-content {
     color: #c8c8dc;
     font-size: 1.05rem;

@@ -805,6 +805,36 @@ textarea:focus-visible,
 }
 
 /* ============================================================
+ *  VIDEO EMBEDS (intro video + video links in projects/articles)
+ * ============================================================ */
+.video-embed {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid var(--e-border);
+    box-shadow: var(--e-shadow);
+    background: #000;
+    margin: 1.6em 0;
+}
+.video-embed iframe,
+.video-embed video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+.intro-video-section { padding-top: 40px; }
+.intro-video-section .video-embed { margin: 0; }
+:root[data-theme="light"] .video-embed {
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 16px 40px -20px rgba(110, 0, 255, 0.28);
+}
+
+/* ============================================================
  *  NO HORIZONTAL OVERFLOW (fixes the "screen too wide / scroll
  *  sideways" issue and keeps the top-right toggle on screen)
  * ============================================================ */

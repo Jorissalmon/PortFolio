@@ -120,6 +120,11 @@ function displayProjectInformation(project) {
 
     // Résumé du projet (démarche détaillée)
     document.getElementById('projectSummary').innerHTML = project.content;
+
+    // Transformer les liens vidéo du contenu en lecteurs intégrés
+    if (window.VideoEmbed) {
+        window.VideoEmbed.embedLinks(document.getElementById('projectSummary'));
+    }
     
     // Gérer le lien externe
     const externalLink = document.getElementById('projectExternalLink');

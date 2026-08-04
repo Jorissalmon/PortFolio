@@ -113,6 +113,11 @@ async function loadArticle(articleId) {
       
       // Assigner le HTML de façon sécurisée
       contentElement.innerHTML = contentHtml;
+
+      // Transformer les liens vidéo (YouTube/Vimeo/.mp4) en lecteurs intégrés
+      if (window.VideoEmbed) {
+        window.VideoEmbed.embedLinks(contentElement);
+      }
     }
     
     // Mettre à jour les liens de partage

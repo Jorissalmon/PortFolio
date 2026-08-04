@@ -18,6 +18,9 @@ async function initializePortfolio() {
         // Charger les données du profil
         await loadProfileSettings();
 
+        // Vidéo de présentation (accueil)
+        loadIntroVideo();
+
         // Charger toutes les sections en parallèle
         await Promise.all([
             loadJobTitles(),
@@ -89,6 +92,41 @@ function updateContactInfo() {
                 el.textContent = profileData.email;
             }
         });
+    }
+}
+
+/**
+ * Charge la vidéo de présentation (accueil).
+ * Source (par ordre de priorité) :
+ *  1. l'attribut data-video-url du conteneur (#introVideoContainer),
+ *  2. un champ Contentful du profil : presentationVideo / presentationVideoUrl
+ *     / videoPresentation / videoUrl.
+ * La section reste masquée si aucune vidéo valide n'est trouvée.
+ */
+function loadIntroVideo() {
+    try {
+        const container = document.getElementById('introVideoContainer');
+        const section = document.getElementById('intro-video');
+        if (!container || !section || !window.VideoEmbed) return;
+
+        let url = (container.getAttribute('data-video-url') || '').trim();
+
+        if (!url && profileData) {
+            url = profileData.presentationVideo
+                || profileData.presentationVideoUrl
+                || profileData.videoPresentation
+                || profileData.videoUrl
+                || '';
+        }
+
+        if (url && window.VideoEmbed.renderInto(container, url)) {
+            section.style.display = '';
+            console.log('✅ Vidéo de présentation chargée');
+        } else {
+            section.style.display = 'none';
+        }
+    } catch (error) {
+        console.error('❌ Erreur lors du chargement de la vidéo de présentation:', error);
     }
 }
 

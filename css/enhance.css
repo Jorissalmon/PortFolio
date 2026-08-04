@@ -439,6 +439,27 @@ textarea:focus-visible,
     border-radius: 6px;
 }
 
+/* Dark-mode cards: a subtle violet sheen so surfaces feel less neutral */
+:root[data-theme="dark"] .portfolio-wrap,
+:root[data-theme="dark"] .blog-card,
+:root[data-theme="dark"] .passion-card,
+:root[data-theme="dark"] .education-item,
+:root[data-theme="dark"] .timeline-content,
+:root[data-theme="dark"] .contact-info,
+:root[data-theme="dark"] .related-project-card,
+:root[data-theme="dark"] .stat-tile {
+    background: linear-gradient(180deg, rgba(188, 19, 254, 0.08), rgba(255, 255, 255, 0.035)) !important;
+}
+:root[data-theme="dark"] .portfolio-wrap:hover,
+:root[data-theme="dark"] .blog-card:hover,
+:root[data-theme="dark"] .passion-card:hover,
+:root[data-theme="dark"] .education-item:hover,
+:root[data-theme="dark"] .timeline-content:hover,
+:root[data-theme="dark"] .related-project-card:hover,
+:root[data-theme="dark"] .stat-tile:hover {
+    background: linear-gradient(180deg, rgba(188, 19, 254, 0.14), rgba(255, 255, 255, 0.05)) !important;
+}
+
 /* ============================================================
  *  STATS / KPI BAND — data-flavoured
  * ============================================================ */

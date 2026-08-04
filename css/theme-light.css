@@ -5,11 +5,15 @@
 */
 
 :root[data-theme="light"] body {
-    background-color: #f4f4fb;
+    background-color: #eceafb;
     color: #3a3a52;
+    /* Fond plus vivant (façon dashboard data) : blooms violet/cyan + dégradé de base */
     background-image:
-        radial-gradient(circle at 10% 20%, rgba(110, 0, 255, 0.08) 0%, transparent 42%),
-        radial-gradient(circle at 90% 80%, rgba(0, 160, 200, 0.08) 0%, transparent 42%);
+        radial-gradient(circle at 6% 8%, rgba(110, 0, 255, 0.20) 0%, transparent 38%),
+        radial-gradient(circle at 96% 88%, rgba(0, 180, 216, 0.18) 0%, transparent 40%),
+        radial-gradient(circle at 58% 42%, rgba(188, 19, 254, 0.10) 0%, transparent 50%),
+        linear-gradient(160deg, #ece9fc 0%, #f1eafb 50%, #e6f7fd 100%);
+    background-attachment: fixed;
 }
 
 :root[data-theme="light"] h1,
@@ -99,10 +103,22 @@
 :root[data-theme="light"] .timeline-content,
 :root[data-theme="light"] .contact-info,
 :root[data-theme="light"] .contact-form,
-:root[data-theme="light"] .related-project-card {
-    background: rgba(255, 255, 255, 0.9) !important;
-    border: 1px solid rgba(0, 0, 0, 0.07) !important;
-    box-shadow: 0 14px 40px -22px rgba(0, 0, 0, 0.28) !important;
+:root[data-theme="light"] .related-project-card,
+:root[data-theme="light"] .stat-tile {
+    /* Léger dégradé + ombre teintée violet = plus de relief, moins "neutre" */
+    background: linear-gradient(180deg, #ffffff 0%, #f6f2fe 100%) !important;
+    border: 1px solid rgba(110, 0, 255, 0.12) !important;
+    box-shadow: 0 16px 40px -20px rgba(110, 0, 255, 0.28) !important;
+}
+:root[data-theme="light"] .portfolio-wrap:hover,
+:root[data-theme="light"] .blog-card:hover,
+:root[data-theme="light"] .passion-card:hover,
+:root[data-theme="light"] .education-item:hover,
+:root[data-theme="light"] .timeline-content:hover,
+:root[data-theme="light"] .related-project-card:hover,
+:root[data-theme="light"] .stat-tile:hover {
+    border-color: rgba(188, 19, 254, 0.35) !important;
+    box-shadow: 0 22px 48px -20px rgba(110, 0, 255, 0.38) !important;
 }
 :root[data-theme="light"] .portfolio-info h4,
 :root[data-theme="light"] .passion-content h3,

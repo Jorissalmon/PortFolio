@@ -66,6 +66,7 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="css/glass-theme.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
+    <link href="css/enhance.css" rel="stylesheet">
 
     <!-- Contentful Rich Text Renderer -->
     <script
@@ -198,6 +199,9 @@
 </head>
 
 <body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="51">
+
+    <!-- Barre de progression de défilement -->
+    <div id="scrollProgress"></div>
 
     <!-- Chatbot Elements - Version améliorée -->
     <div class="chatbot-bubble" id="chatbotBubble" title="Discuter avec Joris">
@@ -916,6 +920,29 @@
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+    <!-- Barre de progression de défilement -->
+    <script>
+        (function () {
+            const bar = document.getElementById('scrollProgress');
+            if (!bar) return;
+            let ticking = false;
+            function update() {
+                const h = document.documentElement;
+                const scrolled = h.scrollTop;
+                const height = h.scrollHeight - h.clientHeight;
+                bar.style.width = (height > 0 ? (scrolled / height) * 100 : 0) + '%';
+                ticking = false;
+            }
+            window.addEventListener('scroll', function () {
+                if (!ticking) {
+                    window.requestAnimationFrame(update);
+                    ticking = true;
+                }
+            }, { passive: true });
+            update();
+        })();
+    </script>
 
     <!-- Main JavaScript File -->
     <script src="js/main.js"></script>

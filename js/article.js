@@ -16,42 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
   loadArticle(articleId);
 });
 
-// Ajoutez cette vérification au début de article.js
-if (window.documentToHtmlString) {
-  console.log('Bibliothèque rich-text-html-renderer disponible');
-} else {
-  console.error('Bibliothèque rich-text-html-renderer non disponible');
-}
-
-// Puis dans contentful.js, utilisez cette bibliothèque pour le rendu
-if (fields.contenu && typeof fields.contenu === 'object') {
-  if (window.documentToHtmlString) {
-    // Création des options pour inclure les assets
-    const options = {
-      renderNode: {
-        'embedded-asset-block': (node) => {
-          const assetId = node.data.target.sys.id;
-          if (data.includes && data.includes.Asset) {
-            const asset = data.includes.Asset.find(a => a.sys.id === assetId);
-            if (asset && asset.fields && asset.fields.file) {
-              const assetUrl = `https:${asset.fields.file.url}`;
-              return `<figure>
-                <img src="${assetUrl}" alt="${asset.fields.title || 'Image'}" class="content-image">
-                ${asset.fields.description ? `<figcaption>${asset.fields.description}</figcaption>` : ''}
-              </figure>`;
-            }
-          }
-          return '';
-        }
-      }
-    };
-    
-    content = window.documentToHtmlString(fields.contenu, options);
-  } else {
-    // Votre logique de secours
-  }
-}
-
 /**
  * Vérifie si l'image existe et est accessible
  * @param {string} imageUrl - URL de l'image à vérifier

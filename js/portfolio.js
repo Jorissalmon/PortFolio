@@ -84,21 +84,58 @@ function initializeCarousel(projects) {
     projects: projects,
     filteredProjects: projects,
     currentPage: 0,
-    itemsPerPage: 4,
+    itemsPerPage: getItemsPerPage(),
     container: document.getElementById('projectsContainer'),
   };
-  
+
   // Ajouter les contrôles de navigation du carrousel s'ils n'existent pas déjà
   addCarouselControls();
-  
+
   // Initialiser les boutons de filtrage
   initFilterButtons(carouselConfig);
-  
+
   // Initialiser les contrôles du carrousel
   initCarouselControls(carouselConfig);
-  
+
+  // Adapter le nombre de projets par page lors du redimensionnement
+  handleResponsivePaging(carouselConfig);
+
   // Afficher la première page
   renderProjectsPage(carouselConfig);
+}
+
+/**
+ * Détermine le nombre de projets à afficher par page selon la largeur d'écran.
+ * Sur mobile, on réduit pour éviter un défilement interminable de cartes empilées.
+ * @returns {number}
+ */
+function getItemsPerPage() {
+  const width = window.innerWidth;
+  if (width < 576) return 2;   // Téléphones : 2 cartes par page
+  if (width < 992) return 4;   // Tablettes : 2 colonnes x 2 lignes
+  return 4;                    // Ordinateur : 4 cartes sur une ligne
+}
+
+/**
+ * Recalcule le nombre de projets par page quand la fenêtre est redimensionnée
+ * (rotation d'appareil, resize...) et réaffiche si nécessaire.
+ * @param {Object} carouselConfig
+ */
+function handleResponsivePaging(carouselConfig) {
+  let resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      const newPerPage = getItemsPerPage();
+      if (newPerPage !== carouselConfig.itemsPerPage) {
+        // Conserver le premier projet visible pour éviter un saut brutal
+        const firstVisible = carouselConfig.currentPage * carouselConfig.itemsPerPage;
+        carouselConfig.itemsPerPage = newPerPage;
+        carouselConfig.currentPage = Math.floor(firstVisible / newPerPage);
+        renderProjectsPage(carouselConfig);
+      }
+    }, 200);
+  }, { passive: true });
 }
 
 /**

@@ -1,0 +1,611 @@
+/*
+* ============================================================
+*  ENHANCE.CSS — Design polish layer
+*  Loaded last. Refines and harmonises the dark glassmorphism
+*  theme: fixes light-theme bleed-through, elevates the hero,
+*  navbar, cards, forms and micro-interactions.
+* ============================================================
+*/
+
+:root {
+    /* Extra design tokens layered on top of the neon palette */
+    --e-radius: 18px;
+    --e-radius-lg: 24px;
+    --e-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --e-surface: rgba(255, 255, 255, 0.04);
+    --e-surface-strong: rgba(255, 255, 255, 0.06);
+    --e-border: rgba(255, 255, 255, 0.10);
+    --e-border-hover: rgba(188, 19, 254, 0.45);
+    --e-shadow: 0 18px 50px -20px rgba(0, 0, 0, 0.7);
+    --e-glow-violet: 0 0 24px rgba(188, 19, 254, 0.35);
+    --e-glow-cyan: 0 0 24px rgba(0, 243, 255, 0.30);
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :root { scroll-behavior: auto; }
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+    }
+}
+
+/* Smoother base rendering */
+body {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+/* ------------------------------------------------------------
+ * Custom scrollbar
+ * ---------------------------------------------------------- */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(188, 19, 254, 0.5) transparent;
+}
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); }
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #6e00ff, #bc13fe);
+    border-radius: 10px;
+    border: 2px solid var(--bg-dark, #0a0a0f);
+}
+::-webkit-scrollbar-thumb:hover { background: #bc13fe; }
+
+/* ------------------------------------------------------------
+ * Scroll progress bar (top of viewport)
+ * ---------------------------------------------------------- */
+#scrollProgress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    z-index: 2000;
+    background: linear-gradient(90deg, #6e00ff, #bc13fe, #00f3ff);
+    box-shadow: 0 0 12px rgba(188, 19, 254, 0.6);
+    transition: width 0.1s linear;
+    pointer-events: none;
+}
+
+/* ------------------------------------------------------------
+ * Preloader — no more white flash
+ * ---------------------------------------------------------- */
+#preloader {
+    background-color: #0a0a0f !important;
+    background-image:
+        radial-gradient(circle at 30% 30%, rgba(110, 0, 255, 0.18), transparent 45%),
+        radial-gradient(circle at 70% 70%, rgba(188, 19, 254, 0.14), transparent 45%);
+}
+#preloader .loader {
+    border: 3px solid rgba(255, 255, 255, 0.08);
+    border-top-color: #bc13fe;
+    border-right-color: #00f3ff;
+    box-shadow: 0 0 30px rgba(188, 19, 254, 0.4);
+    width: 46px;
+    height: 46px;
+}
+
+/* ------------------------------------------------------------
+ * Navbar — real glass + refined sticky state
+ * ---------------------------------------------------------- */
+.navbar {
+    background: transparent;
+    transition: background 0.4s var(--e-ease), padding 0.4s var(--e-ease),
+                box-shadow 0.4s var(--e-ease), border-color 0.4s var(--e-ease);
+    border-bottom: 1px solid transparent;
+}
+.navbar.navbar-sticky {
+    background: rgba(10, 10, 15, 0.72) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    backdrop-filter: blur(18px) saturate(140%);
+    box-shadow: 0 10px 40px -18px rgba(0, 0, 0, 0.9);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 12px 0;
+}
+
+/* Animated underline for nav links (desktop) */
+@media (min-width: 992px) {
+    .navbar .nav-link {
+        position: relative;
+        padding: 8px 4px !important;
+        margin: 0 10px;
+    }
+    .navbar .nav-link::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 2px;
+        width: 0;
+        border-radius: 2px;
+        background: linear-gradient(90deg, #bc13fe, #00f3ff);
+        box-shadow: 0 0 8px rgba(188, 19, 254, 0.6);
+        transition: width 0.35s var(--e-ease);
+    }
+    .navbar .nav-link:hover::after,
+    .navbar .nav-link.active::after { width: 100%; }
+}
+
+/* ------------------------------------------------------------
+ * Section titles — readable subtitle + eyebrow feel
+ * ---------------------------------------------------------- */
+.section-title { margin-bottom: 64px; }
+.section-title h2 {
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+    letter-spacing: -0.02em;
+}
+.section-title p {
+    color: #00f3ff !important;
+    font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    opacity: 0.85;
+    margin-top: 10px;
+}
+
+/* ------------------------------------------------------------
+ * Hero — animated aurora background + polish
+ * ---------------------------------------------------------- */
+.hero-section::before,
+.hero-section::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.55;
+    z-index: 0;
+    pointer-events: none;
+}
+.hero-section::before {
+    width: 40vw;
+    height: 40vw;
+    max-width: 520px;
+    max-height: 520px;
+    top: -8%;
+    left: -6%;
+    background: radial-gradient(circle, rgba(110, 0, 255, 0.55), transparent 70%);
+    animation: heroFloat1 14s ease-in-out infinite;
+}
+.hero-section::after {
+    width: 36vw;
+    height: 36vw;
+    max-width: 480px;
+    max-height: 480px;
+    bottom: -10%;
+    right: -4%;
+    background: radial-gradient(circle, rgba(0, 243, 255, 0.30), transparent 70%);
+    animation: heroFloat2 18s ease-in-out infinite;
+}
+.hero-section .container { position: relative; z-index: 1; }
+
+@keyframes heroFloat1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, 40px) scale(1.1); }
+}
+@keyframes heroFloat2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-40px, -30px) scale(1.15); }
+}
+
+.hero-content .title {
+    line-height: 1.05;
+    font-size: clamp(2.6rem, 7vw, 4.4rem);
+}
+.hero-content .typed-text {
+    color: #c9c9ff;
+    font-weight: 500;
+}
+.typed-cursor { color: #00f3ff !important; }
+
+.hero-image {
+    border-radius: var(--e-radius-lg);
+    transition: transform 0.6s var(--e-ease);
+}
+.hero-image:hover { transform: translateY(-6px); }
+
+/* Scroll-down indicator on dark bg */
+.scroll-down a {
+    background: rgba(255, 255, 255, 0.06);
+    color: #00f3ff;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 20px rgba(188, 19, 254, 0.25);
+}
+
+/* ------------------------------------------------------------
+ * Buttons — refined, uniform
+ * ---------------------------------------------------------- */
+.btn {
+    letter-spacing: 0.5px;
+    padding: 12px 30px;
+    transition: transform 0.3s var(--e-ease), box-shadow 0.3s var(--e-ease),
+                background 0.3s var(--e-ease), color 0.3s var(--e-ease);
+}
+.btn-primary:active,
+.btn-outline:active { transform: translateY(-1px); }
+
+/* ------------------------------------------------------------
+ * Cards — richer hover + image framing
+ * ---------------------------------------------------------- */
+.portfolio-wrap,
+.blog-card,
+.passion-card,
+.education-item,
+.timeline-content,
+.contact-info {
+    border-radius: var(--e-radius-lg) !important;
+}
+.portfolio-wrap img,
+.blog-img img,
+.passion-img img { filter: saturate(1.02); }
+
+/* Category chip harmonised with neon */
+.portfolio-category {
+    color: #00f3ff !important;
+    background: rgba(0, 243, 255, 0.08);
+    padding: 4px 12px;
+    border-radius: 50px;
+    border: 1px solid rgba(0, 243, 255, 0.2);
+}
+
+/* Education / passion accents */
+.education-content .period,
+.passion-content .passion-category { color: #00f3ff !important; }
+.education-content .location,
+.timeline-content .location { color: var(--text-secondary, #b0b0cc) !important; opacity: 0.8; }
+
+/* Company + education logos: keep readable on dark cards */
+.education-icon img,
+.company-logo img {
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 10px;
+    padding: 6px;
+}
+
+/* ------------------------------------------------------------
+ * Timeline — glass arrows, gradient spine, glowing nodes
+ * ---------------------------------------------------------- */
+.timeline::before {
+    background: linear-gradient(180deg, transparent, rgba(188, 19, 254, 0.5) 12%,
+                rgba(0, 243, 255, 0.5) 88%, transparent) !important;
+    width: 2px !important;
+}
+.timeline-item::before {
+    background: #bc13fe !important;
+    border: 4px solid #12121a !important;
+    box-shadow: 0 0 0 2px rgba(188, 19, 254, 0.4), 0 0 16px rgba(188, 19, 254, 0.7) !important;
+}
+.timeline-item.left .timeline-content::after {
+    border-left-color: rgba(255, 255, 255, 0.05) !important;
+}
+.timeline-item.right .timeline-content::after {
+    border-right-color: rgba(255, 255, 255, 0.05) !important;
+}
+@media (max-width: 991px) {
+    .timeline-item.left .timeline-content::after,
+    .timeline-item.right .timeline-content::after {
+        border-right-color: rgba(255, 255, 255, 0.05) !important;
+        border-left-color: transparent !important;
+    }
+}
+
+/* ------------------------------------------------------------
+ * Contact form — was a white box, now glass
+ * ---------------------------------------------------------- */
+.contact-form {
+    background: var(--e-surface) !important;
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--e-border);
+    border-radius: var(--e-radius-lg);
+    box-shadow: var(--e-shadow);
+}
+.contact-form .form-control {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--e-border);
+    color: #ffffff;
+    border-radius: 12px;
+}
+.contact-form .form-control::placeholder { color: rgba(255, 255, 255, 0.4); }
+.contact-form .form-control:focus {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--e-border-hover);
+    box-shadow: 0 0 0 3px rgba(188, 19, 254, 0.15);
+    color: #fff;
+}
+.contact-info { border-radius: var(--e-radius-lg); }
+.contact-item .content h4 { color: #fff; }
+.contact-item .content p { color: var(--text-secondary, #b0b0cc); }
+
+/* ------------------------------------------------------------
+ * Footer — was bright indigo (secondary redefined), now dark glass
+ * ---------------------------------------------------------- */
+.footer-section {
+    background: #08080d !important;
+    background-image:
+        radial-gradient(circle at 15% 0%, rgba(110, 0, 255, 0.14), transparent 45%),
+        radial-gradient(circle at 85% 100%, rgba(0, 243, 255, 0.08), transparent 45%) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+.footer-info h3 {
+    background: linear-gradient(45deg, #fff, #bc13fe);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+.footer-links ul li a:hover { color: #00f3ff; }
+.footer-newsletter input {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.footer-newsletter input::placeholder { color: rgba(255, 255, 255, 0.4); }
+.footer-newsletter button {
+    background: linear-gradient(135deg, #6e00ff, #bc13fe);
+}
+.footer-newsletter button:hover { background: linear-gradient(135deg, #bc13fe, #6e00ff); }
+
+/* ------------------------------------------------------------
+ * Back-to-top — neon glass
+ * ---------------------------------------------------------- */
+.back-to-top {
+    background: linear-gradient(135deg, #6e00ff, #bc13fe);
+    box-shadow: 0 6px 20px rgba(110, 0, 255, 0.45);
+    width: 44px;
+    height: 44px;
+}
+.back-to-top:hover {
+    background: linear-gradient(135deg, #bc13fe, #00f3ff);
+    transform: translateY(-4px);
+}
+
+/* ------------------------------------------------------------
+ * Accessibility — visible keyboard focus
+ * ---------------------------------------------------------- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+.nav-link:focus-visible,
+.portfolio-filter li:focus-visible,
+.blog-filter li:focus-visible {
+    outline: 2px solid #00f3ff;
+    outline-offset: 3px;
+    border-radius: 6px;
+}
+
+/* ============================================================
+ *  MOBILE READABILITY — Hero (Accueil) & Portfolio (Projets)
+ * ============================================================ */
+
+/* --- Portfolio carousel counter: readable on dark theme --- */
+.portfolio-counter {
+    color: var(--text-secondary, #b0b0cc) !important;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--e-border);
+    border-radius: 50px;
+    padding: 4px 16px;
+    font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+}
+.portfolio-counter .current-page,
+.portfolio-counter .total-pages { color: #00f3ff !important; }
+
+/* Hide unused/empty indicator dots so controls don't look broken */
+.portfolio-indicators:empty { display: none; }
+
+/* Neon carousel controls, both original and injected rows */
+.portfolio-carousel-controls,
+.portfolio-section .carousel-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+.portfolio-prev, .portfolio-next,
+.portfolio-section .carousel-prev,
+.portfolio-section .carousel-next {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--e-border);
+    color: #fff;
+    transition: transform 0.25s var(--e-ease), background 0.25s var(--e-ease),
+                box-shadow 0.25s var(--e-ease);
+}
+.portfolio-prev:hover, .portfolio-next:hover,
+.portfolio-section .carousel-prev:hover,
+.portfolio-section .carousel-next:hover {
+    background: linear-gradient(135deg, #6e00ff, #bc13fe);
+    box-shadow: var(--e-glow-violet);
+    transform: translateY(-2px);
+}
+
+/* --- Portfolio cards: clearer typography & tap targets --- */
+.portfolio-info h4 {
+    color: #fff !important;
+    font-size: 1.05rem;
+    line-height: 1.35;
+}
+.portfolio-info p {
+    color: var(--text-secondary, #b0b0cc) !important;
+    line-height: 1.6;
+}
+.portfolio-links .details-link {
+    background: linear-gradient(135deg, #6e00ff, #bc13fe);
+    border: none;
+    padding: 9px 18px;
+    font-size: 0.85rem;
+}
+.portfolio-links .details-link:hover {
+    background: linear-gradient(135deg, #bc13fe, #00f3ff);
+    color: #fff;
+    box-shadow: var(--e-glow-violet);
+}
+
+/* Tablet & phone: bigger controls for touch */
+@media (max-width: 991px) {
+    .portfolio-prev, .portfolio-next,
+    .portfolio-section .carousel-prev,
+    .portfolio-section .carousel-next {
+        width: 46px;
+        height: 46px;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 767px) {
+    /* Hero: tighten spacing so text-only layout isn't sparse */
+    .hero-section {
+        min-height: auto;
+        padding: 110px 0 70px;
+        text-align: center;
+    }
+    .hero-content { animation: none; }
+    .hero-content .subtitle {
+        letter-spacing: 2px;
+        margin-bottom: 12px;
+    }
+    .hero-content .title {
+        /* Solid fallback keeps the name legible over the aurora glow */
+        -webkit-text-fill-color: #ffffff;
+        background: none;
+        filter: none;
+        line-height: 1.12;
+    }
+    .hero-content .skills {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 26px;
+    }
+    .hero-content .skill-tag { margin: 0; }
+    .hero-btn { max-width: 320px; margin-left: auto; margin-right: auto; }
+
+    /* Portfolio: card takes full width but stays comfortably readable */
+    .portfolio-item { padding-left: 8px; padding-right: 8px; }
+    .portfolio-img { height: 200px; }
+    .portfolio-info { padding: 18px 18px 20px; }
+    .portfolio-info h4 { font-size: 1.1rem; }
+    .portfolio-info p {
+        -webkit-line-clamp: 3;
+        height: auto;
+        max-height: 4.8em;
+        font-size: 0.92rem;
+    }
+    .portfolio-links { text-align: center; margin-top: 4px; }
+    .portfolio-links .details-link {
+        width: 100%;
+        padding: 11px 18px;
+        font-size: 0.9rem;
+    }
+    /* Section eyebrow slightly smaller on phones */
+    .section-title p { letter-spacing: 2px; font-size: 0.78rem; }
+}
+
+@media (max-width: 480px) {
+    .hero-section { padding: 100px 0 60px; }
+    .hero-content .subtitle { font-size: 13px; }
+    /* Single, centred, comfortably wide card on small phones */
+    .portfolio-container .portfolio-item {
+        max-width: 420px;
+        margin-left: auto;
+        margin-right: auto;
+        float: none;
+    }
+    .portfolio-img { height: 190px; }
+}
+
+/* ============================================================
+ *  CHATBOT — polish & liveliness
+ * ============================================================ */
+.chat-popup {
+    border-radius: 20px !important;
+    box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.75), 0 0 30px rgba(188, 19, 254, 0.15) !important;
+    overflow: hidden;
+}
+.chat-popup-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+/* "En ligne" indicator before the title */
+.chat-popup-header span:first-child { position: relative; padding-left: 16px; }
+.chat-popup-header span:first-child::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #2bff88;
+    box-shadow: 0 0 8px #2bff88;
+    animation: chatOnlinePulse 2s ease-in-out infinite;
+}
+@keyframes chatOnlinePulse {
+    0%, 100% { opacity: 1; transform: translateY(-50%) scale(1); }
+    50% { opacity: 0.5; transform: translateY(-50%) scale(0.8); }
+}
+.close-chat {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    opacity: 0.85;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.close-chat:hover { opacity: 1; transform: rotate(90deg); }
+
+/* Message entrance animation */
+.bulle-joris, .bulle-utilisateur {
+    animation: chatMsgIn 0.35s var(--e-ease);
+}
+@keyframes chatMsgIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Avatar ring in Joris' bubbles */
+.content-wrapper img {
+    border: 2px solid rgba(188, 19, 254, 0.6);
+    box-shadow: 0 0 10px rgba(188, 19, 254, 0.4);
+}
+
+/* Suggestion chips themed for dark glass */
+.preset-phrases button {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #d5d5e8;
+}
+.preset-phrases button:hover {
+    background: rgba(188, 19, 254, 0.18);
+    border-color: rgba(188, 19, 254, 0.5);
+    color: #fff;
+}
+
+/* Bubble attention pulse uses the neon glow */
+.chatbot-bubble {
+    box-shadow: 0 6px 20px rgba(110, 0, 255, 0.5), 0 0 0 0 rgba(188, 19, 254, 0.5);
+}
+
+/* ------------------------------------------------------------
+ * Scroll reveal (progressive enhancement, JS toggles .is-visible)
+ * ---------------------------------------------------------- */
+.reveal-up {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s var(--e-ease), transform 0.7s var(--e-ease);
+    will-change: opacity, transform;
+}
+.reveal-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}

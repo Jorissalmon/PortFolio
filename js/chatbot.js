@@ -135,53 +135,40 @@ async function loadChatbotPrompt() {
  * Retourne le prompt par défaut en cas d'échec Contentful
  */
 function getDefaultPrompt() {
-    return `Tu es mon assistant IA représentant mon expertise professionnelle. Réponds comme si tu étais moi lors d'interactions avec des recruteurs ou clients potentiels. Voici mon profil d'expert :
+    return `Tu es l'assistant IA du portfolio de Joris Salmon. Tu réponds à sa place, à la première personne ("je"), face à des recruteurs, clients ou partenaires potentiels. Ton objectif : donner envie de travailler avec moi, en restant honnête, précis et concret.
 
-Je suis Joris Salmon, 23 ans, Expert Data Analytics & Consultant BI, formé dans les institutions d'élite françaises : DU Data Analytics à la Sorbonne Paris 1 (Top 5) et Master 2 Data Analytics & Stratégie de l'information à Toulon (Top 3).
+# QUI JE SUIS
+Je suis Joris Salmon, Consultant BI & IA chez Talan. Je suis à la fois Data Analyst et Data Engineer : je conçois la chaîne de bout en bout, de la collecte et la modélisation de la donnée jusqu'à la restitution décisionnelle et la mise en production de solutions IA. J'ai aussi une vraie appétence pour la recherche et la statistique, héritée de mes travaux académiques et de mission.
 
-🚀 EXPERTISE & RÉALISATIONS PROFESSIONNELLES
+- Basé à Marseille, ouvert à Lyon.
+- Formé à la Sorbonne Paris 1 (DU Data Analytics) et à Toulon (Master 2 Data Analytics & Stratégie de l'information).
 
-→ Micropole (Février 2025 - Présent) | Consultant Senior Business Intelligence
-- Pilotage de projets Data Experience complets (architecture, modélisation, ETL, Cloud)
-- Conduite de la transformation analytique pour la R égion Île-de-France (migration Oracle BI → Power BI)
-- Optimisation des tableaux de bord décisionnels générant +30% d'adoption utilisateur
+# CE QUE JE FAIS
+- **Data Engineering** : pipelines & ETL (Talend), modélisation, bases SQL/NoSQL (PostgreSQL, MySQL, MongoDB), Cloud (AWS, Azure).
+- **Data Analyse & BI** : Power BI, Tableau, Cognos, SQL avancé, KPIs et tableaux de bord décisionnels.
+- **IA & Data Science** : Machine/Deep Learning (PyTorch, TensorFlow), NLP, vision, systèmes RAG et assistants IA.
+- **Recherche & statistique** : séries temporelles, modélisation statistique, analyse d'impact (Python, R).
 
-→ ArianeGroup (Mars 2024 - Juillet 2024) | Ingénieur BI
-- Optimisation du cycle de production d'Ariane 6 via solutions analytiques avancées
-- Conception et implémentation d'un système de reporting critique sur IBM Cognos Analytics
-- Environnement international avec documentation technique en anglais
+# PARCOURS (repères)
+- **Talan** — Consultant BI & IA (actuel).
+- **Micropole** — Consultant BI : migration Oracle BI → Power BI pour la Région Île-de-France.
+- **ArianeGroup** — Ingénieur BI : reporting critique sur Cognos pour la cadence de production d'Ariane 6 (environnement international, anglais).
+- **Crédit Agricole La Réunion-Mayotte** — Data Manager : automatisation & structuration d'une BDD.
+- **Météo-France** — Data Analyst : recherche sur l'impact du réchauffement climatique (séries temporelles, R).
+- **Les Sables d'Olonne Agglomération** — Data Analyst : solution data territoriale (ETL, web scraping).
 
-→ Crédit Agricole La Réunion-Mayotte (Juin 2023 - Juillet 2023) | Data Manager
-- Transformation complète de l'infrastructure analytique (Power Pivot → BDD structurée)
-- Conception d'un nouveau modèle de données aligné sur les besoins métiers
-- Déploiement d'une solution de reporting automatisée réduisant le temps de génération de 75%
+# LIENS
+- GitHub : https://github.com/Jorissalmon
+- LinkedIn : https://www.linkedin.com/in/joris-salmon/
+- Portfolio : https://www.jorissalmon.com
+- Email : joris.salmon53290@gmail.com — Tél : 0766840946
 
-→ Météo-France (Avril 2023 - Juin 2023) | Data Analyst
-- Recherche appliquée: analyse d'impact du réchauffement climatique sur les précipitations bretonnes
-- Développement de modèles statistiques avancés pour l'analyse de séries temporelles complexes
-- Présentation des résultats aux décideurs et scientifiques
-
-→ Les Sables d'Olonne Agglomération (Avril 2022 - Juin 2022) | Data Analyst
-- Conseil stratégique pour l'implémentation d'une infrastructure data territoriale
-- Conception d'une solution complète ETL/BDD/reporting pour les indicateurs territoriaux
-- Développement d'outils de web scraping pour l'automatisation de la collecte de données
-
-📊 EXPERTISE TECHNIQUE
-
-- Data Engineering: Architectures SGBD complexes (MySQL, PostgreSQL, MongoDB), Cloud (AWS, Azure)
--Analytics & BI: ETL enterprise-grade (Talend), SQL avancé, modélisation statistique
-- Data Visualization: Maîtrise des suites BI leaders (Power BI, Tableau, Cognos)
-- Développement: Python, R, SQL, VBA, JavaScript, frameworks Streamlit/Flask, Web
-- Intelligence Artificielle: Vision, NLP, ML/Deep Learning (PyTorch, TensorFlow), systèmes RAG
-
-🔗 CONNECTONS-NOUS
-
-- GitHub: https://github.com/Jorissalmon
-- LinkedIn: https://www.linkedin.com/in/joris-salmon/
-- Portfolio: https://jorissalmon.fr
-- CV détaillé: https://drive.google.com/file/d/1NeNoU_QvoOKOkPdssN59cdVko7NGEH0M/view
-
-📩 Contact direct: joris.salmon53290@gmail.com | 📱 0766840946`;
+# COMMENT RÉPONDRE
+- Réponds toujours en **français**, à la première personne.
+- Sois **structuré et facile à lire** : phrases courtes, un point par idée. Utilise des listes à puces "- " quand tu énumères, et **mets en gras** les mots-clés importants.
+- Va à l'essentiel (2 à 5 phrases ou une courte liste), puis propose une ouverture ("Vous voulez un exemple concret ?").
+- Reste factuel : si tu ne sais pas, invite à me contacter directement plutôt que d'inventer.
+- Oriente vers l'action : proposer un échange, partager le CV, ou pointer un projet du portfolio.`;
 }
 
 // Fonction d'envoi de message
@@ -225,6 +212,13 @@ async function sendMessage(userMessage = null) {
         const promptContext = await loadChatbotPrompt();
         const context = `${promptContext}
 
+RÈGLES DE FORMAT (impératif) :
+- Réponds en français, à la première personne ("je").
+- Sois clair et structuré : phrases courtes, une idée par ligne.
+- Utilise des listes à puces avec "- " pour toute énumération.
+- Mets en **gras** (avec des astérisques) les mots-clés importants.
+- Reste concis (max ~5 phrases ou une courte liste) et termine par une ouverture.
+
 Réponds à la question suivante comme si tu étais moi: "${messageToSend}"`;
 
         // Créer le prompt final en ajoutant l'historique des messages
@@ -254,6 +248,9 @@ Réponds à la question suivante comme si tu étais moi: "${messageToSend}"`;
             throw new Error('Réponse vide du service de chat');
         }
 
+        // Mise en forme lisible (gras, listes, sauts de ligne)
+        messageBot = formatBotMessage(messageBot);
+
         // Pour les liens cliquables
         messageBot = messageBot
             .replace('https://github.com/Jorissalmon', '<a href="https://github.com/Jorissalmon" target="_blank" class="styled-link">GitHub</a>')
@@ -279,8 +276,9 @@ Réponds à la question suivante comme si tu étais moi: "${messageToSend}"`;
         avatarImage.alt = 'Joris';
         avatarImage.loading = 'lazy';
 
-        // Créer un nouvel élément pour le message texte
-        const messageElement = document.createElement('p');
+        // Créer un nouvel élément pour le message texte (div : accepte listes/paragraphes)
+        const messageElement = document.createElement('div');
+        messageElement.className = 'bot-message-text';
         messageElement.innerHTML = ''; // Sera rempli par l'effet de typewriter
         bubbleContent.appendChild(messageElement);
 
@@ -319,6 +317,34 @@ Réponds à la question suivante comme si tu étais moi: "${messageToSend}"`;
         // Scroll vers le bas
         chatBody.scrollTop = chatBody.scrollHeight;
     }
+}
+
+// Transforme un texte type markdown léger en HTML lisible
+function formatBotMessage(text) {
+    if (!text) return '';
+    let t = text.replace(/\r\n/g, '\n').trim();
+
+    // Gras **texte**
+    t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+
+    const lines = t.split('\n');
+    let html = '';
+    let inList = false;
+
+    lines.forEach(raw => {
+        const line = raw.trim();
+        const bullet = line.match(/^([-•])\s+(.*)$/);
+        if (bullet) {
+            if (!inList) { html += '<ul>'; inList = true; }
+            html += `<li>${bullet[2]}</li>`;
+        } else {
+            if (inList) { html += '</ul>'; inList = false; }
+            if (line !== '') html += `<p>${line}</p>`;
+        }
+    });
+    if (inList) html += '</ul>';
+
+    return html || `<p>${t}</p>`;
 }
 
 // Fonction d'animation de type "mot par mot" qui respecte le HTML

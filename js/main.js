@@ -248,7 +248,7 @@ function initializeTyped() {
     typedElement.style.position = 'relative';
 
     // Textes à afficher
-    const typedStrings = ['Consultant Digital', 'Data Analyst', 'Data-Scientist', 'Analytics Engineer', 'AI Specialist'];
+    const typedStrings = ['Consultant BI & IA', 'Data Analyst', 'Data Engineer', 'Passionné de recherche & stats'];
 
     // Options personnalisées pour Typed.js
     const options = {

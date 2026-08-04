@@ -3,13 +3,28 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Joris Salmon | Data Analyst & Consultant BI - Expert en Data Analytics</title>
+    <title>Joris Salmon | Consultant BI & IA - Data Analyst & Data Engineer</title>
+
+    <!-- Thème (posé avant le rendu pour éviter tout flash) -->
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem('theme');
+                if (!t) {
+                    t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+                }
+                document.documentElement.setAttribute('data-theme', t);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
 
     <!-- SEO Meta Tags -->
     <meta name="description"
-        content="Joris Salmon - Data Analyst & Consultant BI. Expert en Data Analytics, Business Intelligence et IA. Portfolio de projets innovants en data science, Power BI et analyse de données.">
+        content="Joris Salmon - Consultant BI & IA chez Talan, Data Analyst & Data Engineer. Expert en Business Intelligence, data engineering, IA, recherche et statistique. Basé à Marseille, ouvert à Lyon.">
     <meta name="keywords"
-        content="Data Analyst, Data Scientist, Analytics Engineer, Business Intelligence, BI Consultant, Joris Salmon, Portfolio Data, Machine Learning, Power BI, Tableau, Python, SQL">
+        content="Consultant BI, Consultant IA, Data Analyst, Data Engineer, Business Intelligence, Talan, Joris Salmon, Machine Learning, Power BI, Tableau, Python, SQL, recherche, statistique, Marseille, Lyon">
     <meta name="author" content="Joris Salmon">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://www.jorissalmon.com/">
@@ -21,9 +36,9 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.jorissalmon.com/">
     <meta property="og:site_name" content="Joris Salmon Portfolio">
-    <meta property="og:title" content="Joris Salmon | Data Analyst & Consultant BI">
+    <meta property="og:title" content="Joris Salmon | Consultant BI & IA - Data Analyst & Data Engineer">
     <meta property="og:description"
-        content="Expert en Data Analytics et Business Intelligence. Découvrez mes projets et mon expertise en data science, BI et intelligence artificielle.">
+        content="Consultant BI & IA chez Talan, Data Analyst & Data Engineer. Découvrez mes projets en BI, data engineering et intelligence artificielle.">
     <meta property="og:image" content="https://www.jorissalmon.com/img/og-image.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -32,15 +47,15 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://www.jorissalmon.com/">
-    <meta name="twitter:title" content="Joris Salmon | Data Analyst & Consultant BI">
+    <meta name="twitter:title" content="Joris Salmon | Consultant BI & IA - Data Analyst & Data Engineer">
     <meta name="twitter:description"
-        content="Expert en Data Analytics et Business Intelligence. Portfolio de projets innovants en data science.">
+        content="Consultant BI & IA chez Talan, Data Analyst & Data Engineer. Portfolio de projets en BI, data et IA.">
     <meta name="twitter:image" content="https://www.jorissalmon.com/img/og-image.jpg">
     <meta name="twitter:creator" content="@JorisSalmon">
 
     <!-- Theme Color -->
-    <meta name="theme-color" content="#EF233C">
-    <meta name="msapplication-TileColor" content="#EF233C">
+    <meta name="theme-color" content="#0a0a0f">
+    <meta name="msapplication-TileColor" content="#6e00ff">
 
     <!-- Language -->
     <meta http-equiv="content-language" content="fr">
@@ -67,6 +82,7 @@
     <link href="css/glass-theme.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
     <link href="css/enhance.css" rel="stylesheet">
+    <link href="css/theme-light.css" rel="stylesheet">
 
     <!-- Contentful Rich Text Renderer -->
     <script
@@ -83,15 +99,15 @@
           "name": "Joris Salmon",
           "givenName": "Joris",
           "familyName": "Salmon",
-          "jobTitle": ["Data Analyst", "Data Scientist", "Analytics Engineer", "Consultant BI"],
-          "description": "Expert en Data Analytics et Business Intelligence, spécialisé en analyse de données, BI, et intelligence artificielle",
+          "jobTitle": ["Consultant BI & IA", "Data Analyst", "Data Engineer", "Data Scientist"],
+          "description": "Consultant BI & IA chez Talan, à la fois Data Analyst et Data Engineer. Spécialisé en Business Intelligence, data engineering, intelligence artificielle, recherche et statistique. Basé à Marseille, ouvert à Lyon.",
           "url": "https://www.jorissalmon.com",
           "email": "joris.salmon53290@gmail.com",
           "telephone": "+33766840946",
           "image": "https://www.jorissalmon.com/img/me.jpg",
           "address": {
             "@type": "PostalAddress",
-            "addressLocality": "Aix-en-Provence",
+            "addressLocality": "Marseille",
             "addressRegion": "Provence-Alpes-Côte d'Azur",
             "addressCountry": "FR"
           },
@@ -163,8 +179,8 @@
           ],
           "worksFor": {
             "@type": "Organization",
-            "name": "Micropole",
-            "url": "https://www.micropole.com"
+            "name": "Talan",
+            "url": "https://www.talan.com"
           }
         },
         {
@@ -249,9 +265,14 @@
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
             <a class="navbar-brand" href="index.html">Joris Salmon</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <div class="nav-right order-lg-last">
+                <button id="themeToggle" class="theme-toggle" type="button" aria-label="Changer de thème" title="Changer de thème">
+                    <i class="fas fa-moon" aria-hidden="true"></i>
+                </button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
@@ -292,9 +313,9 @@
                         <h1 class="title">Joris Salmon</h1>
                         <div class="typed-text"></div>
                         <div class="skills">
+                            <span class="skill-tag">Consultant BI &amp; IA</span>
                             <span class="skill-tag">Data Analyst</span>
-                            <span class="skill-tag">Data-Scientist</span>
-                            <span class="skill-tag">Analytics Engineer</span>
+                            <span class="skill-tag">Data Engineer</span>
                         </div>
                         <div class="hero-btn mt-4">
                             <a href="#contact" class="btn btn-primary me-3">Contactez-moi</a>
@@ -331,24 +352,24 @@
                     </div>
                     <div class="about-text">
                         <p>
-                            🎓 <strong>Consultant digital</strong>, je m’engage aux côtés des organisations pour les
-                            aider à exploiter tout le potentiel du numérique et de la donnée. Grâce à mes formations en
-                            transformation digitale à la <strong>Sorbonne Paris 1</strong> et à mon <strong>Master en
-                                Data-Analytics</strong>, j’ai acquis une vision stratégique des enjeux métiers et des
-                            leviers d’action concrets pour accompagner le changement.
+                            🎯 <strong>Consultant BI &amp; IA chez Talan</strong>, je suis à la fois
+                            <strong>Data Analyst</strong> et <strong>Data Engineer</strong> : je conçois la chaîne de
+                            bout en bout, de la <strong>collecte et modélisation</strong> de la donnée jusqu’à la
+                            <strong>restitution décisionnelle</strong> et la mise en production de
+                            <strong>solutions IA</strong>. Formé à la <strong>Sorbonne Paris 1</strong> et à
+                            <strong>Toulon</strong> (Master Data Analytics), j’allie vision métier et exécution technique.
                         </p>
                         <p>
-                            🚀 Grâce à des expériences enrichissantes chez <strong>Micropole</strong>,
+                            🚀 Au fil d’expériences chez <strong>Talan</strong>, <strong>Micropole</strong>,
                             <strong>ArianeGroup</strong>, <strong>le Crédit Agricole</strong> et
-                            <strong>Météo-France</strong>, j’ai appris à accompagner les équipes dans leurs
-                            problématiques, qu’elles relèvent de la <strong>stratégie data</strong> ou du
-                            <strong>pilotage digital</strong>.
+                            <strong>Météo-France</strong>, j’ai piloté des projets data complets : ETL, modélisation,
+                            Cloud, tableaux de bord et IA, dans des environnements exigeants et parfois internationaux.
                         </p>
                         <p>
-                            🤝 Ce qui me distingue ? Une capacité à écouter, à comprendre les besoins réels, et à
-                            construire des solutions sur mesure avec une approche à la fois rigoureuse, pédagogique et
-                            orientée impact. Mon objectif : créer de la valeur, simplifier la complexité, et faire du
-                            digital un vrai levier de performance.
+                            🔬 J’ai aussi une vraie passion pour la <strong>recherche et la statistique</strong>
+                            (séries temporelles, modélisation). Mon objectif : créer de la valeur, simplifier la
+                            complexité et faire de la donnée un vrai levier de performance. Basé à
+                            <strong>Marseille</strong>, je suis également ouvert à <strong>Lyon</strong>.
                         </p>
                     </div>
                     <div class="skills-section">
@@ -779,7 +800,7 @@
                             <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
                             <div class="content">
                                 <h4>Localisation</h4>
-                                <p>Aix-en-Provence, France</p>
+                                <p>Marseille, France — ouvert à Lyon</p>
                             </div>
                         </div>
 
@@ -868,7 +889,7 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="footer-info">
                             <h3>Joris Salmon</h3>
-                            <p>Consultant IA & Data</p>
+                            <p>Consultant BI &amp; IA · Data Analyst &amp; Engineer</p>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
@@ -945,6 +966,7 @@
     </script>
 
     <!-- Main JavaScript File -->
+    <script src="js/theme.js"></script>
     <script src="js/main.js"></script>
     <script src="js/blog.js"></script>
     <script src="js/chatbot.js"></script>

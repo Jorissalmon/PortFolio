@@ -592,30 +592,10 @@ function initializeNewsletterForm() {
     return;
   }
 
-  // ⚠️ IMPORTANT: Utilisez la même adresse email que votre formulaire de contact
-  newsletterForm.setAttribute('action', 'https://formsubmit.co/joris.salmon53290@gmail.com');
-  newsletterForm.setAttribute('method', 'POST');
+  // Soumission AJAX vers notre API serverless (/api/suscribe -> Resend)
+  newsletterForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
 
-  // Ajouter des champs cachés pour FormSubmit
-  const hiddenFields = [
-    { name: '_captcha', value: 'false' },
-    { name: '_next', value: window.location.href + '?newsletter=true' },
-    { name: '_subject', value: 'Nouvel abonnement à la newsletter' }
-  ];
-
-  hiddenFields.forEach(field => {
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = field.name;
-    input.value = field.value;
-    newsletterForm.appendChild(input);
-  });
-
-  // Validation avant soumission
-  newsletterForm.addEventListener('submit', function (e) {
-    e.preventDefault(); // Empêcher la soumission pour valider d'abord
-
-    // Récupérer l'email
     const emailInput = newsletterForm.querySelector('input[type="email"]');
     const email = emailInput.value.trim();
 
@@ -632,23 +612,37 @@ function initializeNewsletterForm() {
       emailInput.classList.remove('is-invalid');
     }
 
-    // Stocker l'email dans sessionStorage pour l'afficher après la redirection
-    sessionStorage.setItem('subscribedEmail', email);
-
-    // Ajouter un champ caché pour identifier le type de formulaire
-    const formTypeInput = document.createElement('input');
-    formTypeInput.type = 'hidden';
-    formTypeInput.name = 'form_type';
-    formTypeInput.value = 'newsletter';
-    newsletterForm.appendChild(formTypeInput);
-
-    // Désactiver le bouton d'envoi pendant la soumission
+    // Désactiver le bouton pendant l'envoi
     const submitButton = newsletterForm.querySelector('button[type="submit"]');
+    const originalButtonHtml = submitButton.innerHTML;
     submitButton.disabled = true;
     submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi...';
 
-    // Soumettre le formulaire
-    newsletterForm.submit();
+    try {
+      const response = await fetch('/api/suscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(data.error || data.message || `Erreur ${response.status}`);
+      }
+
+      // Succès : popup de confirmation + réinitialisation
+      sessionStorage.setItem('subscribedEmail', email);
+      newsletterForm.reset();
+      showNewsletterMessage('', 'success');
+      showSubscriptionPopup(email);
+    } catch (error) {
+      console.error('Erreur newsletter:', error);
+      showNewsletterMessage("Une erreur est survenue. Merci de réessayer plus tard.", 'error');
+    } finally {
+      submitButton.disabled = false;
+      submitButton.innerHTML = originalButtonHtml;
+    }
   });
 
   // Réinitialiser le message d'erreur quand l'utilisateur commence à taper

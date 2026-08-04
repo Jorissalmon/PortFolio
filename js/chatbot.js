@@ -232,8 +232,9 @@ Réponds à la question suivante comme si tu étais moi: "${messageToSend}"`;
         conversationHistory.forEach(msg => messages.push(msg));
         messages.push({ role: "user", content: messageToSend });
 
-        // Appel à l'API OpenAI existante via votre endpoint Vercel
-        const response = await fetch('https://porte-folio-kappa.vercel.app/api/callopenai', {
+        // Appel à l'endpoint chatbot (relatif : fonctionne sur le domaine de prod
+        // comme en preview, sans URL codée en dur).
+        const response = await fetch('/api/callopenai', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -248,7 +249,10 @@ Réponds à la question suivante comme si tu étais moi: "${messageToSend}"`;
         }
 
         const data = await response.json();
-        let messageBot = data.choices[0].message.content;
+        let messageBot = data?.choices?.[0]?.message?.content;
+        if (!messageBot) {
+            throw new Error('Réponse vide du service de chat');
+        }
 
         // Pour les liens cliquables
         messageBot = messageBot
@@ -271,8 +275,9 @@ Réponds à la question suivante comme si tu étais moi: "${messageToSend}"`;
 
         // Créer un élément pour l'image
         const avatarImage = document.createElement('img');
-        avatarImage.src = 'img/contact.jpg'; // Chemin vers l'image de favicon
+        avatarImage.src = 'img/me.jpg'; // Avatar léger (contact.jpg pesait 6 Mo)
         avatarImage.alt = 'Joris';
+        avatarImage.loading = 'lazy';
 
         // Créer un nouvel élément pour le message texte
         const messageElement = document.createElement('p');

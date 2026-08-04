@@ -520,6 +520,82 @@ textarea:focus-visible,
     .portfolio-img { height: 190px; }
 }
 
+/* ============================================================
+ *  CHATBOT — polish & liveliness
+ * ============================================================ */
+.chat-popup {
+    border-radius: 20px !important;
+    box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.75), 0 0 30px rgba(188, 19, 254, 0.15) !important;
+    overflow: hidden;
+}
+.chat-popup-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+/* "En ligne" indicator before the title */
+.chat-popup-header span:first-child { position: relative; padding-left: 16px; }
+.chat-popup-header span:first-child::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #2bff88;
+    box-shadow: 0 0 8px #2bff88;
+    animation: chatOnlinePulse 2s ease-in-out infinite;
+}
+@keyframes chatOnlinePulse {
+    0%, 100% { opacity: 1; transform: translateY(-50%) scale(1); }
+    50% { opacity: 0.5; transform: translateY(-50%) scale(0.8); }
+}
+.close-chat {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    opacity: 0.85;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.close-chat:hover { opacity: 1; transform: rotate(90deg); }
+
+/* Message entrance animation */
+.bulle-joris, .bulle-utilisateur {
+    animation: chatMsgIn 0.35s var(--e-ease);
+}
+@keyframes chatMsgIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Avatar ring in Joris' bubbles */
+.content-wrapper img {
+    border: 2px solid rgba(188, 19, 254, 0.6);
+    box-shadow: 0 0 10px rgba(188, 19, 254, 0.4);
+}
+
+/* Suggestion chips themed for dark glass */
+.preset-phrases button {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #d5d5e8;
+}
+.preset-phrases button:hover {
+    background: rgba(188, 19, 254, 0.18);
+    border-color: rgba(188, 19, 254, 0.5);
+    color: #fff;
+}
+
+/* Bubble attention pulse uses the neon glow */
+.chatbot-bubble {
+    box-shadow: 0 6px 20px rgba(110, 0, 255, 0.5), 0 0 0 0 rgba(188, 19, 254, 0.5);
+}
+
 /* ------------------------------------------------------------
  * Scroll reveal (progressive enhancement, JS toggles .is-visible)
  * ---------------------------------------------------------- */

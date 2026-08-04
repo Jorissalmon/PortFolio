@@ -676,8 +676,33 @@ textarea:focus-visible,
  * ============================================================ */
 .chat-popup {
     border-radius: 20px !important;
-    box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.75), 0 0 30px rgba(188, 19, 254, 0.15) !important;
+    /* Fond plus contrasté : sombre et opaque pour faire ressortir le texte */
+    background: #14141f !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.85), 0 0 30px rgba(188, 19, 254, 0.18) !important;
     overflow: hidden;
+}
+.chat-popup-body {
+    background: #0d0d15;
+    color: #eef0f8;
+}
+.chat-popup-footer {
+    background: #14141f;
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+}
+.chat-popup-footer input {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #fff;
+}
+/* Bulles plus lisibles */
+.bulle-joris {
+    background: rgba(255, 255, 255, 0.16) !important;
+    color: #fff !important;
+}
+.bulle-utilisateur {
+    background: linear-gradient(135deg, #6e00ff, #bc13fe) !important;
+    color: #fff !important;
 }
 .chat-popup-header {
     display: flex;

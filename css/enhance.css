@@ -379,6 +379,147 @@ textarea:focus-visible,
     border-radius: 6px;
 }
 
+/* ============================================================
+ *  MOBILE READABILITY — Hero (Accueil) & Portfolio (Projets)
+ * ============================================================ */
+
+/* --- Portfolio carousel counter: readable on dark theme --- */
+.portfolio-counter {
+    color: var(--text-secondary, #b0b0cc) !important;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--e-border);
+    border-radius: 50px;
+    padding: 4px 16px;
+    font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+}
+.portfolio-counter .current-page,
+.portfolio-counter .total-pages { color: #00f3ff !important; }
+
+/* Hide unused/empty indicator dots so controls don't look broken */
+.portfolio-indicators:empty { display: none; }
+
+/* Neon carousel controls, both original and injected rows */
+.portfolio-carousel-controls,
+.portfolio-section .carousel-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+.portfolio-prev, .portfolio-next,
+.portfolio-section .carousel-prev,
+.portfolio-section .carousel-next {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--e-border);
+    color: #fff;
+    transition: transform 0.25s var(--e-ease), background 0.25s var(--e-ease),
+                box-shadow 0.25s var(--e-ease);
+}
+.portfolio-prev:hover, .portfolio-next:hover,
+.portfolio-section .carousel-prev:hover,
+.portfolio-section .carousel-next:hover {
+    background: linear-gradient(135deg, #6e00ff, #bc13fe);
+    box-shadow: var(--e-glow-violet);
+    transform: translateY(-2px);
+}
+
+/* --- Portfolio cards: clearer typography & tap targets --- */
+.portfolio-info h4 {
+    color: #fff !important;
+    font-size: 1.05rem;
+    line-height: 1.35;
+}
+.portfolio-info p {
+    color: var(--text-secondary, #b0b0cc) !important;
+    line-height: 1.6;
+}
+.portfolio-links .details-link {
+    background: linear-gradient(135deg, #6e00ff, #bc13fe);
+    border: none;
+    padding: 9px 18px;
+    font-size: 0.85rem;
+}
+.portfolio-links .details-link:hover {
+    background: linear-gradient(135deg, #bc13fe, #00f3ff);
+    color: #fff;
+    box-shadow: var(--e-glow-violet);
+}
+
+/* Tablet & phone: bigger controls for touch */
+@media (max-width: 991px) {
+    .portfolio-prev, .portfolio-next,
+    .portfolio-section .carousel-prev,
+    .portfolio-section .carousel-next {
+        width: 46px;
+        height: 46px;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 767px) {
+    /* Hero: tighten spacing so text-only layout isn't sparse */
+    .hero-section {
+        min-height: auto;
+        padding: 110px 0 70px;
+        text-align: center;
+    }
+    .hero-content { animation: none; }
+    .hero-content .subtitle {
+        letter-spacing: 2px;
+        margin-bottom: 12px;
+    }
+    .hero-content .title {
+        /* Solid fallback keeps the name legible over the aurora glow */
+        -webkit-text-fill-color: #ffffff;
+        background: none;
+        filter: none;
+        line-height: 1.12;
+    }
+    .hero-content .skills {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 26px;
+    }
+    .hero-content .skill-tag { margin: 0; }
+    .hero-btn { max-width: 320px; margin-left: auto; margin-right: auto; }
+
+    /* Portfolio: card takes full width but stays comfortably readable */
+    .portfolio-item { padding-left: 8px; padding-right: 8px; }
+    .portfolio-img { height: 200px; }
+    .portfolio-info { padding: 18px 18px 20px; }
+    .portfolio-info h4 { font-size: 1.1rem; }
+    .portfolio-info p {
+        -webkit-line-clamp: 3;
+        height: auto;
+        max-height: 4.8em;
+        font-size: 0.92rem;
+    }
+    .portfolio-links { text-align: center; margin-top: 4px; }
+    .portfolio-links .details-link {
+        width: 100%;
+        padding: 11px 18px;
+        font-size: 0.9rem;
+    }
+    /* Section eyebrow slightly smaller on phones */
+    .section-title p { letter-spacing: 2px; font-size: 0.78rem; }
+}
+
+@media (max-width: 480px) {
+    .hero-section { padding: 100px 0 60px; }
+    .hero-content .subtitle { font-size: 13px; }
+    /* Single, centred, comfortably wide card on small phones */
+    .portfolio-container .portfolio-item {
+        max-width: 420px;
+        margin-left: auto;
+        margin-right: auto;
+        float: none;
+    }
+    .portfolio-img { height: 190px; }
+}
+
 /* ------------------------------------------------------------
  * Scroll reveal (progressive enhancement, JS toggles .is-visible)
  * ---------------------------------------------------------- */

@@ -96,6 +96,28 @@ function updateContactInfo() {
 }
 
 /**
+ * Convertit un champ Contentful (texte simple OU Rich Text) en chaîne de texte.
+ * Utile car un champ peut être configuré en "Short text" ou en "Rich text".
+ * @param {string|Object} field
+ * @returns {string}
+ */
+function contentfulFieldToText(field) {
+    if (!field) return '';
+    if (typeof field === 'string') return field.trim();
+    // Rich Text : parcourir récursivement les noeuds pour concaténer le texte
+    if (field.nodeType === 'document' || Array.isArray(field.content)) {
+        let out = '';
+        (function walk(node) {
+            if (!node) return;
+            if (typeof node.value === 'string') out += node.value;
+            if (Array.isArray(node.content)) node.content.forEach(walk);
+        })(field);
+        return out.trim();
+    }
+    return '';
+}
+
+/**
  * Charge la vidéo de présentation (accueil).
  * Source (par ordre de priorité) :
  *  1. l'attribut data-video-url du conteneur (#introVideoContainer),
@@ -112,10 +134,11 @@ function loadIntroVideo() {
         let url = (container.getAttribute('data-video-url') || '').trim();
 
         if (!url && profileData) {
-            url = profileData.presentationVideo
-                || profileData.presentationVideoUrl
-                || profileData.videoPresentation
-                || profileData.videoUrl
+            // Le champ peut être en texte simple OU en Rich Text : on extrait l'URL dans les deux cas.
+            url = contentfulFieldToText(profileData.presentationVideo)
+                || contentfulFieldToText(profileData.presentationVideoUrl)
+                || contentfulFieldToText(profileData.videoPresentation)
+                || contentfulFieldToText(profileData.videoUrl)
                 || '';
         }
 

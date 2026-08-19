@@ -126,27 +126,43 @@ function displayProjectInformation(project) {
         window.VideoEmbed.embedLinks(document.getElementById('projectSummary'));
     }
     
-    // Gérer le lien externe
+    // Charger les images dynamiques Contentful
+    if (window.contentfulService && window.contentfulService.loadContentImages) {
+        window.contentfulService.loadContentImages();
+    }
+    
+    // Gérer les liens externes (en bas et en haut)
     const externalLink = document.getElementById('projectExternalLink');
     const externalLinkContainer = externalLink.parentNode;
+    const externalLinkTop = document.getElementById('projectExternalLinkTop');
+    const externalLinkTopContainer = document.getElementById('projectExternalLinkTopContainer');
     
     // Vérifier si l'URL externe est définie et valide
     if (project.external_url && typeof project.external_url === 'string' && project.external_url.trim() !== '' && project.external_url !== '#') {
-        // Définir l'URL sur le lien
+        // Définir l'URL sur les liens
         externalLink.href = project.external_url;
+        if (externalLinkTop) externalLinkTop.href = project.external_url;
         
-        // S'assurer que le conteneur est visible
+        // S'assurer que les conteneurs sont visibles
         externalLinkContainer.style.display = 'block';
+        if (externalLinkTopContainer) externalLinkTopContainer.style.display = 'block';
         
-        // Réinitialiser les event listeners existants pour éviter les conflits
+        // Réinitialiser les event listeners existants pour éviter les conflits (bas)
         const newExternalLink = externalLink.cloneNode(true);
         externalLinkContainer.replaceChild(newExternalLink, externalLink);
         
+        // Réinitialiser les event listeners existants (haut)
+        if (externalLinkTop) {
+            const newExternalLinkTop = externalLinkTop.cloneNode(true);
+            externalLinkTopContainer.replaceChild(newExternalLinkTop, externalLinkTop);
+        }
+        
         // Journaliser pour le débogage
-        console.log('Lien externe configuré:', project.external_url);
+        console.log('Liens externes configurés:', project.external_url);
     } else {
-        // Masquer le conteneur si aucun lien valide n'est disponible
+        // Masquer les conteneurs si aucun lien valide n'est disponible
         externalLinkContainer.style.display = 'none';
+        if (externalLinkTopContainer) externalLinkTopContainer.style.display = 'none';
         console.log('Aucun lien externe valide trouvé:', project.external_url);
     }
     

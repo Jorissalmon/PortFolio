@@ -246,6 +246,31 @@ window.contentfulService = {
   },
 
   /**
+   * Charge les images des articles ou projets après l'injection HTML
+   */
+  loadContentImages: async function() {
+    const assetImages = document.querySelectorAll('img[id^="asset-"]');
+    console.log('Nombre d\\'images trouvées:', assetImages.length);
+    for (const img of assetImages) {
+      const idAttribute = img.getAttribute('id');
+      if (!idAttribute || !idAttribute.startsWith('asset-')) continue;
+      const assetId = idAttribute.replace('asset-', '');
+      try {
+        const assetData = await this.getAssetById(assetId);
+        if (assetData && assetData.fields && assetData.fields.file && assetData.fields.file.url) {
+          const assetUrl = assetData.fields.file.url.startsWith('//') 
+            ? 'https:' + assetData.fields.file.url 
+            : assetData.fields.file.url;
+          img.src = assetUrl;
+          if (assetData.fields.title) img.alt = assetData.fields.title;
+        }
+      } catch (error) {
+        console.error(`Erreur lors du chargement de l'image ${assetId}:`, error);
+      }
+    }
+  },
+
+  /**
    * Récupère un article spécifique par son ID
    * @param {string} id - Identifiant de l'article
    * @returns {Promise<Object>} Données de l'article
@@ -307,56 +332,6 @@ window.contentfulService = {
       } else if (fields.contenu && typeof fields.contenu === "object") {
         // Créer le HTML avec des IDs pour les images
         content = this.renderRichTextWithIds(fields.contenu);
-
-        // Ajouter un script pour charger les images après le rendu
-        content += `
-          <script>
-            (async function loadArticleImages() {
-              // Exécuter après que la page soit complètement chargée
-              if (document.readyState !== 'complete') {
-                window.addEventListener('load', loadArticleImages);
-                return;
-              }
-              
-              // Chercher tous les éléments d'image avec des IDs d'asset
-              const assetImages = document.querySelectorAll('img[id^="asset-"]');
-              console.log('Nombre d\'images trouvées:', assetImages.length);
-              
-              // Pour chaque image
-              for (const img of assetImages) {
-                const idAttribute = img.getAttribute('id');
-                if (!idAttribute || !idAttribute.startsWith('asset-')) continue;
-                
-                const assetId = idAttribute.replace('asset-', '');
-                console.log('Chargement de l\'image pour l\'asset:', assetId);
-                
-                try {
-                  // Récupérer l'asset via l'API
-                  const assetData = await window.contentfulService.getAssetById(assetId);
-                  
-                  if (assetData && assetData.fields && assetData.fields.file && assetData.fields.file.url) {
-                    const assetUrl = assetData.fields.file.url.startsWith('//') 
-                      ? 'https:' + assetData.fields.file.url 
-                      : assetData.fields.file.url;
-                    
-                    // Mettre à jour l'attribut src de l'image
-                    img.src = assetUrl;
-                    
-                    // Mettre à jour l'attribut alt si un titre est disponible
-                    if (assetData.fields.title) {
-                      img.alt = assetData.fields.title;
-                    }
-                    
-                    console.log('Image mise à jour avec succès:', assetUrl);
-                  }
-                } catch (error) {
-                  console.error(\`Erreur lors du chargement de l'image \${assetId}:\`, error);
-                  // En cas d'erreur, l'image placeholder reste affichée
-                }
-              }
-            })();
-          </script>
-        `;
       } else {
         content = "<p>Le contenu de cet article n'est pas disponible.</p>";
       }
@@ -795,56 +770,6 @@ window.contentfulService.getProjectById = async function (projectId) {
     } else if (fields.detailedDescription && typeof fields.detailedDescription === "object") {
       // Créer le HTML avec des IDs pour les images
       content = this.renderRichTextWithIds(fields.detailedDescription);
-
-      // Ajouter un script pour charger les images après le rendu
-      content += `
-        <script>
-          (async function loadProjectImages() {
-            // Exécuter après que la page soit complètement chargée
-            if (document.readyState !== 'complete') {
-              window.addEventListener('load', loadProjectImages);
-              return;
-            }
-            
-            // Chercher tous les éléments d'image avec des IDs d'asset
-            const assetImages = document.querySelectorAll('img[id^="asset-"]');
-            console.log('Nombre d\'images trouvées:', assetImages.length);
-            
-            // Pour chaque image
-            for (const img of assetImages) {
-              const idAttribute = img.getAttribute('id');
-              if (!idAttribute || !idAttribute.startsWith('asset-')) continue;
-              
-              const assetId = idAttribute.replace('asset-', '');
-              console.log('Chargement de l\'image pour l\'asset:', assetId);
-              
-              try {
-                // Récupérer l'asset via l'API
-                const assetData = await window.contentfulService.getAssetById(assetId);
-                
-                if (assetData && assetData.fields && assetData.fields.file && assetData.fields.file.url) {
-                  const assetUrl = assetData.fields.file.url.startsWith('//') 
-                    ? 'https:' + assetData.fields.file.url 
-                    : assetData.fields.file.url;
-                  
-                  // Mettre à jour l'attribut src de l'image
-                  img.src = assetUrl;
-                  
-                  // Mettre à jour l'attribut alt si un titre est disponible
-                  if (assetData.fields.title) {
-                    img.alt = assetData.fields.title;
-                  }
-                  
-                  console.log('Image mise à jour avec succès:', assetUrl);
-                }
-              } catch (error) {
-                console.error(\`Erreur lors du chargement de l'image \${assetId}:\`, error);
-                // En cas d'erreur, l'image placeholder reste affichée
-              }
-            }
-          })();
-        </script>
-      `;
     } else {
       content = "<p>La description détaillée de ce projet n'est pas disponible.</p>";
     }

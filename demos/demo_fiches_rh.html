@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automatisation RH par IA - Démo Interactive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --bg: #09090b;
+      --bg2: #18181b;
+      --bg3: #27272a;
+      --accent: #10b981; 
+      --accent-glow: rgba(16, 185, 129, 0.2);
+      --accent2: #0ea5e9;
+      --text: #f4f4f5;
+      --muted: #a1a1aa;
+      --border: rgba(255,255,255,0.1);
+      --card: rgba(255,255,255,0.03);
+      --amber: #f59e0b;
+      --rose: #f43f5e;
+      --radius: 16px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before, body::after {
+      content: ''; position: absolute; width: 600px; height: 600px;
+      border-radius: 50%; filter: blur(120px); z-index: -1; opacity: 0.15;
+    }
+    body::before { top: -100px; left: -100px; background: var(--accent); }
+    body::after { bottom: 20%; right: -100px; background: var(--accent2); }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 100px 0; }
+
+    /* HERO */
+    .hero { text-align: center; padding: 120px 24px 80px; position: relative; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2);
+      color: var(--accent); padding: 6px 16px; border-radius: 50px;
+      font-size: 0.85rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+      margin-bottom: 24px; animation: fadeInDown 0.8s ease-out;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; letter-spacing: -0.03em;
+      line-height: 1.1; margin-bottom: 24px; animation: fadeInDown 1s ease-out;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero p { color: var(--muted); font-size: 1.25rem; max-width: 650px; margin: 0 auto 40px; animation: fadeInDown 1.2s ease-out; }
+
+    .btn-launch {
+      background: linear-gradient(135deg, var(--accent), #059669); color: #000;
+      border: none; padding: 16px 32px; font-size: 1.1rem; font-weight: 700;
+      border-radius: 50px; cursor: pointer; transition: all 0.3s;
+      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4); display: inline-flex; align-items: center; gap: 12px;
+    }
+    .btn-launch:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(16, 185, 129, 0.5); }
+    .btn-launch:active { transform: translateY(0); }
+
+    .btn-outline {
+      background: transparent; border: 1px solid var(--border); color: var(--text);
+      padding: 16px 32px; font-size: 1.1rem; font-weight: 600;
+      border-radius: 50px; cursor: pointer; transition: all 0.3s;
+    }
+    .btn-outline:hover { background: var(--card); border-color: rgba(255,255,255,0.2); }
+
+    /* ANIMATED FLOWCHART */
+    .flow {
+      display: flex; justify-content: center; align-items: center; gap: 15px;
+      margin-top: 60px; animation: fadeInUp 1.5s ease-out; flex-wrap: wrap;
+    }
+    .flow-box {
+      background: var(--card); border: 1px solid var(--border); padding: 15px 20px;
+      border-radius: 12px; display: flex; flex-direction: column; align-items: center;
+      transition: transform 0.3s;
+    }
+    .flow-box:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.2); }
+    .flow-box.highlight {
+      border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow);
+    }
+    .flow-arrow {
+      color: var(--accent); font-size: 1.5rem; animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: translateX(0); opacity: 0.5; }
+      50% { transform: translateX(5px); opacity: 1; }
+      100% { transform: translateX(0); opacity: 0.5; }
+    }
+
+    /* BEFORE / AFTER */
+    .ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 40px; }
+    @media(max-width: 768px) { .ba-grid { grid-template-columns: 1fr; } }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; position: relative; overflow: hidden; }
+    .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+    .card.bad::before { background: var(--rose); }
+    .card.good::before { background: var(--accent); }
+    .card-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+    .card.bad .card-title { color: var(--rose); }
+    .card.good .card-title { color: var(--accent); }
+    .card p { color: var(--muted); font-size: 0.95rem; margin-bottom: 24px; }
+    .doc-chaos { display: flex; flex-direction: column; gap: 12px; background: rgba(0,0,0,0.3); padding: 16px; border-radius: 8px; border: 1px dashed rgba(244, 63, 94, 0.3); }
+    .doc-item { background: var(--bg2); padding: 10px 16px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #cbd5e1; border-left: 3px solid var(--muted); }
+    .doc-item:nth-child(1) { border-color: var(--amber); transform: rotate(-1deg); }
+    .doc-item:nth-child(2) { border-color: var(--rose); transform: rotate(1deg); }
+    .doc-item:nth-child(3) { border-color: var(--accent2); }
+    .ai-magic { display: flex; align-items: center; justify-content: center; height: 150px; background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 8px; font-size: 2rem; }
+
+    /* PIPELINE INTERACTIF */
+    .section-title { text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 16px; }
+    .section-sub { text-align: center; color: var(--muted); margin-bottom: 40px; font-size: 1.1rem;}
+    .demo-controls { text-align: center; margin-bottom: 40px; }
+
+    .pipeline-ui { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); }
+    .pipeline-nav { display: flex; border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.2); flex-wrap: wrap; }
+    .p-tab { flex: 1; text-align: center; padding: 20px; font-weight: 600; color: var(--muted); transition: all 0.3s; border-bottom: 2px solid transparent; opacity: 0.5; min-width: 150px; cursor: pointer; }
+    .p-tab.active { color: var(--accent); border-bottom-color: var(--accent); background: rgba(16, 185, 129, 0.05); opacity: 1; }
+    .p-content { padding: 40px; min-height: 400px; display: none; }
+    .p-content.active { display: block; animation: fadeIn 0.4s ease; }
+    
+    /* ANIMATIONS DEMO */
+    .file-dropping {
+      width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .file-stack { display: flex; gap: 10px; margin-bottom: 20px; }
+    .file { font-size: 3rem; opacity: 0; transform: translateY(-20px); }
+    .file.animate { animation: dropFile 0.5s forwards; }
+    @keyframes dropFile { to { opacity: 1; transform: translateY(0); } }
+
+    .progress-bar-bg { width: 60%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; margin-top: 20px; display: none; }
+    .progress-bar-fill { height: 100%; width: 0%; background: var(--accent); transition: width 2s ease-in-out; }
+
+    .ia-split { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
+    .code-block { background: #000; border-radius: 8px; padding: 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #a1a1aa; line-height: 1.7; min-height: 200px; }
+    .typing-cursor { display: inline-block; width: 8px; height: 15px; background: var(--accent); animation: blink 1s step-end infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .hl { color: var(--accent); } .hl2 { color: var(--accent2); }
+    .ai-scanning { color: var(--accent); font-weight: 600; margin-bottom: 10px; display: none; }
+
+    .table-wrapper { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th { background: rgba(255,255,255,0.02); padding: 12px 16px; font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--border); }
+    td { padding: 16px; font-size: 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.02); vertical-align: middle; }
+    tr { opacity: 0; transform: translateX(-20px); transition: all 0.5s ease; }
+    tr.visible { opacity: 1; transform: translateX(0); }
+    
+    .conf-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; }
+    .conf-high { background: rgba(16, 185, 129, 0.1); color: var(--accent); border: 1px solid rgba(16, 185, 129, 0.2); }
+    .conf-med { background: rgba(245, 158, 11, 0.1); color: var(--amber); border: 1px solid rgba(245, 158, 11, 0.2); }
+    .action-btn { background: rgba(255,255,255,0.05); border: none; color: var(--text); padding: 6px 12px; border-radius: 4px; cursor: pointer; transition: 0.2s; }
+    .action-btn:hover { background: var(--accent); color: #000; }
+
+    /* DASHBOARD CSS */
+    .dash-container {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 20px;
+      padding: 20px;
+      background: #111827;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .dash-card {
+      background: #1f2937;
+      border-radius: 8px;
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .dash-stat { font-size: 2.5rem; font-weight: 800; color: #fff; line-height: 1; }
+    .dash-label { color: #9ca3af; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
+    .pie-chart {
+      width: 120px; height: 120px; border-radius: 50%;
+      background: conic-gradient(var(--accent) 0% 60%, var(--accent2) 60% 85%, var(--amber) 85% 100%);
+      margin: 0 auto;
+    }
+    .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .bar-label { width: 80px; font-size: 0.8rem; color: #d1d5db; }
+    .bar-track { flex: 1; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 4px; }
+
+    /* IMPACT */
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+    @media(max-width: 768px) { .metrics { grid-template-columns: 1fr; } }
+    .metric-card { text-align: center; padding: 40px 24px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); }
+    .metric-val { font-size: 3rem; font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: 12px; }
+    .metric-label { font-size: 1.1rem; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+    .metric-desc { font-size: 0.85rem; color: var(--muted); }
+
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <section class="hero">
+      <div class="badge">Cas d'usage Client Réel</div>
+      <h1>L'IA au service des Ressources Humaines.<br><span>De 50 jours à 5 minutes.</span></h1>
+      <p>Découvrez comment nous avons mis fin au chaos administratif en automatisant le traitement manuel de plus de 500 fiches RH hétérogènes grâce à une IA sécurisée hébergée en interne.</p>
+      
+      <div class="hero-cta" style="margin-top: 30px; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+        <button class="btn-launch" onclick="scrollToDemoAndStart()">▶ Lancer l'animation complète</button>
+        <button class="btn-outline" onclick="document.getElementById('probleme').scrollIntoView({behavior:'smooth'})">Comprendre le problème</button>
+      </div>
+
+      <!-- ANIMATED FLOWCHART IN HERO -->
+      <div class="flow" id="heroFlow">
+        <div class="flow-box">
+          <div style="font-size: 2.5rem;">📥</div>
+          <div style="font-size: 0.85rem; margin-top: 8px; font-weight: 600;">1. Ingestion PDF/Word</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box highlight">
+          <div style="font-size: 2.5rem;">🧠</div>
+          <div style="font-size: 0.85rem; margin-top: 8px; color: var(--accent); font-weight: bold;">2. Extraction par l'IA</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box">
+          <div style="font-size: 2.5rem;">👁️</div>
+          <div style="font-size: 0.85rem; margin-top: 8px; font-weight: 600;">3. Validation Humaine</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box" style="border-color: var(--accent2);">
+          <div style="font-size: 2.5rem;">📈</div>
+          <div style="font-size: 0.85rem; margin-top: 8px; color: var(--accent2); font-weight: 600;">4. Reportings & Suivi</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BEFORE / AFTER -->
+    <section id="probleme" style="padding-top:0;">
+      <h2 class="section-title">Le problème vs La solution</h2>
+      <p class="section-sub">Un cas d'école où un script classique échoue face à la créativité humaine.</p>
+      
+      <div class="ba-grid">
+        <div class="card bad">
+          <div class="card-title">Le cauchemar manuel</div>
+          <p>500 fiches remplies différemment par chaque intervenant. Une collaboratrice y consacrait des dizaines de jours par an pour tout consolider, avec des erreurs inévitables.</p>
+          <div class="doc-chaos">
+            <div class="doc-item">Document 1: "Nom du sal : DUPONT, Zone: Nord, Dot: 15K"</div>
+            <div class="doc-item">Document 2: "Identité -> Martin / Secteur d'affectation : Sud / Budget alloué = 12000"</div>
+            <div class="doc-item">Document 3: "Collaborateur DURAND. Pas de zone définie. Montant 0."</div>
+          </div>
+        </div>
+
+        <div class="card good">
+          <div class="card-title">L'harmonie par l'IA</div>
+          <p>L'IA hébergée en interne lit, comprend le contexte de chaque variation, et structure la donnée. L'humain ne fait plus que valider un fichier propre et standardisé.</p>
+          <div class="ai-magic">
+            <span style="font-weight:700; color:var(--text); font-size:1.5rem;">Base de Données Propre</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PIPELINE DEMO -->
+    <section id="demo">
+      <h2 class="section-title">Démo du Pipeline</h2>
+      <p class="section-sub">Visualisez le traitement de l'application autonome livrée au client.</p>
+
+      <div class="demo-controls">
+        <button class="btn-launch" onclick="startDemo()" id="btnLaunch">
+          ▶ Lancer l'automatisation de 500 fiches
+        </button>
+      </div>
+
+      <div class="pipeline-ui">
+        <div class="pipeline-nav">
+          <div class="p-tab active" id="nav1" onclick="switchNav(1)">1. Ingestion</div>
+          <div class="p-tab" id="nav2" onclick="switchNav(2)">2. IA Interne</div>
+          <div class="p-tab" id="nav3" onclick="switchNav(3)">3. Validation Humaine</div>
+          <div class="p-tab" id="nav4" onclick="switchNav(4)">4. Reportings & Suivi</div>
+        </div>
+        
+        <!-- Tab 1 -->
+        <div class="p-content active" id="tab1">
+          <h3 style="margin-bottom: 12px;">Dépôt des documents bruts</h3>
+          <p style="color:var(--muted); margin-bottom: 24px;">L'utilisateur dépose tous les documents. L'outil lit les .pdf, .docx, .doc automatiquement.</p>
+          
+          <div class="file-dropping" id="dropZoneAnim">
+            <div style="font-size: 3rem; color: var(--muted); margin-bottom: 10px;" id="dropIcon">📂 En attente...</div>
+            <div class="file-stack" id="fileStack">
+              <!-- Files will be injected by JS -->
+            </div>
+            <div class="progress-bar-bg" id="progressBarBg">
+              <div class="progress-bar-fill" id="progressBarFill"></div>
+            </div>
+            <div id="ingestionStatus" style="margin-top:10px; font-weight:600; color:var(--accent); display:none;">500 fichiers ingérés avec succès !</div>
+          </div>
+        </div>
+
+        <!-- Tab 2 -->
+        <div class="p-content" id="tab2">
+          <h3 style="margin-bottom: 12px;">Extraction Sémantique</h3>
+          <p style="color:var(--muted); margin-bottom: 24px;">L'IA lit les textes hétérogènes et génère un format structuré JSON. 100% sécurisé (Hébergé en interne).</p>
+          
+          <div class="ai-scanning" id="aiStatus">🧠 Analyse sémantique en cours...</div>
+          
+          <div class="ia-split">
+            <div class="code-block" style="opacity:0;" id="aiInput">
+              <span style="color:#52525b">// Fiche RH #24</span><br><br>
+              "Suite à l'entretien de <span class="hl">Mme. LEFEBVRE</span>, il a été convenu d'une affectation sur la <span class="hl2">région Ouest</span>. Le budget validé est de <span class="hl">huit mille euros</span>."
+            </div>
+            
+            <div class="code-block" style="opacity:0;" id="aiOutput">
+              <span style="color:#52525b">// Génération Structurée</span><br><br>
+              <div id="typingText"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3 -->
+        <div class="p-content" id="tab3">
+          <h3 style="margin-bottom: 12px;">Tableau de contrôle</h3>
+          <p style="color:var(--muted); margin-bottom: 24px;">L'humain ne saisit plus, il vérifie. Les scores de confiance de l'IA dirigent l'attention sur les cas douteux.</p>
+          
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Fichier Source</th>
+                  <th>Employé</th>
+                  <th>Zone Extraite</th>
+                  <th>Dotation</th>
+                  <th>Confiance IA</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="resultTable">
+                <tr class="row-result">
+                  <td>fiche_402.pdf</td><td>DUPONT J.</td><td>Nord</td><td>15 000 €</td>
+                  <td><span class="conf-badge conf-high">99%</span></td><td><button class="action-btn">Valider</button></td>
+                </tr>
+                <tr class="row-result">
+                  <td>entretien_Lefebvre.docx</td><td>LEFEBVRE M.</td><td>Ouest</td><td>8 000 €</td>
+                  <td><span class="conf-badge conf-high">98%</span></td><td><button class="action-btn">Valider</button></td>
+                </tr>
+                <tr class="row-result">
+                  <td style="color:var(--amber)">scan_illisible_29.pdf</td><td>MARTIN P.</td>
+                  <td><input type="text" value="Sud ?" style="background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.2);color:white;padding:4px;width:70px;border-radius:4px;"></td>
+                  <td>Inconnu</td>
+                  <td><span class="conf-badge conf-med">72%</span></td><td><button class="action-btn" style="background:var(--amber);color:#000;">Corriger</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab 4 -->
+        <div class="p-content" id="tab4">
+          <h3 style="margin-bottom: 12px;">Exploitation & Suivi Dynamique</h3>
+          <p style="color:var(--muted); margin-bottom: 24px;">La donnée structurée et fiabilisée alimente désormais des tableaux de bord interactifs pour un suivi RH optimal en temps réel.</p>
+          
+          <div class="dash-container">
+            <div class="dash-card" style="text-align: center;">
+              <div class="dash-label">Répartition par Zone</div>
+              <div class="pie-chart"></div>
+              <div style="margin-top: 15px; font-size: 0.8rem; color: #d1d5db; display: flex; justify-content: center; gap: 10px;">
+                <span><span style="color:var(--accent);">■</span> Nord</span>
+                <span><span style="color:var(--accent2);">■</span> Ouest</span>
+                <span><span style="color:var(--amber);">■</span> Sud</span>
+              </div>
+            </div>
+            
+            <div class="dash-card">
+              <div class="dash-label">Budgets Validés (K€)</div>
+              
+              <div class="bar-row">
+                <div class="bar-label">IT</div>
+                <div class="bar-track"><div class="bar-fill" style="width: 85%; background: var(--accent);"></div></div>
+                <div style="font-size:0.8rem; margin-left:10px;">120k</div>
+              </div>
+              <div class="bar-row">
+                <div class="bar-label">Marketing</div>
+                <div class="bar-track"><div class="bar-fill" style="width: 60%; background: var(--accent2);"></div></div>
+                <div style="font-size:0.8rem; margin-left:10px;">85k</div>
+              </div>
+              <div class="bar-row">
+                <div class="bar-label">Ventes</div>
+                <div class="bar-track"><div class="bar-fill" style="width: 40%; background: var(--amber);"></div></div>
+                <div style="font-size:0.8rem; margin-left:10px;">55k</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- IMPACT -->
+    <section id="impact">
+      <h2 class="section-title">L'impact pour le client</h2>
+      
+      <div class="metrics">
+        <div class="metric-card">
+          <div class="metric-val">+50</div>
+          <div class="metric-label">Jours économisés</div>
+          <div class="metric-desc">Libère la collaboratrice d'une tâche aliénante et répétitive.</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val">100%</div>
+          <div class="metric-label">Souveraineté</div>
+          <div class="metric-desc">Modèles LLM hébergés en interne. Zéro fuite de données RH.</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val">∞</div>
+          <div class="metric-label">Autonomie métier</div>
+          <div class="metric-desc">L'outil a été packagé en exécutable. L'équipe RH est indépendante.</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    let demoRunning = false;
+
+    function scrollToDemoAndStart() {
+      document.getElementById('demo').scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => {
+        if(!demoRunning) startDemo();
+      }, 800);
+    }
+
+    function switchNav(tabId) {
+      document.querySelectorAll('.p-tab').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.p-content').forEach(el => el.classList.remove('active'));
+      document.getElementById('nav' + tabId).classList.add('active');
+      document.getElementById('tab' + tabId).classList.add('active');
+    }
+
+    async function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+
+    async function startDemo() {
+      if(demoRunning) return;
+      demoRunning = true;
+      
+      const btn = document.getElementById('btnLaunch');
+      btn.innerText = "⚙️ Traitement en cours...";
+      btn.style.pointerEvents = 'none';
+      btn.style.opacity = '0.5';
+
+      // --- TAB 1: Ingestion ---
+      switchNav(1);
+      const fileIcons = ['📄', '📝', '📊', '📑', '📄'];
+      const stack = document.getElementById('fileStack');
+      stack.innerHTML = '';
+      document.getElementById('dropIcon').innerText = '📥 Extraction...';
+      
+      for(let i=0; i<fileIcons.length; i++) {
+        let f = document.createElement('div');
+        f.className = 'file animate';
+        f.innerText = fileIcons[i];
+        stack.appendChild(f);
+        await sleep(300);
+      }
+
+      document.getElementById('progressBarBg').style.display = 'block';
+      await sleep(100);
+      document.getElementById('progressBarFill').style.width = '100%';
+      
+      await sleep(2000);
+      document.getElementById('ingestionStatus').style.display = 'block';
+      await sleep(1000);
+
+      // --- TAB 2: IA ---
+      switchNav(2);
+      document.getElementById('aiStatus').style.display = 'block';
+      await sleep(500);
+      document.getElementById('aiInput').style.opacity = '1';
+      document.getElementById('aiInput').style.transition = 'opacity 0.5s';
+      
+      await sleep(1000);
+      document.getElementById('aiOutput').style.opacity = '1';
+      document.getElementById('aiOutput').style.transition = 'opacity 0.5s';
+      
+      const jsonText = `{\n  "Nom": "<span class='hl'>LEFEBVRE</span>",\n  "Zone": "<span class='hl2'>Ouest</span>",\n  "Dotation": <span class='hl'>8000</span>,\n  "Confiance": 0.98\n}`;
+      const typingArea = document.getElementById('typingText');
+      typingArea.innerHTML = "<span class='typing-cursor'></span>";
+      
+      let htmlContent = "";
+      let i = 0;
+      while(i < jsonText.length) {
+        if(jsonText[i] === '<') {
+          let endTag = jsonText.indexOf('>', i);
+          htmlContent += jsonText.substring(i, endTag + 1);
+          i = endTag + 1;
+        } else {
+          htmlContent += jsonText[i];
+          i++;
+        }
+        typingArea.innerHTML = htmlContent + "<span class='typing-cursor'></span>";
+        await sleep(25); // typing speed
+      }
+      
+      document.getElementById('aiStatus').innerText = "✅ Extraction terminée (0.8s)";
+      await sleep(2000);
+
+      // --- TAB 3: Control ---
+      switchNav(3);
+      const rows = document.querySelectorAll('.row-result');
+      rows.forEach(r => r.classList.remove('visible'));
+      
+      for(let row of rows) {
+        await sleep(300);
+        row.classList.add('visible');
+      }
+      await sleep(2500);
+
+      // --- TAB 4: Reporting ---
+      switchNav(4);
+
+      btn.innerText = "✨ Processus terminé !";
+      btn.style.opacity = '1';
+      btn.style.background = "linear-gradient(135deg, var(--accent), #059669)";
+      demoRunning = false;
+    }
+  </script>
+</body>
+</html>

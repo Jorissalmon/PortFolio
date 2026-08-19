@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Story Power BI | Ministère de la Culture</title>
+  <meta name="description"
+    content="Découvrez le projet Power BI de pilotage des achats publics du Ministère de la Culture à travers un récit interactif." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Marianne:wght@300;400;500;700;800&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    /* ============================================
+       DESIGN TOKENS — Charte Ministère de la Culture
+    ============================================ */
+    :root {
+      --bleu-france: #003189;
+      --bleu-nuit: #1b1f3b;
+      --bleu-hover: #0a4ab5;
+      --rouge-marianne: #E1000F;
+      --rouge-light: #ff2c38;
+
+      --dore: #d4aa50;
+      --vert-succes: #18753c;
+      --gris-fond: #f9fbff;
+      --gris-bord: #dde2ff;
+      --gris-texte: #3a3a3a;
+      --gris-doux: #555f71;
+
+      --font: 'Inter', 'Marianne', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --shadow-sm: 0 2px 8px rgba(0, 49, 137, 0.06);
+      --shadow: 0 8px 32px rgba(0, 49, 137, 0.12);
+      --radius: 12px;
+      --radius-lg: 24px;
+    }
+
+    /* ============================================
+       RESET & BASE
+    ============================================ */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--gris-fond);
+      color: var(--gris-texte);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+      border-radius: var(--radius);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #eef0fb;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--bleu-france);
+      border-radius: 99px;
+    }
+
+    /* ============================================
+       NAV
+    ============================================ */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 3px solid var(--rouge-marianne);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 60px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: var(--bleu-nuit);
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+
+    .marianne-mark {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .tricolore {
+      display: flex;
+      height: 4px;
+      width: 28px;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .tricolore-b {
+      background: var(--bleu-france);
+      flex: 1;
+    }
+
+    .tricolore-w {
+      background: #eef0fb;
+      flex: 1;
+    }
+
+    .tricolore-r {
+      background: var(--rouge-marianne);
+      flex: 1;
+    }
+
+    .marianne-mark .rf {
+      font-size: 0.6rem;
+      color: var(--bleu-nuit);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-separator {
+      width: 1px;
+      height: 24px;
+      background: var(--gris-bord);
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .progress-bar-container {
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: transparent;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--bleu-france);
+      width: 0%;
+      transition: width 0.1s;
+    }
+
+    /* ============================================
+       TYPOGRAPHIE & UTILITAIRES
+    ============================================ */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--rouge-marianne);
+      margin-bottom: 1rem;
+    }
+
+    .eyebrow::before {
+      content: '';
+      width: 24px;
+      height: 2px;
+      background: var(--bleu-france);
+      border-radius: 2px;
+    }
+
+    .title-lg {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--bleu-france);
+      margin-bottom: 1.5rem;
+    }
+
+    .title-md {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--bleu-nuit);
+      margin-bottom: 1rem;
+    }
+
+    p.lead {
+      font-size: 1.15rem;
+      color: var(--gris-doux);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 4px;
+      background: #eef0fb;
+      color: var(--bleu-france);
+      border: 1px solid var(--gris-bord);
+    }
+
+    .badge.red {
+      background: #fce4e4;
+      color: #b91c1c;
+      border-color: #fca5a5;
+    }
+
+    /* ============================================
+       ANIMATIONS REVEAL (IntersectionObserver)
+    ============================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .reveal-left {
+      transform: translateX(-40px);
+      opacity: 0;
+      transition: all 0.8s ease;
+    }
+
+    .reveal-left.visible {
+      transform: none;
+      opacity: 1;
+    }
+
+    .reveal-right {
+      transform: translateX(40px);
+      opacity: 0;
+      transition: all 0.8s ease;
+    }
+
+    .reveal-right.visible {
+      transform: none;
+      opacity: 1;
+    }
+
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 2rem 8rem;
+      text-align: center;
+      position: relative;
+      background: radial-gradient(circle at center top, #ffffff 0%, var(--gris-fond) 100%);
+    }
+
+    .hero-content {
+      max-width: 900px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo-ministere {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
+      border: 1px solid var(--gris-bord);
+      padding: 8px 12px;
+      background: #fff;
+      font-family: 'Marianne', sans-serif;
+      box-shadow: var(--shadow-sm);
+      border-radius: 4px;
+    }
+
+    .logo-ministere-txt {
+      font-size: 0.65rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-top: 4px;
+      color: #000;
+      text-align: left;
+      text-transform: uppercase;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-val {
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: var(--bleu-france);
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .stat-lbl {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--gris-doux);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 8px;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      color: var(--bleu-france);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      animation: bounce 2s infinite;
+      opacity: 0.6;
+    }
+
+    .scroll-indicator::after {
+      content: '↓';
+      font-size: 1.5rem;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translate(-50%, 0);
+      }
+
+      50% {
+        transform: translate(-50%, 10px);
+      }
+    }
+
+    /* ============================================
+       SECTION STANDARD (Chapitres 2 & 3 & 4)
+    ============================================ */
+    .story-section {
+      padding: 6rem 2rem;
+    }
+
+    .story-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .story-container.reverse {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .text-box p {
+      font-size: 1.05rem;
+      color: var(--gris-doux);
+      margin-bottom: 1.25rem;
+    }
+
+    .img-box {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background: #fff;
+      padding: 10px;
+    }
+
+    .img-box img {
+      width: 100%;
+      border-radius: calc(var(--radius-lg) - 8px);
+      border: 1px solid var(--gris-bord);
+    }
+
+    /* Code bloc stylisé */
+    .code-window {
+      background: #0f172a;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .code-header {
+      background: #1e293b;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .code-title {
+      color: #94a3b8;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      margin-left: 8px;
+    }
+
+    pre.dax {
+      margin: 0;
+      padding: 20px;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: #e2e8f0;
+      overflow-x: auto;
+    }
+
+    .dk {
+      color: #818cf8;
+    }
+
+    .df {
+      color: #34d399;
+    }
+
+    .dv {
+      color: #fbbf24;
+    }
+
+    .ds {
+      color: #f87171;
+    }
+
+    /* ============================================
+       SCROLLYTELLING (Chapitre 5 - Les Rapports)
+    ============================================ */
+    .scrolly-section {
+      background: #fff;
+      border-top: 1px solid var(--gris-bord);
+      border-bottom: 1px solid var(--gris-bord);
+    }
+
+    .scrolly-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      gap: 4rem;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    /* Colonne texte (Sticky) */
+    .scrolly-text {
+      flex: 0 0 35%;
+      position: sticky;
+      top: 120px;
+      /* S'arrête sous la navbar */
+      height: calc(100vh - 150px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .scrolly-text-inner {
+      position: relative;
+      width: 100%;
+    }
+
+    /* Textes qui se superposent via CSS Grid */
+    .step-desc-wrapper {
+      display: grid;
+      grid-template-columns: 1fr;
+      margin-top: 2rem;
+    }
+
+    .step-desc {
+      grid-area: 1 / 1;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+    }
+
+    .step-desc.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+      z-index: 2;
+    }
+
+    .step-desc h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--bleu-france);
+      margin-bottom: 1rem;
+    }
+
+    .step-desc p {
+      color: var(--gris-doux);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    /* Colonne images (Défilante) */
+    .scrolly-images {
+      flex: 1;
+      padding: 10vh 0 30vh 0;
+    }
+
+    .scrolly-step {
+      min-height: 80vh;
+      /* Espace de scroll pour chaque image */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10vh;
+    }
+
+    .window-frame {
+      background: #fff;
+      border: 1px solid var(--gris-bord);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      transition: transform 0.4s ease;
+      width: 100%;
+    }
+
+    .window-frame:hover {
+      transform: scale(1.02);
+    }
+
+    .window-bar {
+      background: linear-gradient(90deg, var(--bleu-nuit), var(--bleu-france));
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .window-title {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 600;
+      margin-left: 5px;
+    }
+
+    /* ============================================
+       CONCLUSION & COMPÉTENCES
+    ============================================ */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .skill-card {
+      background: #fff;
+      border: 1px solid var(--gris-bord);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .skill-title {
+      font-weight: 800;
+      color: var(--bleu-france);
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .skill-bar-bg {
+      height: 6px;
+      background: #eef0fb;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .skill-bar-fill {
+      height: 100%;
+      background: var(--rouge-marianne);
+      border-radius: 99px;
+      width: 0;
+      transition: width 1.5s ease-out;
+    }
+
+    .skill-desc {
+      font-size: 0.85rem;
+      color: var(--gris-doux);
+      margin-top: 1rem;
+      line-height: 1.6;
+    }
+
+    footer {
+      background: var(--bleu-nuit);
+      color: #fff;
+      padding: 3rem 2rem;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 992px) {
+
+      .story-container,
+      .story-container.reverse {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .story-container.reverse .text-box {
+        order: -1;
+      }
+
+      .scrolly-container {
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .scrolly-text {
+        position: relative;
+        top: 0;
+        height: auto;
+        padding: 4rem 0 2rem;
+        background: #fff;
+        z-index: 10;
+        border-bottom: 2px solid var(--gris-bord);
+      }
+
+      .step-desc-wrapper {
+        min-height: 200px;
+      }
+
+      /* Eviter les sauts de hauteur sur mobile */
+      .scrolly-images {
+        padding: 2rem 0;
+      }
+
+      .scrolly-step {
+        min-height: auto;
+        margin-bottom: 3rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-brand">
+      SI Achats Culturels
+    </div>
+    <div class="nav-actions">
+      <span class="badge">Projet Portfolio BI</span>
+      <img src="https://vectorseek.com/wp-content/uploads/2025/01/Ministere-de-la-Culture-Logo-Vector.svg-.png"
+        alt="Ministère de la Culture" style="height: 35px; margin-left: 10px;">
+    </div>
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="reading-progress"></div>
+    </div>
+  </nav>
+
+  <!-- CHAPITRE 1 : HERO -->
+  <section class="hero">
+    <div class="hero-content reveal">
+      <div style="display:flex; justify-content:center; margin-bottom: 2rem;">
+        <img src="https://vectorseek.com/wp-content/uploads/2025/01/Ministere-de-la-Culture-Logo-Vector.svg-.png"
+          alt="Ministère de la Culture" style="height: 120px;">
+      </div>
+      <div class="eyebrow">Le contexte métier</div>
+      <h1 class="title-lg">Pilotage des achats <span style="color:var(--rouge-marianne)">culturels</span></h1>
+      <p class="lead">
+        Comment centraliser les données d'achats d'un ministère pour analyser les procédures, anticiper les renouvellements et massifier les dépenses ?
+      </p>
+      
+      <div style="max-width: 650px; margin: 2rem auto 0; padding: 1.25rem 1.5rem; background: rgba(0, 49, 137, 0.03); border: 1px solid rgba(0, 49, 137, 0.1); border-left: 4px solid var(--bleu-france); border-radius: 8px; text-align: left; font-size: 0.9rem; color: #475569; display: flex; align-items: flex-start; gap: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+        <span style="font-size: 1.25rem; line-height: 1.2;">ℹ️</span>
+        <div style="line-height: 1.5;">
+          <strong>Note de confidentialité :</strong> Ce projet est un exemple de reporting décisionnel complexe conçu pour des clients grands comptes. <em>Toutes les données affichées sur les captures ci-dessous ont été rigoureusement anonymisées et floutées à des fins de démonstration.</em>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item reveal" style="transition-delay: 200ms;">
+          <div class="stat-val">247</div>
+          <div class="stat-lbl">Projets d'achat</div>
+        </div>
+        <div class="stat-item reveal" style="transition-delay: 400ms;">
+          <div class="stat-val">43M€</div>
+          <div class="stat-lbl">Budget estimatif</div>
+        </div>
+        <div class="stat-item reveal" style="transition-delay: 600ms;">
+          <div class="stat-val">4</div>
+          <div class="stat-lbl">Directions pilotées</div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator">Découvrir le projet</div>
+  </section>
+
+  <!-- CHAPITRE 2 : L'ARCHITECTURE -->
+  <section class="story-section" style="background: #fff;">
+    <div class="story-container">
+      <div class="text-box reveal-left">
+        <div class="eyebrow">Étape 1 · L'Architecture</div>
+        <h2 class="title-md">Connecter les sources, fiabiliser la donnée</h2>
+        <p>Avant de visualiser, il faut bâtir les fondations. Dans ce projet, la source de vérité est un
+          <strong>entrepôt de données Oracle</strong> (<code
+            style="background:#f1f5f9; padding:2px 6px; border-radius:4px; color:#334155;">DWH_MCU_ACHATS</code>).
+        </p>
+        <p>Plutôt que d'exporter des fichiers Excel statiques, j'ai mis en place une connexion native via <strong>Power
+            Query M</strong>.</p>
+        <div>
+          <span class="badge">Oracle Database</span> <span class="badge">Power Query M</span> <span
+            class="badge">ETL</span>
+        </div>
+      </div>
+      <div class="img-box reveal-right">
+        <!-- Animation CSS pour le flux de données -->
+        <div
+          style="background: linear-gradient(135deg, var(--bleu-nuit), var(--bleu-france)); padding: 40px; border-radius: calc(var(--radius-lg) - 8px); display: flex; flex-direction: column; gap: 20px; color: white;">
+          <div class="reveal"
+            style="transition-delay: 100ms; display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.1); padding: 15px 20px; border-radius: 8px; border-left: 4px solid var(--dore);">
+            <span style="font-weight:700;">1. Oracle DWH</span> <span>🗄️</span>
+          </div>
+          <div class="reveal" style="transition-delay: 400ms; text-align:center; opacity:0.8;">↓ Nettoyage & Jointures
+            (M)</div>
+          <div class="reveal"
+            style="transition-delay: 700ms; display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.1); padding: 15px 20px; border-radius: 8px; border-left: 4px solid var(--vert-succes);">
+            <span style="font-weight:700;">2. Power Query</span> <span>⚙️</span>
+          </div>
+          <div class="reveal" style="transition-delay: 1000ms; text-align:center; opacity:0.8;">↓ Chargement mémoire RAM
+          </div>
+          <div class="reveal"
+            style="transition-delay: 1300ms; display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.1); padding: 15px 20px; border-radius: 8px; border-left: 4px solid var(--rouge-marianne);">
+            <span style="font-weight:700;">3. Modèle Sémantique</span> <span>🧠</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPITRE 3 : LE MODÈLE -->
+  <section class="story-section">
+    <div class="story-container reverse">
+      <div class="img-box reveal-left" style="padding:0; background:transparent; box-shadow:none;">
+        <img src="culture_data_model_1787128801601.png" alt="Modèle en étoile" style="box-shadow:var(--shadow-lg);" />
+      </div>
+      <div class="text-box reveal-right">
+        <div class="eyebrow">Étape 2 · La Modélisation</div>
+        <h2 class="title-md">Modélisation en étoile</h2>
+        <p>Afin de structurer les informations de manière claire, les données ont été modélisées en
+          étoile : <strong>1 table de faits</strong> centrale (les montants, les durées) entourée de <strong>11
+            dimensions</strong> (Acheteurs, Domaines, Marchés, Dates...).</p>
+        <p>Les relations sont en 1-à-plusieurs, à direction unique. Cela permet d'assurer de bonnes performances de
+          requêtage.</p>
+        <div>
+          <span class="badge">Modèle en étoile</span> <span class="badge">12 Relations</span> <span
+            class="badge">Performance</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPITRE 4 : LE DAX -->
+  <section class="story-section" style="background: #fff;">
+    <div class="story-container">
+      <div class="text-box reveal-left">
+        <div class="eyebrow">Étape 3 · L'Intelligence Métier</div>
+        <h2 class="title-md">Mesures DAX</h2>
+        <p>Le langage <strong>DAX</strong> a été utilisé pour créer une trentaine de mesures répondant aux différents
+          besoins d'analyse.</p>
+        <p>Par exemple, le code ci-contre illustre la génération de balises HTML à l'intérieur d'une formule DAX pour
+          afficher des indicateurs visuels (KPIs) adaptés à la charte graphique.</p>
+        <div>
+          <span class="badge">DAX</span> <span class="badge">CALCULATE</span> <span class="badge">HTML Inline</span>
+        </div>
+      </div>
+      <div class="img-box reveal-right" style="padding:0; box-shadow:none; background:transparent;">
+        <div class="code-window">
+          <div class="code-header">
+            <div style="display:flex; gap:6px;">
+              <div class="dot" style="background:#ff5f57"></div>
+              <div class="dot" style="background:#febc2e"></div>
+              <div class="dot" style="background:#28c840"></div>
+            </div>
+            <div class="code-title">KPI_Total_Marches.dax</div>
+          </div>
+          <pre class="dax"><span class="dk">VAR</span> <span class="dv">TotalMarchés</span> = [Nombre de marchés]
+<span class="dk">RETURN</span>
+<span class="ds">"&lt;div style='text-align:center; color:#003189; font-size:40px;'&gt;
+   &lt;b&gt;"</span> &amp; <span class="df">FORMAT</span>(<span class="dv">TotalMarchés</span>, <span class="ds">"#,##0"</span>) &amp; <span class="ds">" &lt;/b&gt;
+   &lt;span style='font-size:18px;'&gt;marchés culturels&lt;/span&gt;
+&lt;/div&gt;"</span></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPITRE 5 : SCROLLYTELLING DES RAPPORTS -->
+  <section class="scrolly-section">
+    <div class="scrolly-container">
+
+      <!-- Colonne Fixe (Texte) -->
+      <div class="scrolly-text">
+        <div class="scrolly-text-inner">
+          <div class="eyebrow">L'Aboutissement</div>
+          <h2 class="title-md">La restitution visuelle</h2>
+
+          <div class="step-desc-wrapper">
+            <!-- Step 1 Text -->
+            <div class="step-desc active" id="text-step-1">
+              <h3>1. Vue globale de la programmation</h3>
+              <p>Le premier écran offre à la direction une vue macro de la programmation. Un grand indicateur (KPI) met
+                en valeur le nombre total de projets d'achat à venir.</p>
+              <p>Un tableau détaillé liste ensuite l'ensemble des marchés (numéro, objet, description, pôle) pour suivre
+                les projets un par un, avec une interface claire respectant la charte graphique.</p>
+              <span class="badge red">Vue Macro</span> <span class="badge red">Tableau Détaillé</span>
+            </div>
+
+            <!-- Step 2 Text -->
+            <div class="step-desc" id="text-step-2">
+              <h3>2. Planification et anticipation</h3>
+              <p>La deuxième page répond à un besoin crucial : l'anticipation. Un diagramme de Gantt personnalisé
+                affiche le planning détaillé prévisionnel des projets étalés sur les mois à venir.</p>
+              <p>Les différentes couleurs permettent aux responsables de visualiser les différentes phases d'une
+                procédure (Lancement, Validation, Réception), de lisser la charge de travail et d'éviter les goulots
+                d'étranglement.</p>
+              <span class="badge red">Diagramme de Gantt</span> <span class="badge red">Timeline</span>
+            </div>
+
+            <!-- Step 3 Text -->
+            <div class="step-desc" id="text-step-3">
+              <h3>3. Seuils et Massification</h3>
+              <p>Cette vue analytique permet d'identifier les opportunités de massification par nomenclature européenne.
+              </p>
+              <p>Un grand tableau croise les codes d'achats avec les montants estimatifs et les dates cibles, permettant
+                aux acheteurs de regrouper plusieurs petits achats pour optimiser et globaliser les procédures.</p>
+              <span class="badge red">Nomenclature</span> <span class="badge red">Massification</span>
+            </div>
+
+            <!-- Step 4 Text -->
+            <div class="step-desc" id="text-step-4">
+              <h3>4. Panneau de filtres global</h3>
+              <p>L'outil propose un panneau de filtres avancé (Statut, Prescripteur, Montant, Dates, Recherche par
+                mot...) qui agit de manière synchronisée sur l'ensemble du rapport.</p>
+              <p>Au lieu de surcharger l'interface, ce panneau s'ouvre à la demande au-dessus des pages. Il permet aux
+                utilisateurs de cibler instantanément leurs recherches sans jamais perdre leur contexte.</p>
+              <span class="badge red">Filtres croisés</span> <span class="badge red">UX Design</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Colonne Défilante (Images) -->
+      <div class="scrolly-images">
+
+        <div class="scrolly-step reveal" data-step="1">
+          <div class="window-frame">
+            <div class="window-bar">
+              <div style="display:flex; gap:5px;">
+                <div style="width:10px;height:10px;border-radius:50%;background:#ff5f57;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#febc2e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#28c840;"></div>
+              </div>
+              <span class="window-title">Page 1 — Programmation</span>
+            </div>
+            <img src="culture_dashboard_programmation_1787128792633.png" alt="Programmation" />
+          </div>
+        </div>
+
+        <div class="scrolly-step reveal" data-step="2">
+          <div class="window-frame">
+            <div class="window-bar">
+              <div style="display:flex; gap:5px;">
+                <div style="width:10px;height:10px;border-radius:50%;background:#ff5f57;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#febc2e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#28c840;"></div>
+              </div>
+              <span class="window-title">Page 2 — Planification</span>
+            </div>
+            <img src="culture_planning_page_1787128828949.png" alt="Planification" />
+          </div>
+        </div>
+
+        <div class="scrolly-step reveal" data-step="3">
+          <div class="window-frame">
+            <div class="window-bar">
+              <div style="display:flex; gap:5px;">
+                <div style="width:10px;height:10px;border-radius:50%;background:#ff5f57;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#febc2e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#28c840;"></div>
+              </div>
+              <span class="window-title">Page 3 — Seuils et Massification</span>
+            </div>
+            <img src="culture_seuils_page_1787128862065.png" alt="Seuils et Massification" />
+          </div>
+        </div>
+
+        <div class="scrolly-step reveal" data-step="4">
+          <div class="window-frame">
+            <div class="window-bar">
+              <div style="display:flex; gap:5px;">
+                <div style="width:10px;height:10px;border-radius:50%;background:#ff5f57;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#febc2e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#28c840;"></div>
+              </div>
+              <span class="window-title">Navigation — Panneau de filtres</span>
+            </div>
+            <img src="culture_suivi_page_1787128839159.png" alt="Panneau de filtres" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPITRE 6 : COMPÉTENCES (Conclusion) -->
+  <section class="story-section" style="background: var(--gris-fond);">
+    <div class="story-container" style="grid-template-columns: 1fr; max-width: 900px; text-align:center;">
+      <div class="reveal">
+        <div class="eyebrow">Conclusion</div>
+        <h2 class="title-md">Bilan des compétences déployées</h2>
+        <p class="lead" style="margin:0 auto;">Ce projet démontre une capacité à gérer la chaîne data de bout-en-bout :
+          de l'extraction technique à la restitution design, en s'imprégnant fortement du besoin métier (Commande
+          Publique).</p>
+      </div>
+
+      <div class="skills-grid reveal">
+        <div class="skill-card">
+          <div class="skill-title">Data Prep & ETL</div>
+          <div class="skill-bar-bg">
+            <div class="skill-bar-fill" data-width="95%"></div>
+          </div>
+          <div class="skill-desc">Connexion Oracle, Power Query M, transformations.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-title">Modélisation & DAX</div>
+          <div class="skill-bar-bg">
+            <div class="skill-bar-fill" data-width="90%" style="background:var(--bleu-france)"></div>
+          </div>
+          <div class="skill-desc">Star Schema, contextes d'évaluation, +30 mesures.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-title">Data Visualization</div>
+          <div class="skill-bar-bg">
+            <div class="skill-bar-fill" data-width="85%" style="background:var(--dore)"></div>
+          </div>
+          <div class="skill-desc">UX Design, Tooltips, KPIs HTML, respect strict de la charte graphique.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div style="font-weight:700; margin-bottom:10px;">Projet Portfolio BI — 2026</div>
+    <div style="opacity:0.6;">Conçu avec Power BI. Données fictives à des fins de démonstration.</div>
+  </footer>
+
+  <script>
+    /* ============================================
+       1. SCROLL REVEAL CLASSIQUE
+    ============================================ */
+    const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+
+          // Animer les jauges de compétences si présentes
+          const bars = entry.target.querySelectorAll('.skill-bar-fill');
+          bars.forEach(bar => {
+            bar.style.width = bar.getAttribute('data-width');
+          });
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+      observer.observe(el);
+    });
+
+    /* ============================================
+       2. LOGIQUE SCROLLYTELLING (IntersectionObserver)
+    ============================================ */
+    const stepImages = document.querySelectorAll('.scrolly-step');
+    const stepTexts = document.querySelectorAll('.step-desc');
+
+    const scrollyObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.4) {
+          const stepId = entry.target.getAttribute('data-step');
+
+          // Masquer tous les textes
+          stepTexts.forEach(t => t.classList.remove('active'));
+
+          // Afficher le texte correspondant
+          const activeText = document.getElementById('text-step-' + stepId);
+          if (activeText) activeText.classList.add('active');
+        }
+      });
+    }, {
+      root: null,
+      threshold: 0.5, // Le déclenchement se fait quand l'image est à 50% visible 
+      rootMargin: "-10% 0px -40% 0px"
+    });
+
+    stepImages.forEach(img => scrollyObserver.observe(img));
+
+    /* ============================================
+       3. PROGRESS BAR GLOBALE
+    ============================================ */
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById("reading-progress").style.width = scrolled + "%";
+    });
+  </script>
+</body>
+
+</html>

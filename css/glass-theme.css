@@ -342,6 +342,7 @@ a:hover {
     padding: 20px;
     position: relative;
     z-index: 2;
+    background: transparent;
 }
 
 .portfolio-wrap img {

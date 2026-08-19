@@ -118,6 +118,11 @@ async function loadArticle(articleId) {
       if (window.VideoEmbed) {
         window.VideoEmbed.embedLinks(contentElement);
       }
+      
+      // Charger les images dynamiques Contentful
+      if (window.contentfulService && window.contentfulService.loadContentImages) {
+          window.contentfulService.loadContentImages();
+      }
     }
     
     // Mettre à jour les liens de partage

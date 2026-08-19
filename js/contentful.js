@@ -250,7 +250,7 @@ window.contentfulService = {
    */
   loadContentImages: async function() {
     const assetImages = document.querySelectorAll('img[id^="asset-"]');
-    console.log('Nombre d\\'images trouvées:', assetImages.length);
+    console.log("Nombre d'images trouvées:", assetImages.length);
     for (const img of assetImages) {
       const idAttribute = img.getAttribute('id');
       if (!idAttribute || !idAttribute.startsWith('asset-')) continue;
